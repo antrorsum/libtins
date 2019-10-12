@@ -23,6 +23,7 @@ RUN apt-get update \
     && apt-get -y install git iproute2 procps lsb-release \
     #
     && apt-get -y install build-essential cmake clang-tidy clang gcc \
+    && apt-get -y install libpcap-dev libssl-dev libboost-dev libboost-regex-dev \
     #
     # Create a non-root user to use if preferred - see https://aka.ms/vscode-remote/containers/non-root-user.
     && groupadd --gid $USER_GID $USERNAME \

@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.1)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.8)
 PROJECT(libtins)
 
 OPTION(LIBTINS_BUILD_EXAMPLES "Build examples" ON)
@@ -62,6 +62,12 @@ IF(LIBTINS_ENABLE_PCAP)
     SET(TINS_HAVE_PCAP ON)
 ENDIF()
 
+OPTION(LIBTINS_ENABLE_CLANG_TIDY "Enable source check with clang-tidy" ON)
+
+IF(LIBTINS_ENABLE_CLANG_TIDY)
+    SET(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=*;-fix")
+ENDIF()
+
 # Set some Windows specific flags
 IF(WIN32)
     # We need to link against these libs
@@ -93,9 +99,6 @@ INCLUDE(ExternalProject)
 # Compilation options
 # *******************
 
-# Always check for C++ features
-INCLUDE(CheckCXXFeatures)
-
 IF(HAS_GCC_BUILTIN_SWAP)
     SET(TINS_HAVE_GCC_BUILTIN_SWAP ON)
 ENDIF()
@@ -103,17 +106,9 @@ ENDIF()
 # C++11 support
 OPTION(LIBTINS_ENABLE_CXX11 "Compile libtins with c++11 features" ON)
 IF(LIBTINS_ENABLE_CXX11)
-    # We only use declval and decltype on gcc/clang as VC fails to build that code,
-    # at least on VC2013
-    IF(HAS_CXX11_RVALUE_REFERENCES AND HAS_CXX11_FUNCTIONAL AND HAS_CXX11_CHRONO AND
-       HAS_CXX11_NOEXCEPT AND ((HAS_CXX11_DECLVAL AND HAS_CXX11_DECLTYPE) OR MSVC))
-        SET(TINS_HAVE_CXX11 ON)
-        MESSAGE(STATUS "Enabling C++11 features")
-        SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX11_COMPILER_FLAGS}")
-    ELSE()
-        MESSAGE(WARNING "The compiler doesn't support the necessary C++11 features. "
-                        "Disabling C++11 on this build")
-    ENDIF()
+    SET(TINS_HAVE_CXX11 ON)
+    MESSAGE(STATUS "Enabling C++11 features")
+    SET(CXX_STANDARD 17)
 ELSE(LIBTINS_ENABLE_CXX11)
     MESSAGE(
         WARNING
