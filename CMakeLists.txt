@@ -65,7 +65,7 @@ ENDIF()
 OPTION(LIBTINS_ENABLE_CLANG_TIDY "Enable source check with clang-tidy" ON)
 
 IF(LIBTINS_ENABLE_CLANG_TIDY)
-    SET(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=*;-fix")
+    SET(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=modernize-*;-header-filter=.*;-fix")
 ENDIF()
 
 # Set some Windows specific flags
