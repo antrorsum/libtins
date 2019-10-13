@@ -152,13 +152,11 @@ public:
      * \sa PDU::header_size()
      */
     uint32_t header_size() const;
-    
-    #if !defined(_WIN32) || defined(TINS_HAVE_PACKET_SENDER_PCAP_SENDPACKET)
+
     /**
      * \sa PDU::send()
      */
     void send(PacketSender& sender, const NetworkInterface& iface);
-    #endif // !_WIN32 || TINS_HAVE_PACKET_SENDER_PCAP_SENDPACKET
 
     /** 
      * \brief Check whether ptr points to a valid response for this PDU.
@@ -169,12 +167,10 @@ public:
      */
     bool matches_response(const uint8_t* ptr, uint32_t total_sz) const;
 
-    #ifndef _WIN32
     /** 
      * \sa PDU::recv_response
      */
     PDU* recv_response(PacketSender& sender, const NetworkInterface& iface);
-    #endif // _WIN32
 
     /**
      * \brief Getter for the PDU's type.

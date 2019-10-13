@@ -38,12 +38,6 @@
     #define TINS_CXXSTD_GCC_FIX 0
 #endif // __GXX_EXPERIMENTAL_CXX0X__
 
-#if !defined(TINS_IS_CXX11) && defined(TINS_HAVE_CXX11)
-#define TINS_IS_CXX11 (__cplusplus > 199711L || TINS_CXXSTD_GCC_FIX == 1 || _MSC_VER >= 1800)
-#elif !defined(TINS_IS_CXX11)
-#define TINS_IS_CXX11 0
-#endif  // TINS_IS_CXX11
-
 namespace Tins{
 namespace Internals {
 template<class T> void unused(const T&) { }

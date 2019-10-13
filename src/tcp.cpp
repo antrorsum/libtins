@@ -86,11 +86,7 @@ TCP::TCP(const uint8_t* buffer, uint32_t total_sz) {
             break;
         }
         else if (option_type == NOP) {
-            #if TINS_IS_CXX11
             add_option(option_type, 0);
-            #else
-            add_option(option(option_type, 0));
-            #endif // TINS_IS_CXX11
         }
         else {
             // Extract the length
@@ -107,11 +103,7 @@ TCP::TCP(const uint8_t* buffer, uint32_t total_sz) {
                 throw malformed_packet(); 
             }
             // If we're using C++11, use the variadic template overload
-            #if TINS_IS_CXX11
             add_option(option_type, data_start, data_start + len);
-            #else
-            add_option(option(option_type, data_start, data_start + len));
-            #endif // TINS_IS_CXX11
             // Skip the option's payload
             stream.skip(len);
         }

@@ -255,7 +255,6 @@ private:
 
 } // Tins
 
-#if TINS_IS_CXX11
 namespace std {
 
 template<>
@@ -267,7 +266,5 @@ struct hash<Tins::IPv4Address> {
 };
 
 } // std
-
-#endif // TINS_IS_CXX11
 
 #endif // TINS_IPADDRESS_H

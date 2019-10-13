@@ -1003,20 +1003,18 @@ public:
      * \param option The option to be added
      */
     void add_option(const option& option);
-    
-    #if TINS_IS_CXX11
-        /**
-         * \brief Adds an ICMPv6 option.
-         * 
-         * The option is move-constructed.
-         * 
-         * \param option The option to be added.
-         */
-        void add_option(option &&option) {
-            internal_add_option(option);
-            options_.push_back(std::move(option));
-        }
-    #endif
+
+    /**
+     * \brief Adds an ICMPv6 option.
+     * 
+     * The option is move-constructed.
+     * 
+     * \param option The option to be added.
+     */
+    void add_option(option &&option) {
+        internal_add_option(option);
+        options_.push_back(std::move(option));
+    }
 
     /**
      * \brief Removes an ICMPv6 option.

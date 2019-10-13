@@ -483,32 +483,30 @@ public:
      * \param option The option to be added.
      */
     void add_option(const option& opt);
-    
-    #if TINS_IS_CXX11
-        /**
-         * \brief Adds a TCP option.
-         *
-         * This move-constructs the option.
-         * 
-         * \param option The option to be added.
-         */
-        void add_option(option &&opt) {
-            options_.push_back(std::move(opt));
-        }
 
-        /**
-         * \brief Adds a TCP option using the provided arguments.
-         *
-         * The option is constructed from the provided parameters.
-         * 
-         * \param args The arguments to be used in the option's 
-         * constructor.
-         */
-        template <typename... Args>
-        void add_option(Args&&... args) {
-            options_.emplace_back(std::forward<Args>(args)...);
-        }
-    #endif
+    /**
+     * \brief Adds a TCP option.
+     *
+     * This move-constructs the option.
+     * 
+     * \param option The option to be added.
+     */
+    void add_option(option &&opt) {
+        options_.push_back(std::move(opt));
+    }
+
+    /**
+     * \brief Adds a TCP option using the provided arguments.
+     *
+     * The option is constructed from the provided parameters.
+     * 
+     * \param args The arguments to be used in the option's 
+     * constructor.
+     */
+    template <typename... Args>
+    void add_option(Args&&... args) {
+        options_.emplace_back(std::forward<Args>(args)...);
+    }
 
     /**
      * \brief Removes a TCP option.

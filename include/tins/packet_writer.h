@@ -131,36 +131,34 @@ public:
      * \sa LinkType.
      */
     PacketWriter(const std::string& file_name, LinkType lt);
+
+    /**
+     * \brief Move constructor.
+     * 
+     * Note that calling PacketWriter::write on an previously moved
+     * object will lead to undefined behaviour.
+     * 
+     * \param rhs The PacketWriter to be moved.
+     */
+    PacketWriter(PacketWriter &&rhs) TINS_NOEXCEPT {
+        *this = std::move(rhs);
+    }
     
-    #if TINS_IS_CXX11
-        /**
-         * \brief Move constructor.
-         * 
-         * Note that calling PacketWriter::write on an previously moved
-         * object will lead to undefined behaviour.
-         * 
-         * \param rhs The PacketWriter to be moved.
-         */
-        PacketWriter(PacketWriter &&rhs) TINS_NOEXCEPT {
-            *this = std::move(rhs);
-        }
-        
-        /**
-         * \brief Move assignment operator.
-         * 
-         * Note that calling PacketWriter::write on an previously moved
-         * object will lead to undefined behaviour.
-         * 
-         * \param rhs The PacketWriter to be moved.
-         */
-        PacketWriter& operator=(PacketWriter &&rhs) TINS_NOEXCEPT {
-            handle_ = 0;
-            dumper_ = 0;
-            std::swap(handle_, rhs.handle_);
-            std::swap(dumper_, rhs.dumper_);
-            return* this;
-        }
-    #endif
+    /**
+     * \brief Move assignment operator.
+     * 
+     * Note that calling PacketWriter::write on an previously moved
+     * object will lead to undefined behaviour.
+     * 
+     * \param rhs The PacketWriter to be moved.
+     */
+    PacketWriter& operator=(PacketWriter &&rhs) TINS_NOEXCEPT {
+        handle_ = 0;
+        dumper_ = 0;
+        std::swap(handle_, rhs.handle_);
+        std::swap(dumper_, rhs.dumper_);
+        return* this;
+    }
     
     /**
      * \brief Destructor.

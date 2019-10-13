@@ -115,26 +115,8 @@ void EthernetII::send(PacketSender& sender, const NetworkInterface& iface) {
     if (!iface) {
         throw invalid_interface();
     }
-    #if defined(TINS_HAVE_PACKET_SENDER_PCAP_SENDPACKET) || defined(BSD) || defined(__FreeBSD_kernel__)
-        // Sending using pcap_sendpacket/BSD bpf packet mode is the same here
-        sender.send_l2(*this, 0, 0, iface);
-    #elif defined(_WIN32)
-        // On Windows we can only send l2 PDUs using pcap_sendpacket
-        throw feature_disabled();
-    #else
-        // Default GNU/Linux behaviour
-        struct sockaddr_ll addr;
-
-        memset(&addr, 0, sizeof(struct sockaddr_ll));
-
-        addr.sll_family = Endian::host_to_be<uint16_t>(PF_PACKET);
-        addr.sll_protocol = Endian::host_to_be<uint16_t>(ETH_P_ALL);
-        addr.sll_halen = address_type::address_size;
-        addr.sll_ifindex = iface.id();
-        memcpy(&(addr.sll_addr), header_.dst_mac, address_type::address_size);
-
-        sender.send_l2(*this, (struct sockaddr*)&addr, (uint32_t)sizeof(addr), iface);
-    #endif
+    // Sending using pcap_sendpacket/BSD bpf packet mode is the same here
+    sender.send_l2(*this, 0, 0, iface);
 }
 
 bool EthernetII::matches_response(const uint8_t* ptr, uint32_t total_sz) const {

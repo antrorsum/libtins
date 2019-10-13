@@ -36,10 +36,8 @@
 #include <cstring>
 #include <tins/cxxstd.h>
 #include <tins/macros.h>
-#if TINS_IS_CXX11
-    // std::hash
-    #include <memory>
-#endif // TINS_IS_CXX11
+// std::hash
+#include <memory>
 
 namespace Tins {
 namespace Internals {
@@ -452,7 +450,6 @@ const HWAddress<n> HWAddress<n>::broadcast = make_broadcast_address();
 
 } // namespace Tins
 
-#if TINS_IS_CXX11
 namespace std {
 
 // Specialization of std::hash for HWAddress
@@ -464,6 +461,5 @@ struct hash<Tins::HWAddress<n>> {
 };
 
 } // namespace std
-#endif // TINS_IS_CXX11
 
 #endif // TINS_HWADDRESS_H

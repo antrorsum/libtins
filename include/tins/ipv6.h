@@ -369,8 +369,6 @@ public:
      */
     void add_header(const ext_header& header);
 
-    #if TINS_IS_CXX11
-
     /**
      * Adds an extension header by moving it
      * 
@@ -389,8 +387,6 @@ public:
     void add_header(Args&&... args) {
         ext_headers_.emplace_back(std::forward<Args>(args)...);
     }
-
-    #endif // TINS_IS_CXX11
 
     /**
      * \brief Searchs for an extension header that matchs the given 

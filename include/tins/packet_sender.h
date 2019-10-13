@@ -36,9 +36,7 @@
 #include <stdint.h>
 #include <map>
 #include <tins/config.h>
-#ifdef TINS_HAVE_PACKET_SENDER_PCAP_SENDPACKET
-    #include <pcap.h>
-#endif // TINS_HAVE_PACKET_SENDER_PCAP_SENDPACKET
+#include <pcap.h>
 #include <tins/network_interface.h>
 #include <tins/macros.h>
 #include <tins/cxxstd.h>
@@ -144,8 +142,7 @@ public:
     PacketSender(const NetworkInterface& iface = NetworkInterface(),
                  uint32_t recv_timeout = DEFAULT_TIMEOUT,
                  uint32_t usec = 0);
-    
-    #if TINS_IS_CXX11
+
         /**
          * \brief Move constructor.
          * \param rhs The sender to be moved.
@@ -175,7 +172,6 @@ public:
             default_iface_ = rhs.default_iface_;
             return* this;
         }
-    #endif
     
     /** 
      * \brief PacketSender destructor.
@@ -184,14 +180,12 @@ public:
      */
     ~PacketSender();
 
-    #if !defined(_WIN32) || defined(TINS_HAVE_PACKET_SENDER_PCAP_SENDPACKET)
     /** 
      * \brief Opens a layer 2 socket.
      * 
      * If this operation fails, then a socket_open_error will be thrown.
      */
     void open_l2_socket(const NetworkInterface& iface = NetworkInterface());
-    #endif // !_WIN32 || defined(TINS_HAVE_PACKET_SENDER_PCAP_SENDPACKET)
 
     /** 
      * \brief Opens a layer 3 socket, using the corresponding protocol
@@ -304,7 +298,6 @@ public:
      */
     PDU* send_recv(PDU& pdu, const NetworkInterface& iface);
 
-    #ifndef _WIN32
     /** 
      * \brief Receives a layer 2 PDU response to a previously sent PDU.
      *
@@ -322,9 +315,6 @@ public:
     PDU* recv_l2(PDU& pdu, struct sockaddr* link_addr, uint32_t len_addr,
       const NetworkInterface& iface = NetworkInterface());
 
-    #endif // _WIN32
-
-    #if !defined(_WIN32) || defined(TINS_HAVE_PACKET_SENDER_PCAP_SENDPACKET)
     /** 
      * \brief Sends a level 2 PDU.
      *
@@ -342,7 +332,6 @@ public:
      */
     void send_l2(PDU& pdu, struct sockaddr* link_addr, uint32_t len_addr, 
       const NetworkInterface& iface = NetworkInterface());
-    #endif // !_WIN32 || TINS_HAVE_PACKET_SENDER_PCAP_SENDPACKET
 
     /** 
      * \brief Receives a layer 3 PDU response to a previously sent PDU.
@@ -392,9 +381,7 @@ private:
     void send(PDU& pdu, const NetworkInterface& iface) {
         static_cast<T&>(pdu).send(*this, iface);
     }
-    #ifdef TINS_HAVE_PACKET_SENDER_PCAP_SENDPACKET
-        pcap_t* make_pcap_handle(const NetworkInterface& iface) const;
-    #endif // TINS_HAVE_PACKET_SENDER_PCAP_SENDPACKET
+    pcap_t* make_pcap_handle(const NetworkInterface& iface) const;
     
     PDU* recv_match_loop(const std::vector<int>& sockets, 
                          PDU& pdu,
@@ -403,25 +390,12 @@ private:
                          bool is_layer_3);
 
     std::vector<int> sockets_;
-    #ifndef _WIN32
-        #if defined(BSD) || defined(__FreeBSD_kernel__)
-        typedef std::map<uint32_t, int> BSDEtherSockets;
-        BSDEtherSockets ether_socket_;
-        #else
-        int ether_socket_;
-        #endif
-    #endif
+    int ether_socket_;
     SocketTypeMap types_;
     uint32_t _timeout, timeout_usec_;
     NetworkInterface default_iface_;
-    // In BSD we need to store the buffer size, retrieved using BIOCGBLEN
-    #if defined(BSD) || defined(__FreeBSD_kernel__)
-    int buffer_size_;
-    #endif // BSD
-    #ifdef TINS_HAVE_PACKET_SENDER_PCAP_SENDPACKET
-        typedef std::map<NetworkInterface, pcap_t*> PcapHandleMap; 
-        PcapHandleMap pcap_handles_;
-    #endif // TINS_HAVE_PACKET_SENDER_PCAP_SENDPACKET
+    typedef std::map<NetworkInterface, pcap_t*> PcapHandleMap; 
+    PcapHandleMap pcap_handles_;
 };
 
 } // Tins

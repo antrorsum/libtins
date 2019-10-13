@@ -164,8 +164,6 @@ TEST(IPv6AddressTest, Size) {
     EXPECT_EQ(16UL, IPv6Address().size());
 }
 
-#if TINS_IS_CXX11
-
 TEST(IPv6AddressTest, HashTest) {
     using std::hash;
     const auto hasher = [](const IPv6Address& address) {
@@ -176,4 +174,3 @@ TEST(IPv6AddressTest, HashTest) {
     EXPECT_EQ(hasher("dead:beef::"), hasher("dead:beef::"));
 }
 
-#endif

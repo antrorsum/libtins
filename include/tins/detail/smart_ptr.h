@@ -38,11 +38,7 @@ namespace Internals {
 
 template<typename T>
 struct smart_ptr {
-#if TINS_IS_CXX11
     typedef std::unique_ptr<T> type;
-#else
-    typedef std::auto_ptr<T> type;
-#endif
 };
 
 } // Internals

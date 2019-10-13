@@ -230,20 +230,18 @@ public:
      * \param option The option to be added.
      */
     void add_tag(const tag& option);
-    
-    #if TINS_IS_CXX11
-        /**
-         * \brief Adds a PPPoE tag.
-         *
-         * This move-constructs the option.
-         * 
-         * \param option The option to be added.
-         */
-        void add_tag(tag &&option) {
-            tags_size_ += static_cast<uint16_t>(option.data_size() + sizeof(uint16_t) * 2);
-            tags_.push_back(std::move(option));
-        }
-    #endif
+
+    /**
+     * \brief Adds a PPPoE tag.
+     *
+     * This move-constructs the option.
+     * 
+     * \param option The option to be added.
+     */
+    void add_tag(tag &&option) {
+        tags_size_ += static_cast<uint16_t>(option.data_size() + sizeof(uint16_t) * 2);
+        tags_.push_back(std::move(option));
+    }
     
     // Option setters
     

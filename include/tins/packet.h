@@ -219,8 +219,7 @@ public:
         }
         return* this;
     }
-    
-    #if TINS_IS_CXX11
+
     /**
      * Move constructor.
      */
@@ -240,7 +239,6 @@ public:
         }
         return* this;
     }
-    #endif
     
     /**
      * \brief Packet destructor.

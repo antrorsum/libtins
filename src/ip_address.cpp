@@ -27,16 +27,10 @@
  *
  */
 
-#ifdef _WIN32
-    #include <ws2tcpip.h>
-#else // _WIN32
-    #include <sys/socket.h>
-    #include <arpa/inet.h>
-#endif // _WIN32
-#if TINS_IS_CXX11
-    // std::hash
-    #include <memory>
-#endif // TINS_IS_CXX11
+#include <sys/socket.h>
+#include <arpa/inet.h>
+// std::hash
+#include <memory>
 #include <sstream>
 #include <iostream>
 #include <tins/ip_address.h>

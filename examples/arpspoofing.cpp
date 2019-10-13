@@ -32,12 +32,7 @@
 #include <string>
 #include <stdexcept>
 #include <cstdlib>
-#ifdef _WIN32
-    #define WIN32_LEAN_AND_MEAN
-    #include <windows.h>
-#else
-    #include <unistd.h>
-#endif // _WIN32
+#include <unistd.h>
 #include <tins/arp.h>
 #include <tins/network_interface.h>
 #include <tins/utils.h>
@@ -87,11 +82,7 @@ void do_arp_spoofing(NetworkInterface iface,
         // Just send them once every 5 seconds.
         sender.send(to_gw, iface);
         sender.send(to_victim, iface);
-        #ifdef _WIN32
-            Sleep(5000);
-        #else
-            sleep(5);
-        #endif
+        sleep(5);
     }
 }
 

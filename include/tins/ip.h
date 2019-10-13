@@ -517,32 +517,30 @@ public:
      * \param opt The option to be added
      */
     void add_option(const option& opt);
-    
-    #if TINS_IS_CXX11
-        /**
-         * \brief Adds an IP option.
-         * 
-         * The option is move-constructed.
-         * 
-         * \param opt The option to be added.
-         */
-        void add_option(option &&opt) {
-            options_.push_back(std::move(opt));
-        }
 
-        /**
-         * \brief Adds an IP option.
-         * 
-         * The option is constructed from the provided parameters.
-         * 
-         * \param args The arguments to be used in the option's 
-         * constructor.
-         */
-        template<typename... Args>
-        void add_option(Args&&... args) {
-            options_.emplace_back(std::forward<Args>(args)...);
-        }
-    #endif
+    /**
+     * \brief Adds an IP option.
+     * 
+     * The option is move-constructed.
+     * 
+     * \param opt The option to be added.
+     */
+    void add_option(option &&opt) {
+        options_.push_back(std::move(opt));
+    }
+
+    /**
+     * \brief Adds an IP option.
+     * 
+     * The option is constructed from the provided parameters.
+     * 
+     * \param args The arguments to be used in the option's 
+     * constructor.
+     */
+    template<typename... Args>
+    void add_option(Args&&... args) {
+        options_.emplace_back(std::forward<Args>(args)...);
+    }
 
     /**
      * \brief Removes an IP option.

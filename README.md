@@ -1,3 +1,9 @@
+# Changes made
+ * Modernize c++ code, require c++17
+ * Use newer cmake
+ * Optimize for Linux on x86_64
+ * Remove support for other platforms.
+
 # libtins
 
 [![Build status](https://travis-ci.org/mfontanini/libtins.svg?branch=master)](https://travis-ci.org/mfontanini/libtins) 

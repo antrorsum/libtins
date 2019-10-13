@@ -54,11 +54,6 @@ int main() {
         
         // Now print all of this info.
         cout << name;
-
-        #ifdef _WIN32
-        // If this is running on Windows, also print the friendly name
-        wcout << " (" << iface.friendly_name() << ")";
-        #endif // _WIN32
         cout << ": " << endl;
 
         string ipv6_string;

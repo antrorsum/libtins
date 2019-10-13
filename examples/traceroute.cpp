@@ -26,14 +26,6 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
- 
-#ifdef _WIN32
-    #define NOMINMAX
-#endif // _WIN32
-
-// Fix for gcc 4.6
-#define _GLIBCXX_USE_NANOSLEEP
-
 #include <iostream>
 #include <iomanip>
 #include <chrono>

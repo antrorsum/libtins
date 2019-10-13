@@ -564,13 +564,11 @@ public:
      * \sa PDU::header_size()
      */
     uint32_t header_size() const;
-    
-    #ifndef _WIN32
+
     /**
      * \sa PDU::send()
      */
     void send(PacketSender& sender, const NetworkInterface& iface);
-    #endif // _WIN32
     
     /**
      * \brief Adds a new option to this Dot11 PDU.
@@ -578,19 +576,17 @@ public:
      */
     void add_option(const option& opt);
     
-    #if TINS_IS_CXX11
-        /**
-         * \brief Adds a new option to this Dot11 PDU.
-         * 
-         * The option is move-constructed
-         * 
-         * \param opt The option to be added.
-         */
-        void add_option(option &&opt) {
-            internal_add_option(opt);
-            options_.push_back(std::move(opt));
-        }
-    #endif
+    /**
+     * \brief Adds a new option to this Dot11 PDU.
+     * 
+     * The option is move-constructed
+     * 
+     * \param opt The option to be added.
+     */
+    void add_option(option &&opt) {
+        internal_add_option(opt);
+        options_.push_back(std::move(opt));
+    }
 
     /**
      * \brief Removes a Dot11 option.

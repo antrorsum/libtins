@@ -263,4 +263,4 @@ AckTracker& Flow::ack_tracker() {
 } // TCPIP
 } // Tins
 
-#endif // TINS_IS_CXX11
+#endif // TINS_HAVE_TCPIP

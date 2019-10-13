@@ -67,30 +67,28 @@ public:
      */
     typedef SnifferIterator iterator;
 
-    #if TINS_IS_CXX11
-        /**
-         * \brief Move constructor.
-         * This constructor is available only in C++11.
-         */
-        BaseSniffer(BaseSniffer &&rhs) TINS_NOEXCEPT
-        : handle_(0), mask_(), extract_raw_(false),
-          pcap_sniffing_method_(pcap_loop) {
-            *this = std::move(rhs);
-        }
+    /**
+     * \brief Move constructor.
+     * This constructor is available only in C++11.
+     */
+    BaseSniffer(BaseSniffer &&rhs) TINS_NOEXCEPT
+    : handle_(0), mask_(), extract_raw_(false),
+        pcap_sniffing_method_(pcap_loop) {
+        *this = std::move(rhs);
+    }
 
-        /**
-         * \brief Move assignment operator.
-         * This operator is available only in C++11.
-         */
-        BaseSniffer& operator=(BaseSniffer &&rhs) TINS_NOEXCEPT {
-            using std::swap;
-            swap(handle_, rhs.handle_);
-            swap(mask_, rhs.mask_);
-            swap(extract_raw_, rhs.extract_raw_);
-            swap(pcap_sniffing_method_, rhs.pcap_sniffing_method_);
-            return* this;
-        }
-    #endif
+    /**
+     * \brief Move assignment operator.
+     * This operator is available only in C++11.
+     */
+    BaseSniffer& operator=(BaseSniffer &&rhs) TINS_NOEXCEPT {
+        using std::swap;
+        swap(handle_, rhs.handle_);
+        swap(mask_, rhs.mask_);
+        swap(extract_raw_, rhs.extract_raw_);
+        swap(pcap_sniffing_method_, rhs.pcap_sniffing_method_);
+        return* this;
+    }
 
     /**
      * \brief Sniffer destructor.
@@ -672,16 +670,9 @@ template <typename Functor>
 void Tins::BaseSniffer::sniff_loop(Functor function, uint32_t max_packets) {
     for(iterator it = begin(); it != end(); ++it) {
         try {
-            // If the functor returns false, we're done
-            #if TINS_IS_CXX11 && !defined(_MSC_VER)
             if (!Tins::Internals::invoke_loop_cb(function, *it)) {
                 return;
             }
-            #else
-            if (!function(*it->pdu())) {
-                return;
-            }
-            #endif
         }
         catch(malformed_packet&) { }
         catch(pdu_not_found&) { }

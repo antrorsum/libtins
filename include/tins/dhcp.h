@@ -205,19 +205,17 @@ public:
      */
     void add_option(const option& opt);
     
-    #if TINS_IS_CXX11
-        /** 
-         * \brief Adds a new option to this DHCP PDU.
-         * 
-         * The option is move-constructed.
-         * 
-         * \param opt The option to be added.
-         */
-        void add_option(option &&opt) {
-            internal_add_option(opt);
-            options_.push_back(std::move(opt));
-        }
-    #endif 
+    /** 
+     * \brief Adds a new option to this DHCP PDU.
+     * 
+     * The option is move-constructed.
+     * 
+     * \param opt The option to be added.
+     */
+    void add_option(option &&opt) {
+        internal_add_option(opt);
+        options_.push_back(std::move(opt));
+    }
 
     /**
      * \brief Removes a DHCP option.

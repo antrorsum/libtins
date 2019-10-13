@@ -28,19 +28,9 @@
  */
 
 #include <tins/macros.h>
-#ifndef _WIN32
-    #include <arpa/inet.h>
-    #ifdef BSD
-        #include <sys/socket.h>
-    #endif
-#else
-    #include <ws2tcpip.h>
-    #include <mstcpip.h>
-#endif
-#if TINS_IS_CXX11
-    // std::hash
-    #include <memory>
-#endif // TINS_IS_CXX11
+#include <arpa/inet.h>
+// std::hash
+#include <memory>
 #include <limits>
 #include <sstream>
 #include <iostream>

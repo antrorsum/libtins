@@ -32,10 +32,8 @@
 
 #include <stdint.h>
 #include <tins/cxxstd.h>
-#if TINS_IS_CXX11
-    #include <type_traits>
-    #include <utility>
-#endif
+#include <type_traits>
+#include <utility>
 
 namespace Tins {
 namespace Internals {
@@ -83,8 +81,6 @@ struct is_unsigned_integral<uint64_t> {
     static const bool value = true;
 };
 
-#if TINS_IS_CXX11 && !defined(_MSC_VER)
-
 // Template metaprogramming trait to determine if a functor can accept another parameter as an argument
 template <typename T, typename P, typename=void>
 struct accepts_type : std::false_type { };
@@ -114,8 +110,6 @@ bool invoke_loop_cb(Functor& f, Packet& p,
                     typename std::enable_if<!accepts_type<Functor, Packet>::value && !accepts_type<Functor, Packet&>::value, bool>::type* = 0) {
     return f(*p.pdu());
 }
-
-#endif
 
 /**
  * \endcond

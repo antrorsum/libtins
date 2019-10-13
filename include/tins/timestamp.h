@@ -33,9 +33,7 @@
 #include <stdint.h>
 #include <tins/macros.h>
 #include <tins/cxxstd.h>
-#if TINS_IS_CXX11
-    #include <chrono>
-#endif
+#include <chrono>
 
 struct timeval;
 
@@ -46,13 +44,8 @@ namespace Tins {
  */
 class TINS_API Timestamp {
 public:
-    #ifdef _WIN32
-        typedef long seconds_type;
-        typedef long microseconds_type;
-    #else
-        typedef time_t seconds_type;
-        typedef suseconds_t microseconds_type;
-    #endif
+    typedef time_t seconds_type;
+    typedef suseconds_t microseconds_type;
     
     /**
      * \brief Constructs a Timestamp which will hold the current time.
@@ -64,15 +57,13 @@ public:
      */
     Timestamp();
 
-    #if TINS_IS_CXX11
-        /**
-         * Constructs a Timestamp from a std::chrono::duration.
-         */
-        template<typename Rep, typename Period>
-        Timestamp(const std::chrono::duration<Rep, Period>& ts) {
-            timestamp_ = std::chrono::duration_cast<std::chrono::microseconds>(ts).count();
-        }
-    #endif
+    /**
+     * Constructs a Timestamp from a std::chrono::duration.
+     */
+    template<typename Rep, typename Period>
+    Timestamp(const std::chrono::duration<Rep, Period>& ts) {
+        timestamp_ = std::chrono::duration_cast<std::chrono::microseconds>(ts).count();
+    }
     
     /**
      * Constructs a timestamp from a timeval struct.
@@ -93,15 +84,13 @@ public:
      * left in this timestamp
      */
     microseconds_type microseconds() const;
-    
-    #if TINS_IS_CXX11
-        /**
-         * Converts this Timestamp to a std::chrono::microseconds
-         */
-        operator std::chrono::microseconds() const {
-            return std::chrono::microseconds(timestamp_);
-        }
-    #endif
+
+    /**
+     * Converts this Timestamp to a std::chrono::microseconds
+     */
+    operator std::chrono::microseconds() const {
+        return std::chrono::microseconds(timestamp_);
+    }
 private:
     Timestamp(uint64_t value);
 

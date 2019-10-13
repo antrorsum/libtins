@@ -228,8 +228,7 @@ public:
         real_size_ = 0;
         *this = rhs;
     }
-    
-    #if TINS_IS_CXX11
+
     /**
      * \brief Move constructor.
      * \param rhs The PDUOption to be moved.
@@ -260,8 +259,6 @@ public:
         }
         return *this;
     }
-    
-    #endif // TINS_IS_CXX11
     
     /**
      * \brief Copy assignment operator.

@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.8)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
 PROJECT(libtins)
 
 OPTION(LIBTINS_BUILD_EXAMPLES "Build examples" ON)
@@ -11,23 +11,6 @@ IF(NOT CMAKE_BUILD_TYPE)
 ELSE(NOT CMAKE_BUILD_TYPE)
     MESSAGE(STATUS "Using specified '${CMAKE_BUILD_TYPE}' build type.")
 ENDIF(NOT CMAKE_BUILD_TYPE)
-
-# Compilation flags.
-IF(MSVC)
-    # Don't always use Wall, since VC's /Wall is ridiculously verbose.
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
-    # Disable VC secure checks, since these are not really issues.
-    ADD_DEFINITIONS("-D_CRT_SECURE_NO_WARNINGS=1")
-    ADD_DEFINITIONS("-D_SCL_SECURE_NO_WARNINGS=1")
-    ADD_DEFINITIONS("-DNOGDI=1")
-ELSE()
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
-ENDIF()
-
-IF(APPLE)
-    # This is set to ON as of policy CMP0042
-    SET(CMAKE_MACOSX_RPATH ON)
-ENDIF()
 
 # Build output checks
 OPTION(LIBTINS_BUILD_SHARED "Build libtins as a shared library." ON)
@@ -62,37 +45,12 @@ IF(LIBTINS_ENABLE_PCAP)
     SET(TINS_HAVE_PCAP ON)
 ENDIF()
 
-OPTION(LIBTINS_ENABLE_CLANG_TIDY "Enable source check with clang-tidy" ON)
+OPTION(LIBTINS_ENABLE_CLANG_TIDY "Enable source check with clang-tidy" OFF)
 
 IF(LIBTINS_ENABLE_CLANG_TIDY)
     MESSAGE(STATUS "Enabling clang tidy")
     SET(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,cppcoreguidelines-*,hicpps-*;-header-filter=.*;-fix")
 ENDIF()
-
-# Set some Windows specific flags
-IF(WIN32)
-    # We need to link against these libs
-    SET(LIBTINS_OS_LIBS Ws2_32.lib Iphlpapi.lib)
-
-    # Add the NOMINMAX macro to avoid Windows' min and max macros.
-    ADD_DEFINITIONS(-DNOMINMAX)
-
-    # MinWG need some extra definitions to compile properly (WIN32 for PCAP and WIN32_WINNT version for ws2tcpip.h)
-    IF(MINGW)
-        ADD_DEFINITIONS(-DWIN32)
-        MACRO(get_WIN32_WINNT version)
-        IF (WIN32 AND CMAKE_SYSTEM_VERSION)
-            SET(ver ${CMAKE_SYSTEM_VERSION})
-            STRING(REPLACE "." "" ver ${ver})
-            STRING(REGEX REPLACE "([0-9])" "0\\1" ver ${ver})
-            SET(${version} "0x${ver}")
-        ENDIF()
-        ENDMACRO()
-        get_WIN32_WINNT(ver)
-        ADD_DEFINITIONS(-D_WIN32_WINNT=${ver})
-    ENDIF(MINGW)
-
-ENDIF(WIN32)
 
 INCLUDE(ExternalProject)
 
@@ -104,19 +62,9 @@ IF(HAS_GCC_BUILTIN_SWAP)
     SET(TINS_HAVE_GCC_BUILTIN_SWAP ON)
 ENDIF()
 
-# C++11 support
-OPTION(LIBTINS_ENABLE_CXX11 "Compile libtins with c++11 features" ON)
-IF(LIBTINS_ENABLE_CXX11)
-    SET(TINS_HAVE_CXX11 ON)
-    MESSAGE(STATUS "Enabling C++11 features")
-    SET(CXX_STANDARD 11)
-ELSE(LIBTINS_ENABLE_CXX11)
-    MESSAGE(
-        WARNING
-        "Disabling C++11 features. Use LIBTINS_ENABLE_CXX11=1 to enable them. "
-        "Unless you are using an old compiler, you should enable this option, "
-        "as it increases the library's performance")
-ENDIF(LIBTINS_ENABLE_CXX11)
+# C++17 support
+MESSAGE(STATUS "Enabling C++17 features")
+SET(CXX_STANDARD 17)
 
 # IEEE 802.11 and WPA2 decryption support
 OPTION(LIBTINS_ENABLE_DOT11 "Compile libtins with IEEE 802.11 support" ON)
@@ -142,7 +90,7 @@ ENDIF(LIBTINS_ENABLE_DOT11)
 
 # Optionally enable TCPIP classes (on by default)
 OPTION(LIBTINS_ENABLE_TCPIP "Enable TCPIP classes" ON)
-IF(LIBTINS_ENABLE_TCPIP AND TINS_HAVE_CXX11)
+IF(LIBTINS_ENABLE_TCPIP)
     SET(TINS_HAVE_TCPIP ON)
     MESSAGE(STATUS "Enabling TCPIP classes")
 ELSE()
@@ -155,7 +103,7 @@ FIND_PACKAGE(Boost)
 
 # Optionally enable the ACK tracker (on by default)
 OPTION(LIBTINS_ENABLE_ACK_TRACKER "Enable TCP ACK tracking support" ON)
-IF(LIBTINS_ENABLE_ACK_TRACKER AND TINS_HAVE_CXX11)
+IF(LIBTINS_ENABLE_ACK_TRACKER)
     IF (Boost_FOUND)
         MESSAGE(STATUS "Enabling TCP ACK tracking support.")
         INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
@@ -171,7 +119,7 @@ ENDIF()
 
 # Optionally enable the TCP stream custom data (on by default)
 OPTION(LIBTINS_ENABLE_TCP_STREAM_CUSTOM_DATA "Enable TCP stream custom data support" ON)
-IF(LIBTINS_ENABLE_TCP_STREAM_CUSTOM_DATA AND TINS_HAVE_CXX11)
+IF(LIBTINS_ENABLE_TCP_STREAM_CUSTOM_DATA)
     IF (Boost_FOUND)
         MESSAGE(STATUS "Enabling TCP stream custom data support.")
         INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
@@ -186,23 +134,9 @@ ELSE()
 ENDIF()
 
 OPTION(LIBTINS_ENABLE_WPA2_CALLBACKS "Enable WPA2 callback interface" ON)
-IF(LIBTINS_ENABLE_WPA2_CALLBACKS AND TINS_HAVE_WPA2_DECRYPTION AND TINS_HAVE_CXX11)
+IF(LIBTINS_ENABLE_WPA2_CALLBACKS AND TINS_HAVE_WPA2_DECRYPTION)
     SET(STATUS "Enabling WPA2 callback interface")
     SET(TINS_HAVE_WPA2_CALLBACKS ON)
-ENDIF()
-
-# Use pcap_sendpacket to send l2 packets rather than raw sockets
-IF(WIN32)
-    SET(USE_PCAP_SENDPACKET_DEFAULT ON)
-ELSE(WIN32)
-    SET(USE_PCAP_SENDPACKET_DEFAULT OFF)
-ENDIF(WIN32)
-
-OPTION(LIBTINS_USE_PCAP_SENDPACKET "Use pcap_sendpacket to send l2 packets"
-        ${USE_PCAP_SENDPACKET_DEFAULT})
-IF(LIBTINS_ENABLE_PCAP AND LIBTINS_USE_PCAP_SENDPACKET)
-    SET(TINS_HAVE_PACKET_SENDER_PCAP_SENDPACKET ON)
-    MESSAGE(STATUS "Using pcap_sendpacket to send l2 packets.")
 ENDIF()
 
 # Add a target to generate API documentation using Doxygen

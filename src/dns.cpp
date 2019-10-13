@@ -470,27 +470,14 @@ void DNS::convert_records(const uint8_t* ptr,
                 stream.skip(data_size);
                 break;
         }
-        #if TINS_IS_CXX11
-            res.emplace_back(
-                dname, 
-                (used_small_buffer) ? small_addr_buf : std::move(data), 
-                type, 
-                qclass, 
-                ttl,
-                preference
-            );
-        #else
-            res.push_back(
-                resource(
-                    dname, 
-                    (used_small_buffer) ? small_addr_buf : data, 
-                    type, 
-                    qclass, 
-                    ttl,
-                    preference
-                )
-            );
-        #endif
+        res.emplace_back(
+            dname, 
+            (used_small_buffer) ? small_addr_buf : std::move(data), 
+            type, 
+            qclass, 
+            ttl,
+            preference
+        );
     }
 }
 
@@ -555,13 +542,7 @@ DNS::queries_type DNS::queries() const {
             stream.skip(compose_name(stream.pointer(), buffer));
             uint16_t query_type = stream.read_be<uint16_t>();
             uint16_t query_class = stream.read_be<uint16_t>();
-            #if TINS_IS_CXX11
-                output.emplace_back(buffer, (QueryType)query_type, (QueryClass)query_class);
-            #else
-                output.push_back(
-                    query(buffer, (QueryType)query_type, (QueryClass)query_class)
-                );
-            #endif
+            output.emplace_back(buffer, (QueryType)query_type, (QueryClass)query_class);
         }
     }
     return output;

@@ -224,36 +224,34 @@ public:
      * \brief Default constructor.
      */
     PDU();
+
+    /**
+     * \brief Move constructor.
+     * 
+     * \param rhs The PDU to be moved.
+     */
+    PDU(PDU &&rhs) TINS_NOEXCEPT 
+    : inner_pdu_(0), parent_pdu_(0) {
+        std::swap(inner_pdu_, rhs.inner_pdu_);
+        if (inner_pdu_) {
+            inner_pdu_->parent_pdu(this);
+        }
+    }
     
-    #if TINS_IS_CXX11
-        /**
-         * \brief Move constructor.
-         * 
-         * \param rhs The PDU to be moved.
-         */
-        PDU(PDU &&rhs) TINS_NOEXCEPT 
-        : inner_pdu_(0), parent_pdu_(0) {
-            std::swap(inner_pdu_, rhs.inner_pdu_);
-            if (inner_pdu_) {
-                inner_pdu_->parent_pdu(this);
-            }
+    /**
+     * \brief Move assignment operator.
+     * 
+     * \param rhs The PDU to be moved.
+     */
+    PDU& operator=(PDU &&rhs) TINS_NOEXCEPT {
+        delete inner_pdu_;
+        inner_pdu_ = 0;
+        std::swap(inner_pdu_, rhs.inner_pdu_);
+        if (inner_pdu_) {
+            inner_pdu_->parent_pdu(this);
         }
-        
-        /**
-         * \brief Move assignment operator.
-         * 
-         * \param rhs The PDU to be moved.
-         */
-        PDU& operator=(PDU &&rhs) TINS_NOEXCEPT {
-            delete inner_pdu_;
-            inner_pdu_ = 0;
-            std::swap(inner_pdu_, rhs.inner_pdu_);
-            if (inner_pdu_) {
-                inner_pdu_->parent_pdu(this);
-            }
-            return* this;
-        }
-    #endif
+        return* this;
+    }
 
     /** 
      * \brief PDU destructor.
