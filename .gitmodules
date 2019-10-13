@@ -2,3 +2,6 @@
 	path = googletest
     url = https://github.com/google/googletest.git
     ignore = dirty
+[submodule "googlebenchmark"]
+	path = googlebenchmark
+	url = https://github.com/google/benchmark.git
