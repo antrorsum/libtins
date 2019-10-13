@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/vscode-remote/devcontainer.json or the definition README at
 // https://github.com/microsoft/vscode-dev-containers/tree/master/containers/ubuntu-18.04-git
 {
-	"name": "Ubuntu 18.04 & Git",
+	"name": "Ubuntu 19.10 Dev",
 	"dockerFile": "Dockerfile",
 	// The optional 'runArgs' property can be used to specify additional runtime arguments.
 	"runArgs": [
@@ -27,5 +27,5 @@
 	// "postCreateCommand": "uname -a",
 
 	// Add the IDs of extensions you want installed when the container is created in the array below.
-	"extensions": []
+	"extensions": ["ms-vscode.cpptools"]
 }

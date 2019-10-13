@@ -183,7 +183,7 @@ TEST_F(AddressRangeTest, SlashUsingAddressGreaterThanMask) {
     {
         typedef AddressRange<HWAddress<6> > HWAddressRange;
         HWAddressRange range1 = HWAddressRange::from_mask("de:ad:be:ef:fe:00", 
-                                                          "ff:ff:ff:ef:00:00");
+                                                          "ff:ff:ff:ff:00:00");
         HWAddressRange range2 = HWAddress<6>("de:ad:be:ef:00:00") / 32;
         EXPECT_TRUE(std::equal(range1.begin(), range1.end(), range2.begin()));
         EXPECT_TRUE(std::equal(range2.begin(), range2.end(), range1.begin()));

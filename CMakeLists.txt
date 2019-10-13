@@ -65,7 +65,8 @@ ENDIF()
 OPTION(LIBTINS_ENABLE_CLANG_TIDY "Enable source check with clang-tidy" ON)
 
 IF(LIBTINS_ENABLE_CLANG_TIDY)
-    SET(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=modernize-*;-header-filter=.*;-fix")
+    MESSAGE(STATUS "Enabling clang tidy")
+    SET(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,cppcoreguidelines-*,hicpps-*;-header-filter=.*;-fix")
 ENDIF()
 
 # Set some Windows specific flags
@@ -108,7 +109,7 @@ OPTION(LIBTINS_ENABLE_CXX11 "Compile libtins with c++11 features" ON)
 IF(LIBTINS_ENABLE_CXX11)
     SET(TINS_HAVE_CXX11 ON)
     MESSAGE(STATUS "Enabling C++11 features")
-    SET(CXX_STANDARD 17)
+    SET(CXX_STANDARD 11)
 ELSE(LIBTINS_ENABLE_CXX11)
     MESSAGE(
         WARNING
