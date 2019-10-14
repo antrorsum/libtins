@@ -3,6 +3,7 @@ PROJECT(libtins)
 
 OPTION(LIBTINS_BUILD_EXAMPLES "Build examples" ON)
 OPTION(LIBTINS_BUILD_TESTS "Build tests" ON)
+OPTION(LIBTINS_ENABLE_BENCH "Build benchmark" ON)
 
 # Compile in release mode by default
 IF(NOT CMAKE_BUILD_TYPE)
@@ -235,6 +236,17 @@ IF(LIBTINS_BUILD_TESTS)
     ELSE()
         MESSAGE(STATUS "googletest git submodule is absent. Run `git submodule init && git submodule update` to get it")
     ENDIF()
+ENDIF()
+
+IF(LIBTINS_ENABLE_BENCH)
+  MESSAGE(STATUS "Build Benchmarks")
+
+  # build google benchmark
+  SET(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "Suppressing benchmark's tests" FORCE)
+  add_subdirectory(googlebenchmark)
+
+  # build LibMVC benchmarks
+  add_subdirectory(bench)
 ENDIF()
 
 # **********************************
