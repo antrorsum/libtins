@@ -34,6 +34,7 @@
 #include <tins/endianness.h>
 #include <tins/exceptions.h>
 #include <tins/detail/address_helpers.h>
+#include <climits>
 
 namespace Tins {
 /**
@@ -301,19 +302,19 @@ typedef AddressRange<IPv6Address> IPv6Range;
  * \param mask The bit-length of the prefix.
  */
 template<size_t n>
-AddressRange<HWAddress<n> > operator/(const HWAddress<n>& addr, int mask) {
-    if (mask > 48) {
+AddressRange<HWAddress<n> > operator/(const HWAddress<n>& addr, unsigned int mask) {
+    if (mask > n*CHAR_BIT) {
         throw std::logic_error("Prefix length cannot exceed 48");
     }
-    HWAddress<n> last_addr;
-    typename HWAddress<n>::iterator it = last_addr.begin();
-    while (mask > 8) {
+    HWAddress<n> mask_addr;
+    typename HWAddress<n>::iterator it = mask_addr.begin();
+    while (mask > CHAR_BIT) {
         *it = 0xff;
         ++it;
-        mask -= 8;
+        mask -= CHAR_BIT;
     }
-    *it = 0xff << (8 - mask);
-    return AddressRange<HWAddress<6> >::from_mask(addr, last_addr);
+    *it = 0xff << (CHAR_BIT - mask);
+    return AddressRange<HWAddress<n> >::from_mask(addr, mask_addr);
 }
 
 /**
