@@ -52,7 +52,7 @@ PDU::metadata TCP::extract_metadata(const uint8_t *buffer, uint32_t total_sz) {
         throw malformed_packet();
     }
     const auto* header = (const tcp_header*)buffer;
-    return {header->doff * 4, pdu_flag, PDU::UNKNOWN};
+    return {header->doff * 4u, pdu_flag, PDU::UNKNOWN};
 }
 
 TCP::TCP(uint16_t dport, uint16_t sport) 
