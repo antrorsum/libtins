@@ -244,11 +244,13 @@ public:
      * \param rhs The PDU to be moved.
      */
     PDU& operator=(PDU &&rhs) TINS_NOEXCEPT {
-        delete inner_pdu_;
-        inner_pdu_ = nullptr;
-        std::swap(inner_pdu_, rhs.inner_pdu_);
-        if (inner_pdu_) {
-            inner_pdu_->parent_pdu(this);
+        if(this != & rhs) {
+            delete inner_pdu_;
+            inner_pdu_ = nullptr;
+            std::swap(inner_pdu_, rhs.inner_pdu_);
+            if (inner_pdu_) {
+                inner_pdu_->parent_pdu(this);
+            }
         }
         return* this;
     }

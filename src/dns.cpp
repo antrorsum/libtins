@@ -391,7 +391,7 @@ void DNS::write_serialization(uint8_t* buffer, uint32_t total_sz) {
 void DNS::inline_convert_v4(uint32_t value, char* output) {
     output += sprintf(
         output, 
-        "%d.%d.%d.%d", 
+        "%u.%u.%u.%u", 
         #if TINS_IS_LITTLE_ENDIAN
         value & 0xff, 
         (value >> 8) & 0xff,

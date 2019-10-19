@@ -28,31 +28,11 @@
  */
 
 #include <tins/utils/routing_utils.h>
-#ifndef _WIN32
-    #if defined(BSD) || defined(__FreeBSD_kernel__)
-        #include <sys/socket.h>
-        #include <sys/file.h>
-        #include <sys/sysctl.h>
-        #include <net/route.h>
-        #include <net/if_dl.h>
-        #include <net/if.h>
-        #include <netinet/in.h>
-    #else
-        #include <netpacket/packet.h>
-    #endif
-    #include <ifaddrs.h>
-    #include <netdb.h>
-    #include <net/if.h>
-    #ifdef __ANDROID_API__
-        #include <linux/in.h>
-        #include <linux/in6.h>
-    #endif
-#else
-    #include <winsock2.h>
-    #include <ws2tcpip.h>
-    #include <iphlpapi.h>
-    #undef interface
-#endif
+
+#include <netpacket/packet.h>
+#include <ifaddrs.h>
+#include <netdb.h>
+#include <net/if.h>
 #include <set>
 #include <fstream>
 #include <tins/network_interface.h>
@@ -336,7 +316,7 @@ vector<RouteEntry> route_entries() {
     string destination, mask, metric, gw;
     uint32_t dummy;
     skip_line(input);
-    RouteEntry entry;
+    RouteEntry entry{};
     while (input >> entry.interface >> destination >> gw) {
         for (unsigned i(0); i < 4; ++i) {
             input >> metric;
