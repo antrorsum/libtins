@@ -208,10 +208,7 @@ vector<NetworkInterface> NetworkInterface::all() {
     return output;
 }
     
-NetworkInterface::NetworkInterface()
- {
-
-}
+NetworkInterface::NetworkInterface() = default;
 
 NetworkInterface NetworkInterface::from_index(id_type identifier) {
     NetworkInterface iface;

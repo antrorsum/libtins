@@ -58,10 +58,7 @@ Timestamp Timestamp::current_time() {
     #endif
 }
 
-Timestamp::Timestamp()
- {
-
-}
+Timestamp::Timestamp() = default;
 
 Timestamp::Timestamp(const timeval& time_val) {
     timestamp_ = static_cast<uint64_t>(time_val.tv_sec) * MICROSECONDS_IN_SECOND

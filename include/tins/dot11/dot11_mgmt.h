@@ -465,8 +465,7 @@ public:
         uint16_t dwell_time{0};
         uint8_t hop_set{0}, hop_pattern{0}, hop_index{0};
         
-        fh_params_set()
-         {}
+        fh_params_set() = default;
         
         fh_params_set(uint16_t dwell_time, 
                       uint8_t hop_set, 
@@ -486,7 +485,7 @@ public:
         uint16_t cfp_max_duration{0}, cfp_dur_remaining{0};
         
         cf_params_set()
-         {}
+         = default;
         
         cf_params_set(uint8_t cfp_count, 
                       uint8_t cfp_period,
@@ -509,7 +508,7 @@ public:
         uint8_t recovery_interval{0}; 
         channel_map_type channel_map;
        
-        ibss_dfs_params()  {}
+        ibss_dfs_params()  = default;
        
         ibss_dfs_params(const address_type& addr, 
                         uint8_t recovery_interval,
@@ -530,7 +529,7 @@ public:
         std::string country;
         byte_array first_channel, number_channels, max_transmit_power;
         
-        country_params() {}
+        country_params() = default;
         
         country_params(std::string  country, 
                        byte_array  first,
@@ -552,7 +551,7 @@ public:
         byte_array random_table;
         
         fh_pattern_type()
-         {}
+         = default;
         
         fh_pattern_type(uint8_t flag, 
                         uint8_t sets,
@@ -572,7 +571,7 @@ public:
         uint8_t switch_mode{0}, new_channel{0}, switch_count{0};
         
         channel_switch_type()
-         {}
+         = default;
         
         channel_switch_type(uint8_t mode, 
                             uint8_t channel,
@@ -590,7 +589,7 @@ public:
         uint16_t quiet_duration{0}, quiet_offset{0};
         
         quiet_type() 
-         {}
+         = default;
         
         quiet_type(uint8_t count, 
                    uint8_t period,
@@ -611,7 +610,7 @@ public:
         uint8_t channel_utilization{0};
         
         bss_load_type() 
-         {}
+         = default;
         
         bss_load_type(uint16_t count, uint8_t utilization, uint16_t capacity) 
         : station_count(count), available_capacity(capacity),
@@ -628,7 +627,7 @@ public:
         byte_array partial_virtual_bitmap;
         
         tim_type()
-         {}
+         = default;
         
         tim_type(uint8_t count, 
                  uint8_t period,

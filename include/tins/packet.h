@@ -141,8 +141,7 @@ public:
      * 
      * The PDU* will be set to a null pointer.
      */
-    Packet() 
-     { }
+    Packet() = default;
     
     /**
      * \brief Constructs a Packet from a PDU* and a Timestamp.

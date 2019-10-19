@@ -594,10 +594,7 @@ bool DNS::matches_response(const uint8_t* ptr, uint32_t total_sz) const {
 
 // SOA record
 
-DNS::soa_record::soa_record() 
- {
-
-}
+DNS::soa_record::soa_record() = default;
 
 DNS::soa_record::soa_record(string  mname,
                             string  rname,

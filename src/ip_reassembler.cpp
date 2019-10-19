@@ -37,10 +37,7 @@ using std::make_pair;
 namespace Tins {
 namespace Internals {
 
-IPv4Stream::IPv4Stream() 
- {
-
-}
+IPv4Stream::IPv4Stream() = default;
 
 void IPv4Stream::add_fragment(IP* ip) {
     const uint16_t offset = extract_offset(ip);
@@ -107,9 +104,7 @@ uint16_t IPv4Stream::extract_offset(const IP* ip) {
 } // Internals
 
 IPv4Reassembler::IPv4Reassembler()
- {
-
-}
+ = default;
 
 IPv4Reassembler::IPv4Reassembler(OverlappingTechnique technique)
 : technique_(technique) {

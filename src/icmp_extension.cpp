@@ -43,10 +43,7 @@ const uint32_t ICMPExtension::BASE_HEADER_SIZE = sizeof(uint16_t) + sizeof(uint8
 
 // ICMPExtension class
 
-ICMPExtension::ICMPExtension() 
- {
-
-} 
+ICMPExtension::ICMPExtension() = default; 
 
 ICMPExtension::ICMPExtension(uint8_t ext_class, uint8_t ext_type)
 : extension_class_(ext_class), extension_type_(ext_type) {

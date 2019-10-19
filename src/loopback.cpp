@@ -57,10 +57,7 @@ using Tins::Memory::OutputMemoryStream;
 
 namespace Tins {
 
-Loopback::Loopback()
- {
-    
-}
+Loopback::Loopback() = default;
 
 Loopback::Loopback(const uint8_t* buffer, uint32_t total_sz) {
     InputMemoryStream stream(buffer, total_sz);

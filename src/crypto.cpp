@@ -415,9 +415,7 @@ namespace WPA2 {
 const size_t SessionKeys::PTK_SIZE = 80;
 const size_t SessionKeys::PMK_SIZE = 32;
 
-SessionKeys::SessionKeys() {
-
-}
+SessionKeys::SessionKeys() = default;
 
 SessionKeys::SessionKeys(ptk_type  ptk, bool is_ccmp) 
 : ptk_(std::move(ptk)), is_ccmp_(is_ccmp) {

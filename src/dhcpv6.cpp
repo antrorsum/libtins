@@ -97,10 +97,7 @@ PDU::metadata DHCPv6::extract_metadata(const uint8_t* /*buffer*/, uint32_t total
     return {total_sz, pdu_flag, PDU::UNKNOWN};
 }
 
-DHCPv6::DHCPv6() 
- {
-
-}
+DHCPv6::DHCPv6() = default;
 
 DHCPv6::DHCPv6(const uint8_t* buffer, uint32_t total_sz) 
 : options_size_() {

@@ -47,7 +47,7 @@ class IPv4Fragment {
 public:
     using payload_type = PDU::serialization_type;
 
-    IPv4Fragment()  { }
+    IPv4Fragment()  = default;
 
     template<typename T>
     IPv4Fragment(T* pdu, uint16_t offset)

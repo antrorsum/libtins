@@ -40,10 +40,7 @@ using Tins::Internals::seq_compare;
 namespace Tins {
 namespace TCPIP {
 
-DataTracker::DataTracker() 
- {
-
-}
+DataTracker::DataTracker() = default;
 
 DataTracker::DataTracker(uint32_t seq_number)
 : seq_number_(seq_number), total_buffered_bytes_(0) {

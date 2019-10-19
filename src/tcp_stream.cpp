@@ -76,10 +76,7 @@ Iterator erase_iterator(Iterator it, Container& cont) {
 
 // TCPStreamFollower
 
-TCPStreamFollower::TCPStreamFollower()
- {
-    
-}
+TCPStreamFollower::TCPStreamFollower() = default;
 
 
 

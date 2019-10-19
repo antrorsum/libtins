@@ -99,10 +99,7 @@ uint32_t AckedRange::last() const {
 
 // AckTracker
 
-AckTracker::AckTracker()
- {
-    
-}
+AckTracker::AckTracker() = default;
 
 AckTracker::AckTracker(uint32_t initial_ack, bool use_sack)
 : ack_number_(initial_ack), use_sack_(use_sack) {

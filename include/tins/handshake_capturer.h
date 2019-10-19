@@ -58,7 +58,7 @@ public:
     /**
      * \brief Default constructor.
      */
-    EAPOLHandshake() { }
+    EAPOLHandshake() = default;
 
     /**
      * Constructs an EAPOLHandshake object.

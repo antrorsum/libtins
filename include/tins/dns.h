@@ -189,7 +189,7 @@ public:
         /**
          * \brief Default constructs this Query.
          */
-        query()  {}
+        query()  = default;
         
         /**
          * \brief Setter for the name field.
@@ -457,7 +457,7 @@ public:
         : dname_(std::move(dname)), data_(std::move(data)), type_(type),
           qclass_(rclass), ttl_(ttl), preference_(preference) {}
         
-        resource()  {}
+        resource()  = default;
         
         /**
          * \brief Getter for the domain name field.

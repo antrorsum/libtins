@@ -51,10 +51,7 @@ using std::string;
 
 namespace Tins {
 
-BaseSniffer::BaseSniffer() 
- {
-    
-}
+BaseSniffer::BaseSniffer() = default;
     
 BaseSniffer::~BaseSniffer() {
     if (handle_) {
