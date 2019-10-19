@@ -4,7 +4,7 @@ set(SOURCES
     "address_range_bench")
 
 INCLUDE_DIRECTORIES(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include
+    ${PROJECT_BINARY_DIR}/include
 )
 
 add_executable("${PROJECT_NAME}-bench" ${SOURCES})

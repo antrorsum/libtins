@@ -46,13 +46,6 @@ IF(LIBTINS_ENABLE_PCAP)
     SET(TINS_HAVE_PCAP ON)
 ENDIF()
 
-OPTION(LIBTINS_ENABLE_CLANG_TIDY "Enable source check with clang-tidy" OFF)
-
-IF(LIBTINS_ENABLE_CLANG_TIDY)
-    MESSAGE(STATUS "Enabling clang tidy")
-    SET(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,cppcoreguidelines-*,hicpps-*;-header-filter=.*;-fix")
-ENDIF()
-
 INCLUDE(ExternalProject)
 
 # *******************
@@ -135,7 +128,7 @@ ELSE()
 ENDIF()
 
 OPTION(LIBTINS_ENABLE_WPA2_CALLBACKS "Enable WPA2 callback interface" ON)
-IF(LIBTINS_ENABLE_WPA2_CALLBACKS AND TINS_HAVE_WPA2_DECRYPTION)
+IF(LIBTINS_ENABLE_WPA2_CALLBACKS AND TINS_HAVEs_WPA2_DECRYPTION)
     SET(STATUS "Enabling WPA2 callback interface")
     SET(TINS_HAVE_WPA2_CALLBACKS ON)
 ENDIF()
