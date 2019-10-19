@@ -159,7 +159,11 @@ public:
         std::swap(dumper_, rhs.dumper_);
         return* this;
     }
-    
+
+    // You shall not copy
+    PacketWriter(const PacketWriter&) = delete;
+    PacketWriter& operator=(const PacketWriter&) = delete;
+
     /**
      * \brief Destructor.
      *
@@ -209,10 +213,6 @@ public:
         }
     }
 private:
-    // You shall not copy
-    PacketWriter(const PacketWriter&);
-    PacketWriter& operator=(const PacketWriter&);
-
     void init(const std::string& file_name, int link_type);
     void write(PDU& pdu, const struct timeval& tv);
 

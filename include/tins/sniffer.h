@@ -90,6 +90,9 @@ public:
         return* this;
     }
 
+    BaseSniffer(const BaseSniffer&) = delete;
+    BaseSniffer& operator=(const BaseSniffer&) = delete;
+
     /**
      * \brief Sniffer destructor.
      * This frees all memory used by the pcap handle.
@@ -306,9 +309,6 @@ protected:
 
     bpf_u_int32 get_if_mask() const;
 private:
-    BaseSniffer(const BaseSniffer&);
-    BaseSniffer& operator=(const BaseSniffer&);
-
     pcap_t* handle_{nullptr};
     bpf_u_int32 mask_{0};
     bool extract_raw_{false};

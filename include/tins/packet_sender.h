@@ -172,7 +172,10 @@ public:
             default_iface_ = rhs.default_iface_;
             return* this;
         }
-    
+
+    PacketSender(const PacketSender&) = delete;
+    PacketSender& operator=(const PacketSender&) = delete;
+
     /** 
      * \brief PacketSender destructor.
      * 
@@ -370,8 +373,6 @@ private:
 
     typedef std::map<SocketType, int> SocketTypeMap;
 
-    PacketSender(const PacketSender&);
-    PacketSender& operator=(const PacketSender&);
     int find_type(SocketType type);
     #ifndef _WIN32
         bool ether_socket_initialized(const NetworkInterface& iface = NetworkInterface()) const;
