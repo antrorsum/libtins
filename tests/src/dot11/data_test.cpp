@@ -70,7 +70,7 @@ TEST_F(Dot11DataTest, ConstructorFromBuffer) {
 
 TEST_F(Dot11DataTest, CopyConstructor) {
     Dot11Data dot1(expected_packet, sizeof(expected_packet));
-    Dot11Data dot2(dot1);
+    const Dot11Data& dot2(dot1);
     test_equals(dot1, dot2);
 }
 

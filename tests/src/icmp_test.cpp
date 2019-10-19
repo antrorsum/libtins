@@ -65,7 +65,7 @@ TEST_F(ICMPTest, DefaultConstructor) {
 
 TEST_F(ICMPTest, CopyConstructor) {
     ICMP icmp1(expected_packets[0], sizeof(expected_packets[0]));
-    ICMP icmp2(icmp1);
+    const ICMP& icmp2(icmp1);
     test_equals(icmp1, icmp2);
 }
 

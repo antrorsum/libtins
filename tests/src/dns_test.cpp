@@ -173,7 +173,7 @@ TEST_F(DNSTest, Serialization) {
 
 TEST_F(DNSTest, CopyConstructor) {
     DNS dns1(expected_packet, sizeof(expected_packet));
-    DNS dns2(dns1);
+    const DNS& dns2(dns1);
     test_equals(dns1, dns2);
 }
 

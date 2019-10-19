@@ -70,7 +70,7 @@ TEST_F(EthernetIITest, DefaultConstructor) {
 
 TEST_F(EthernetIITest, CopyConstructor) {
     EthernetII eth1(expected_packet, sizeof(expected_packet));
-    EthernetII eth2(eth1);
+    const EthernetII& eth2(eth1);
     test_equals(eth1, eth2);
 }
 

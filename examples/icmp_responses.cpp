@@ -49,7 +49,7 @@ using namespace Tins;
 class ICMPResponder {
 public:
     // Use the given interface and ICMP type/code on responses
-    ICMPResponder(string iface, int type, int code) 
+    ICMPResponder(const string& iface, int type, int code) 
     : m_iface(iface), m_sender(iface), m_type(type), m_code(code) {
 
     }

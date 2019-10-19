@@ -8,8 +8,6 @@ IF(HAVE_PCAP_TIMESTAMP_PRECISION)
     ADD_DEFINITIONS("-DHAVE_PCAP_TIMESTAMP_PRECISION=1")
 ENDIF()
 
-SET(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,performance-*,hicpps-*,clang-analyzer-cplusplus*;-header-filter=.*;")
-
 INCLUDE_DIRECTORIES(BEFORE
     ${OPENSSL_INCLUDE_DIR}
     ${PCAP_INCLUDE_DIR}

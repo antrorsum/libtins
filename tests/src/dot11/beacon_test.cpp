@@ -83,7 +83,7 @@ TEST_F(Dot11BeaconTest, ConstructorFromBuffer) {
 
 TEST_F(Dot11BeaconTest, CopyConstructor) {
     Dot11Beacon dot1(expected_packet, sizeof(expected_packet));
-    Dot11Beacon dot2(dot1);
+    const Dot11Beacon& dot2(dot1);
     test_equals(dot1, dot2);
 }
 

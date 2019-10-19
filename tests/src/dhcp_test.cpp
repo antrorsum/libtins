@@ -63,13 +63,13 @@ TEST_F(DHCPTest, DefaultConstructor) {
 
 TEST_F(DHCPTest, CopyConstructor) {
     DHCP dhcp1(expected_packet, sizeof(expected_packet));
-    DHCP dhcp2(dhcp1);
+    const DHCP& dhcp2(dhcp1);
     test_equals(dhcp1, dhcp2);
 }
 
 TEST_F(DHCPTest, CopyAssignmentOperator) {
     DHCP dhcp1(expected_packet, sizeof(expected_packet));
-    DHCP dhcp2 = dhcp1;
+    const DHCP& dhcp2 = dhcp1;
     test_equals(dhcp1, dhcp2);
 }
 

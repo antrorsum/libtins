@@ -47,7 +47,7 @@ TEST_F(Dot11ProbeRequestTest, ConstructorFromBuffer) {
 
 TEST_F(Dot11ProbeRequestTest, CopyConstructor) {
     Dot11ProbeRequest dot1(expected_packet, sizeof(expected_packet));
-    Dot11ProbeRequest dot2(dot1);
+    const Dot11ProbeRequest& dot2(dot1);
     test_equals(dot1, dot2);
 }
 

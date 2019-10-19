@@ -43,7 +43,7 @@ TEST_F(Dot11Test, DefaultConstructor) {
 
 TEST_F(Dot11Test, CopyConstructor) {
     Dot11 dot1(expected_packet, sizeof(expected_packet));
-    Dot11 dot2(dot1);
+    const Dot11& dot2(dot1);
     test_equals(dot1, dot2);
 }
 

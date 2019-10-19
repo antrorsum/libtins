@@ -683,7 +683,9 @@ TEST_F(RadioTapTest, RadioTapParsingUsingEmptyBuffer) {
 
 TEST_F(RadioTapTest, RadioTapParsingUsingBogusBuffer) {
     vector<uint8_t> buffer;
-    for (int i = 0; i < 4; ++i) {
+    buffer.reserve(4);
+
+for (int i = 0; i < 4; ++i) {
         buffer.push_back(0xff);
     }
     EXPECT_THROW(RadioTapParser parser(buffer), malformed_packet);

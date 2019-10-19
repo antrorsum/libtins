@@ -54,7 +54,7 @@ TEST_F(Dot11AssocResponseTest, ConstructorFromBuffer) {
 
 TEST_F(Dot11AssocResponseTest, CopyConstructor) {
     Dot11AssocResponse dot1(expected_packet, sizeof(expected_packet));
-    Dot11AssocResponse dot2(dot1);
+    const Dot11AssocResponse& dot2(dot1);
     test_equals(dot1, dot2);
 }
 

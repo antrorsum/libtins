@@ -71,7 +71,7 @@ TEST_F(Dot11AckTest, ConstructorFromBuffer) {
 
 TEST_F(Dot11AckTest, CopyConstructor) {
     Dot11Ack dot1(expected_packet, sizeof(expected_packet));
-    Dot11Ack dot2(dot1);
+    const Dot11Ack& dot2(dot1);
     test_equals(dot1, dot2);
 }
 

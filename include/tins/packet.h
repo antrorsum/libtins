@@ -232,9 +232,9 @@ public:
      */
     Packet& operator=(Packet &&rhs) TINS_NOEXCEPT { 
         if (this != &rhs) {
-            PDU* tmp = std::move(pdu_);
-            pdu_ = std::move(rhs.pdu_);
-            rhs.pdu_ = std::move(tmp);
+            PDU* tmp = pdu_;
+            pdu_ = rhs.pdu_;
+            rhs.pdu_ = tmp;
             ts_ = rhs.timestamp();
         }
         return* this;

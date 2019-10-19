@@ -51,7 +51,7 @@ TEST_F(Dot11DisassocTest, ConstructorFromBuffer) {
 
 TEST_F(Dot11DisassocTest, CopyConstructor) {
     Dot11Disassoc dot1(expected_packet, sizeof(expected_packet));
-    Dot11Disassoc dot2(dot1);
+    const Dot11Disassoc& dot2(dot1);
     test_equals(dot1, dot2);
 }
 

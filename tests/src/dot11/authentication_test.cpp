@@ -56,7 +56,7 @@ TEST_F(Dot11AuthenticationTest, ConstructorFromBuffer) {
 
 TEST_F(Dot11AuthenticationTest, CopyConstructor) {
     Dot11Authentication dot1(expected_packet, sizeof(expected_packet));
-    Dot11Authentication dot2(dot1);
+    const Dot11Authentication& dot2(dot1);
     test_equals(dot1, dot2);
 }
 

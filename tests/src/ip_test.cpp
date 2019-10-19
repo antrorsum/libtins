@@ -483,7 +483,7 @@ TEST_F(IPTest, DefaultConstructor) {
 
 TEST_F(IPTest, CopyConstructor) {
     IP ip1(expected_packet, sizeof(expected_packet));
-    IP ip2(ip1);
+    const IP& ip2(ip1);
     test_equals(ip1, ip2);
 }
 

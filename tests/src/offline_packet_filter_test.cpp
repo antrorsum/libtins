@@ -21,7 +21,7 @@ public:
 
 TEST_F(OfflinePacketFilterTest, CopyConstructor) {
     OfflinePacketFilter filter1("udp and port 111", DataLinkType<EthernetII>());
-    OfflinePacketFilter filter2(filter1);
+    const OfflinePacketFilter& filter2(filter1);
     OfflinePacketFilter filter3("tcp", DataLinkType<RadioTap>());
     filter3 = filter1;
     

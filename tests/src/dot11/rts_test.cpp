@@ -46,7 +46,7 @@ TEST_F(Dot11RTSTest, ConstructorFromBuffer) {
 
 TEST_F(Dot11RTSTest, CopyConstructor) {
     Dot11RTS dot1(expected_packet, sizeof(expected_packet));
-    Dot11RTS dot2(dot1);
+    const Dot11RTS& dot2(dot1);
     test_equals(dot1, dot2);
 }
 

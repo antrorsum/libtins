@@ -46,7 +46,7 @@ TEST_F(Dot11PSPollTest, ConstructorFromBuffer) {
 
 TEST_F(Dot11PSPollTest, CopyConstructor) {
     Dot11PSPoll dot1(expected_packet, sizeof(expected_packet));
-    Dot11PSPoll dot2(dot1);
+    const Dot11PSPoll& dot2(dot1);
     test_equals(dot1, dot2);
 }
 

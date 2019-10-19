@@ -4,7 +4,7 @@ set(SOURCES
     "address_range_bench")
 
 INCLUDE_DIRECTORIES(
-    ${PROJECT_BINARY_DIR}/include
+    ../include
 )
 
 add_executable("${PROJECT_NAME}-bench" ${SOURCES})

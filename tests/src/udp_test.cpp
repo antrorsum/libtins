@@ -121,7 +121,7 @@ TEST_F(UDPTest, ChecksumCheck3) {
 
 TEST_F(UDPTest, CopyConstructor) {
     UDP udp1(expected_packet, sizeof(expected_packet));
-    UDP udp2(udp1);
+    const UDP& udp2(udp1);
     test_equals(udp1, udp2);
 }
 

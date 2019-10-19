@@ -46,7 +46,7 @@ TEST_F(Dot11CFEndTest, ConstructorFromBuffer) {
 
 TEST_F(Dot11CFEndTest, CopyConstructor) {
     Dot11CFEnd dot1(expected_packet, sizeof(expected_packet));
-    Dot11CFEnd dot2(dot1);
+    const Dot11CFEnd& dot2(dot1);
     test_equals(dot1, dot2);
 }
 

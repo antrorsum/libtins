@@ -57,13 +57,13 @@ TEST_F(ARPTest, DefaultContructor) {
 
 TEST_F(ARPTest, CopyContructor) {
     ARP arp1(addr1, addr2, hw_addr1, hw_addr2);
-    ARP arp2(arp1);
+    const ARP& arp2(arp1);
     test_equals(arp1, arp2);
 }
 
 TEST_F(ARPTest, CopyAssignmentOperator) {
     ARP arp1(addr1, addr2, hw_addr1, hw_addr2);
-    ARP arp2 = arp1;
+    const ARP& arp2 = arp1;
     test_equals(arp1, arp2);
 }
 

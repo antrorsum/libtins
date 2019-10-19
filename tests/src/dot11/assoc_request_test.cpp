@@ -52,7 +52,7 @@ TEST_F(Dot11AssocRequestTest, ConstructorFromBuffer) {
 
 TEST_F(Dot11AssocRequestTest, CopyConstructor) {
     Dot11AssocRequest dot1(expected_packet, sizeof(expected_packet));
-    Dot11AssocRequest dot2(dot1);
+    const Dot11AssocRequest& dot2(dot1);
     test_equals(dot1, dot2);
 }
 

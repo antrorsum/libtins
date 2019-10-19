@@ -38,6 +38,8 @@
 #include <tins/macros.h>
 #include <tins/cxxstd.h>
 
+#include <utility>
+
 namespace Tins {
 namespace Memory {
 
@@ -220,7 +222,7 @@ public:
         routes_type routes;
         
         generic_route_option_type(uint8_t ptr = 0, routes_type rts = routes_type())
-        : pointer(ptr), routes(rts) {}
+        : pointer(ptr), routes(std::move(rts)) {}
         
         static generic_route_option_type from_option(const option& opt);
     };
