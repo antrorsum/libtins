@@ -98,11 +98,7 @@ PacketSender::PacketSender(const NetworkInterface& iface,
 PacketSender::~PacketSender() {
     for (int socket : sockets_) {
         if (socket != INVALID_RAW_SOCKET)  {
-            #ifndef _WIN32
                 ::close(socket);
-            #else
-                ::closesocket(sockets_[i]);
-            #endif
         }
     }
     if (ether_socket_ != INVALID_RAW_SOCKET) {
