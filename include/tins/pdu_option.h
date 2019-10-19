@@ -35,6 +35,7 @@
 #include <string>
 #include <tins/detail/type_traits.h>
 #include <tins/exceptions.h>
+#include <tins/pdu.h>
 #include <vector>
 
 namespace Tins {
