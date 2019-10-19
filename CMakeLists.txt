@@ -4,6 +4,7 @@ PROJECT(libtins)
 OPTION(LIBTINS_BUILD_EXAMPLES "Build examples" OFF)
 OPTION(LIBTINS_BUILD_TESTS "Build tests" OFF)
 OPTION(LIBTINS_ENABLE_BENCH "Build benchmark" OFF)
+OPTION(LIBTINS_ENABLE_STATIC "Enable static analysis" OFF)
 
 # Compile in release mode by default
 IF(NOT CMAKE_BUILD_TYPE)
@@ -188,6 +189,28 @@ CONFIGURE_FILE(
 # Add uninstall target
 ADD_CUSTOM_TARGET(uninstall
     COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+
+IF(LIBTINS_ENABLE_STATIC)
+    find_program(CMAKE_CXX_CPPCHECK NAMES cppcheck)
+
+    if (CMAKE_CXX_CPPCHECK)
+        message(STATUS "Enable Cppcheck " ${CMAKE_CXX_CPPCHECK})
+        list(
+            APPEND CMAKE_CXX_CPPCHECK 
+                "--enable=warning"
+                "--inline-suppr"
+                "--std=c++17"
+                "--suppress=*:${PROJECT_SOURCE_DIR}/googlebenchmark*"
+                "--suppress=*:${PROJECT_SOURCE_DIR}/googletest*"
+                "--suppress=*:${PROJECT_SOURCE_DIR}/tests*"
+        )
+    else()
+        message(WARNING "Cppcheck not found")
+        set(CMAKE_CXX_CPPCHECK "")
+    endif()
+ELSE()
+    set(CMAKE_CXX_CPPCHECK "")
+ENDIF()
 
 # ******************
 # Add subdirectories
