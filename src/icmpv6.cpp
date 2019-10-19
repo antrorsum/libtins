@@ -843,7 +843,7 @@ ICMPv6::naack_type ICMPv6::naack_type::from_option(const option& opt) {
     if (opt.data_size() != 6) {
         throw malformed_option();
     }
-    return naack_type(*opt.data_ptr(), opt.data_ptr()[1]);
+    return {*opt.data_ptr(), opt.data_ptr()[1]};
 }
 
 ICMPv6::lladdr_type ICMPv6::lladdr_type::from_option(const option& opt) {

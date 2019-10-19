@@ -168,7 +168,7 @@ HWAddress<6> convert(const uint8_t* ptr, uint32_t data_size, PDU::endian_type,
     if (data_size != 6) {
         throw malformed_option();
     }
-    return HWAddress<6>(ptr);
+    return {ptr};
 }
 
 IPv4Address convert(const uint8_t* ptr, uint32_t data_size, PDU::endian_type endian,
@@ -191,7 +191,7 @@ IPv6Address convert(const uint8_t* ptr, uint32_t data_size, PDU::endian_type,
     if (data_size != IPv6Address::address_size) {
         throw malformed_option();
     }
-    return IPv6Address(ptr);
+    return {ptr};
 }
 
 string convert(const uint8_t* ptr, uint32_t data_size, PDU::endian_type,

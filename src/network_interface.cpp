@@ -196,7 +196,7 @@ namespace Tins {
 
 // static
 NetworkInterface NetworkInterface::default_interface() {
-    return NetworkInterface(IPv4Address(uint32_t(0)));
+    return {IPv4Address(uint32_t(0))};
 }
 
 vector<NetworkInterface> NetworkInterface::all() {

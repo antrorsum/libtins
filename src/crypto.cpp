@@ -287,7 +287,7 @@ struct RC4Key {
         rc4_key[13] = upper_byte(ppk[4]);
         rc4_key[14] = lower_byte(ppk[5]);
         rc4_key[15] = upper_byte(ppk[5]);
-        return RC4Key(rc4_key.begin(), rc4_key.end());
+        return {rc4_key.begin(), rc4_key.end()};
     }
 
     uint8_t data[data_size];

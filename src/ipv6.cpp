@@ -67,7 +67,7 @@ PDU::metadata IPv6::extract_metadata(const uint8_t *buffer, uint32_t total_sz) {
         header_size += ext_size;
         stream.skip(payload_size);
     }
-    return metadata(header_size, pdu_flag, PDU::UNKNOWN);
+    return {header_size, pdu_flag, PDU::UNKNOWN};
 }
 
 IPv6::hop_by_hop_header IPv6::hop_by_hop_header::from_extension_header(const ext_header& hdr) {

@@ -42,7 +42,7 @@ PDU::metadata Dot1Q::extract_metadata(const uint8_t* /*buffer*/, uint32_t total_
     if (TINS_UNLIKELY(total_sz < sizeof(dot1q_header))) {
         throw malformed_packet();
     }
-    return metadata(sizeof(dot1q_header), pdu_flag, PDU::UNKNOWN);
+    return {sizeof(dot1q_header), pdu_flag, PDU::UNKNOWN};
 }
 
 Dot1Q::Dot1Q(small_uint<12> tag_id, bool append_pad)

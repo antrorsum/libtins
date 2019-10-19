@@ -46,7 +46,7 @@ PDU::metadata DHCP::extract_metadata(const uint8_t* /*buffer*/, uint32_t total_s
     if (TINS_UNLIKELY(total_sz < sizeof(bootp_header))) {
         throw malformed_packet();
     }
-    return metadata(total_sz, pdu_flag, PDU::UNKNOWN);
+    return {total_sz, pdu_flag, PDU::UNKNOWN};
 }
 
 // Magic cookie: uint32_t. 

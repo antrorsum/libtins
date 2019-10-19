@@ -78,27 +78,27 @@ ConstPDUIterator::value_type ConstPDUIterator::operator*() const {
 // Helpers
 
 PDUIteratorRange<PDUIterator> iterate_pdus(PDU* pdu) {
-    return PDUIteratorRange<PDUIterator>(pdu, 0);
+    return {pdu, 0};
 }
 
 PDUIteratorRange<PDUIterator> iterate_pdus(PDU& pdu) {
-    return PDUIteratorRange<PDUIterator>(&pdu, 0);
+    return {&pdu, 0};
 }
 
 PDUIteratorRange<PDUIterator> iterate_pdus(Packet& packet) {
-    return PDUIteratorRange<PDUIterator>(packet.pdu(), 0);
+    return {packet.pdu(), 0};
 }
 
 PDUIteratorRange<ConstPDUIterator> iterate_pdus(const PDU* pdu) {
-    return PDUIteratorRange<ConstPDUIterator>(pdu, 0);
+    return {pdu, 0};
 }
 
 PDUIteratorRange<ConstPDUIterator> iterate_pdus(const PDU& pdu) {
-    return PDUIteratorRange<ConstPDUIterator>(&pdu, 0);
+    return {&pdu, 0};
 }
 
 PDUIteratorRange<ConstPDUIterator> iterate_pdus(const Packet& packet) {
-    return PDUIteratorRange<ConstPDUIterator>(packet.pdu(), 0);
+    return {packet.pdu(), 0};
 }
 
 } // Tins

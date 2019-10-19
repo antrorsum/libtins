@@ -48,7 +48,7 @@ PDU::metadata EAPOL::extract_metadata(const uint8_t *buffer, uint32_t total_sz) 
     const auto* header = (const eapol_header*)buffer;
     uint32_t advertised_size = Endian::be_to_host<uint16_t>(header->length) + 4;
     const uint32_t actual_size = (total_sz < advertised_size) ? total_sz : advertised_size;
-    return metadata(actual_size, pdu_flag, PDU::UNKNOWN);
+    return {actual_size, pdu_flag, PDU::UNKNOWN};
 }
 
 EAPOL::EAPOL(uint8_t packet_type, EAPOLTYPE type) 

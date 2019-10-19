@@ -49,7 +49,7 @@ PDU::metadata ICMP::extract_metadata(const uint8_t* /*buffer*/, uint32_t total_s
     if (TINS_UNLIKELY(total_sz < sizeof(icmp_header))) {
         throw malformed_packet();
     }
-    return metadata(sizeof(icmp_header), pdu_flag, PDU::UNKNOWN);
+    return {sizeof(icmp_header), pdu_flag, PDU::UNKNOWN};
 }
 
 ICMP::ICMP(Flags flag) 
