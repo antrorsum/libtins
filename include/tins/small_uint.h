@@ -36,7 +36,7 @@
 namespace Tins {
 class value_too_large : public std::exception {
 public:
-    const char* what() const throw() override {
+    const char* what() const noexcept override {
         return "Value is too large";
     }
 };
