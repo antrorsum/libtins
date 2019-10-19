@@ -31,6 +31,8 @@
 #define TINS_DHCPV6_H
 
 #include <cstring>
+#include <utility>
+
 #include <tins/pdu.h>
 #include <tins/macros.h>
 #include <tins/endianness.h>
@@ -185,8 +187,8 @@ public:
         options_type options;
         
         ia_na_type(uint32_t id = 0, uint32_t t1 = 0, uint32_t t2 = 0,
-          const options_type& options = options_type())
-        : id(id), t1(t1), t2(t2), options(options) {}
+          options_type  options = options_type())
+        : id(id), t1(t1), t2(t2), options(std::move(options)) {}
 
         static ia_na_type from_option(const option& opt);
     };
@@ -202,8 +204,8 @@ public:
         options_type options;
         
         ia_ta_type(uint32_t id = 0,
-          const options_type& options = options_type())
-        : id(id), options(options) {}
+          options_type  options = options_type())
+        : id(id), options(std::move(options)) {}
 
         static ia_ta_type from_option(const option& opt);
     };
@@ -220,9 +222,9 @@ public:
         
         ia_address_type(ipaddress_type address = ipaddress_type(), 
           uint32_t preferred_lifetime = 0, uint32_t valid_lifetime = 0, 
-          const options_type& options = options_type())
+          options_type  options = options_type())
         : address(address), preferred_lifetime(preferred_lifetime), 
-          valid_lifetime(valid_lifetime), options(options) {}
+          valid_lifetime(valid_lifetime), options(std::move(options)) {}
 
         static ia_address_type from_option(const option& opt);
     };
@@ -239,9 +241,9 @@ public:
         
         authentication_type(uint8_t protocol = 0, uint8_t algorithm = 0,
           uint8_t rdm = 0, uint64_t replay_detection = 0,
-          const auth_info_type& auth_info = auth_info_type())
+          auth_info_type  auth_info = auth_info_type())
         : protocol(protocol), algorithm(algorithm), rdm(rdm),
-        replay_detection(replay_detection), auth_info(auth_info) {}
+        replay_detection(replay_detection), auth_info(std::move(auth_info)) {}
 
         static authentication_type from_option(const option& opt);
     };
@@ -253,8 +255,8 @@ public:
         uint16_t code;
         std::string message;
         
-        status_code_type(uint16_t code = 0, const std::string& message = "")
-        : code(code), message(message) { }
+        status_code_type(uint16_t code = 0, std::string  message = "")
+        : code(code), message(std::move(message)) { }
 
         static status_code_type from_option(const option& opt);
     };
@@ -269,8 +271,8 @@ public:
         data_type data;
         
         vendor_info_type(uint32_t enterprise_number = 0, 
-          const data_type& data = data_type())
-        : enterprise_number(enterprise_number), data(data) { }
+          data_type  data = data_type())
+        : enterprise_number(enterprise_number), data(std::move(data)) { }
 
         static vendor_info_type from_option(const option& opt);
     };
@@ -289,8 +291,8 @@ public:
         using data_type = std::vector<class_option_data_type>;
         data_type data;
 
-        user_class_type(const data_type& data = data_type())
-        : data(data) { }
+        user_class_type(data_type  data = data_type())
+        : data(std::move(data)) { }
 
         static user_class_type from_option(const option& opt);
     };
@@ -305,9 +307,9 @@ public:
         class_data_type vendor_class_data;
         
         vendor_class_type(uint32_t enterprise_number = 0, 
-          const class_data_type& vendor_class_data = class_data_type())
+          class_data_type  vendor_class_data = class_data_type())
         : enterprise_number(enterprise_number), 
-        vendor_class_data(vendor_class_data) { }
+        vendor_class_data(std::move(vendor_class_data)) { }
 
         static vendor_class_type from_option(const option& opt);
     };
@@ -325,8 +327,8 @@ public:
         lladdress_type lladdress;
         
         duid_llt(uint16_t hw_type = 0, uint32_t time = 0,
-          const lladdress_type& lladdress = lladdress_type())
-        : hw_type(hw_type), time(time), lladdress(lladdress) {}
+          lladdress_type  lladdress = lladdress_type())
+        : hw_type(hw_type), time(time), lladdress(std::move(lladdress)) {}
         
         PDU::serialization_type serialize() const;
         
@@ -344,8 +346,8 @@ public:
         identifier_type identifier;
         
         duid_en(uint32_t enterprise_number = 0,
-          const identifier_type& identifier = identifier_type())
-        : enterprise_number(enterprise_number), identifier(identifier) {}
+          identifier_type  identifier = identifier_type())
+        : enterprise_number(enterprise_number), identifier(std::move(identifier)) {}
         
         PDU::serialization_type serialize() const;
         
@@ -363,8 +365,8 @@ public:
         lladdress_type lladdress;
         
         duid_ll(uint16_t hw_type = 0, 
-          const lladdress_type& lladdress = lladdress_type())
-        : hw_type(hw_type), lladdress(lladdress) {}
+          lladdress_type  lladdress = lladdress_type())
+        : hw_type(hw_type), lladdress(std::move(lladdress)) {}
         
         PDU::serialization_type serialize() const;
         
@@ -381,8 +383,8 @@ public:
         uint16_t id;
         data_type data;
         
-        duid_type(uint16_t id = 0, const data_type& data = data_type())
-        : id(id), data(data) {}
+        duid_type(uint16_t id = 0, data_type  data = data_type())
+        : id(id), data(std::move(data)) {}
         
         duid_type(const duid_llt& identifier)
         : id(duid_llt::duid_id), data(identifier.serialize()) {}

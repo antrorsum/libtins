@@ -30,6 +30,8 @@
 #ifndef TINS_RAWPDU_H
 #define TINS_RAWPDU_H
 
+#include <utility>
+
 #include <vector>
 #include <string>
 #include <tins/pdu.h>
@@ -103,8 +105,8 @@ public:
      *
      * \param data The payload to use.
      */
-    RawPDU(const payload_type & data)
-            : payload_(data) { }
+    RawPDU(payload_type  data)
+            : payload_(std::move(data)) { }
 
     /** 
      * \brief Creates an instance of RawPDU from a payload_type.

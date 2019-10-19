@@ -32,6 +32,8 @@
 #if !defined(TINS_HANDSHAKE_CAPTURER_H) && defined(TINS_HAVE_DOT11)
 #define TINS_HANDSHAKE_CAPTURER_H
 
+#include <utility>
+
 #include <vector>
 #include <map>
 #include <utility>
@@ -68,9 +70,9 @@ public:
      */
     EAPOLHandshake(const address_type& client_address, 
                    const address_type& supplicant_address, 
-                   const container_type& cont) 
+                   container_type  cont) 
     : cl_address_(client_address), suppl_address_(supplicant_address), 
-      handshake_(cont) {
+      handshake_(std::move(cont)) {
     }
     
     /**

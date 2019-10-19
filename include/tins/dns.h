@@ -304,8 +304,8 @@ public:
          * \param expire The expire value
          * \param minimum_ttl The minimum TTL value
          */
-        soa_record(const std::string& mname,
-                   const std::string& rname,
+        soa_record(std::string  mname,
+                   std::string  rname,
                    uint32_t serial,
                    uint32_t refresh,
                    uint32_t retry,

@@ -31,6 +31,8 @@
 #define TINS_PPPoE_H
 
 #include <string>
+#include <utility>
+
 #include <vector>
 #include <tins/pdu.h>
 #include <tins/macros.h>
@@ -92,8 +94,8 @@ public:
         uint32_t vendor_id;
         data_type data;
         
-        vendor_spec_type(uint32_t vendor_id = 0, const data_type& data = data_type())
-        : vendor_id(vendor_id), data(data) { }
+        vendor_spec_type(uint32_t vendor_id = 0, data_type  data = data_type())
+        : vendor_id(vendor_id), data(std::move(data)) { }
         
         static vendor_spec_type from_option(const tag& opt);
     };

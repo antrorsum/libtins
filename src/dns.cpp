@@ -599,14 +599,14 @@ DNS::soa_record::soa_record()
 
 }
 
-DNS::soa_record::soa_record(const string& mname,
-                            const string& rname,
+DNS::soa_record::soa_record(string  mname,
+                            string  rname,
                             uint32_t serial,
                             uint32_t refresh,
                             uint32_t retry,
                             uint32_t expire,
                             uint32_t minimum_ttl) 
-: mname_(mname), rname_(rname), serial_(serial), refresh_(refresh), retry_(retry),
+: mname_(std::move(mname)), rname_(std::move(rname)), serial_(serial), refresh_(refresh), retry_(retry),
   expire_(expire), minimum_ttl_(minimum_ttl) {
 
 }

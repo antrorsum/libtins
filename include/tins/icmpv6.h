@@ -30,6 +30,8 @@
 #ifndef TINS_ICMPV6_H
 #define TINS_ICMPV6_H
 
+#include <utility>
+
 #include <vector>
 #include <tins/macros.h>
 #include <tins/pdu.h>
@@ -171,8 +173,8 @@ public:
         uint8_t reserved[6];
         addresses_type addresses;
         
-        addr_list_type(const addresses_type& addresses = addresses_type())
-        : addresses(addresses) {
+        addr_list_type(addresses_type  addresses = addresses_type())
+        : addresses(std::move(addresses)) {
             std::fill(reserved, reserved + sizeof(reserved), 0);
         }
         
@@ -221,8 +223,8 @@ public:
          * \param address The address to be stored.
          */
         lladdr_type(uint8_t option_code = 0, 
-                    const address_type& address = address_type())
-        : option_code(option_code), address(address) {
+                    address_type  address = address_type())
+        : option_code(option_code), address(std::move(address)) {
             
         }
         
@@ -312,8 +314,8 @@ public:
          * \param sign The signature to be set.
          */
         template <typename RAIterator>
-        rsa_sign_type(RAIterator hash, const signature_type& sign)
-        : signature(sign) {
+        rsa_sign_type(RAIterator hash, signature_type  sign)
+        : signature(std::move(sign)) {
             std::copy(hash, hash + sizeof(key_hash), key_hash);
         }
         
@@ -379,9 +381,9 @@ public:
         route_info_type(uint8_t prefix_len = 0, 
                         small_uint<2> pref = 0, 
                         uint32_t route_lifetime = 0,
-                        const prefix_type& prefix = prefix_type())
+                        prefix_type  prefix = prefix_type())
         : prefix_len(prefix_len), pref(pref), route_lifetime(route_lifetime),
-          prefix(prefix) { }
+          prefix(std::move(prefix)) { }
 
         static route_info_type from_option(const option& opt);
     };
@@ -396,8 +398,8 @@ public:
         servers_type servers;
         
         recursive_dns_type(uint32_t lifetime = 0, 
-                           const servers_type& servers = servers_type())
-        : lifetime(lifetime), servers(servers) {}
+                           servers_type  servers = servers_type())
+        : lifetime(lifetime), servers(std::move(servers)) {}
 
         static recursive_dns_type from_option(const option& opt);
     };
@@ -412,8 +414,8 @@ public:
         key_type key;
         
         handover_key_req_type(small_uint<4> AT = 0,
-                              const key_type& key = key_type())
-        : AT(AT), key(key) { }
+                              key_type  key = key_type())
+        : AT(AT), key(std::move(key)) { }
 
         static handover_key_req_type from_option(const option& opt);
     };
@@ -442,8 +444,8 @@ public:
         hai_type hai;
         
         handover_assist_info_type(uint8_t option_code=0, 
-                                  const hai_type& hai = hai_type())
-        : option_code(option_code), hai(hai) { }
+                                  hai_type  hai = hai_type())
+        : option_code(option_code), hai(std::move(hai)) { }
 
         static handover_assist_info_type from_option(const option& opt);
     };
@@ -458,8 +460,8 @@ public:
         mn_type mn;
         
         mobile_node_id_type(uint8_t option_code=0, 
-                            const mn_type& mn = mn_type())
-        : option_code(option_code), mn(mn) { }
+                            mn_type  mn = mn_type())
+        : option_code(option_code), mn(std::move(mn)) { }
 
         static mobile_node_id_type from_option(const option& opt);
     };
@@ -474,8 +476,8 @@ public:
         domains_type domains;
         
         dns_search_list_type(uint32_t lifetime = 0,
-                             const domains_type& domains = domains_type())
-        : lifetime(lifetime), domains(domains) { }
+                             domains_type  domains = domains_type())
+        : lifetime(lifetime), domains(std::move(domains)) { }
 
         static dns_search_list_type from_option(const option& opt);
     };

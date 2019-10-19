@@ -91,7 +91,7 @@ public:
      * \param ptk The PTK to use.
      * \param is_ccmp Indicates whether to use CCMP to decrypt this traffic.
      */
-    SessionKeys(const ptk_type& ptk, bool is_ccmp);
+    SessionKeys(ptk_type  ptk, bool is_ccmp);
 
     /**
      * \brief Constructs an instance using a handshake and a PMK.

@@ -32,6 +32,8 @@
 #ifdef TINS_HAVE_DOT11
 
 #include <algorithm>
+#include <utility>
+
 #ifdef TINS_HAVE_WPA2_DECRYPTION
     #include <openssl/evp.h>
     #include <openssl/hmac.h>
@@ -417,8 +419,8 @@ SessionKeys::SessionKeys() {
 
 }
 
-SessionKeys::SessionKeys(const ptk_type& ptk, bool is_ccmp) 
-: ptk_(ptk), is_ccmp_(is_ccmp) {
+SessionKeys::SessionKeys(ptk_type  ptk, bool is_ccmp) 
+: ptk_(std::move(ptk)), is_ccmp_(is_ccmp) {
     if (ptk_.size() != PTK_SIZE) {
         throw invalid_handshake();
     }

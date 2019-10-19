@@ -33,6 +33,8 @@
 
 #define TINS_DOT11_DOT11_MGMT_H
 
+#include <utility>
+
 #include <vector>
 #include <utility>
 #include <tins/dot11/dot11_base.h>
@@ -511,9 +513,9 @@ public:
        
         ibss_dfs_params(const address_type& addr, 
                         uint8_t recovery_interval,
-                        const channel_map_type& channel_map)
+                        channel_map_type  channel_map)
         : dfs_owner(addr), recovery_interval(recovery_interval),
-          channel_map(channel_map) {}
+          channel_map(std::move(channel_map)) {}
 
         static ibss_dfs_params from_option(const option& opt);
     };
@@ -530,12 +532,12 @@ public:
         
         country_params() {}
         
-        country_params(const std::string& country, 
-                       const byte_array& first,
-                       const byte_array& number,
-                       const byte_array& max) 
-        : country(country), first_channel(first), number_channels(number),
-          max_transmit_power(max) {}
+        country_params(std::string  country, 
+                       byte_array  first,
+                       byte_array  number,
+                       byte_array  max) 
+        : country(std::move(country)), first_channel(std::move(first)), number_channels(std::move(number)),
+          max_transmit_power(std::move(max)) {}
 
         static country_params from_option(const option& opt);
     };
@@ -556,9 +558,9 @@ public:
                         uint8_t sets,
                         uint8_t modulus,
                         uint8_t offset,
-                        const byte_array& table) 
+                        byte_array  table) 
         : flag(flag), number_of_sets(sets), modulus(modulus), 
-          offset(offset), random_table(table) {}
+          offset(offset), random_table(std::move(table)) {}
 
         static fh_pattern_type from_option(const option& opt);
     };
@@ -631,9 +633,9 @@ public:
         tim_type(uint8_t count, 
                  uint8_t period,
                  uint8_t control,
-                 const byte_array& bitmap) 
+                 byte_array  bitmap) 
         : dtim_count(count), dtim_period(period), bitmap_control(control),
-        partial_virtual_bitmap(bitmap) {}
+        partial_virtual_bitmap(std::move(bitmap)) {}
 
         static tim_type from_option(const option& opt);
     };
@@ -648,8 +650,8 @@ public:
         byte_array data;
 
         vendor_specific_type(const oui_type& oui = oui_type(),
-                             const byte_array& data = byte_array())
-        : oui(oui), data(data) { }
+                             byte_array  data = byte_array())
+        : oui(oui), data(std::move(data)) { }
 
         static vendor_specific_type from_bytes(const uint8_t* buffer, uint32_t sz);
     };
