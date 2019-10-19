@@ -124,15 +124,15 @@ TCPStream::~TCPStream() {
 }
 
 void TCPStream::free_fragments(fragments_type& frags) {
-    for (fragments_type::iterator it = frags.begin(); it != frags.end(); ++it) {
-        delete it->second;
+    for (auto & frag : frags) {
+        delete frag.second;
     }
 }
 
 TCPStream::fragments_type TCPStream::clone_fragments(const fragments_type& frags) {
     fragments_type new_frags;
-    for (fragments_type::const_iterator it = frags.begin(); it != frags.end(); ++it) {
-        new_frags.insert(make_pair(it->first, it->second->clone()));
+    for (auto frag : frags) {
+        new_frags.insert(make_pair(frag.first, frag.second->clone()));
     }
     return new_frags;
 }

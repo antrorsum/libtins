@@ -356,8 +356,8 @@ void IPv6::write_serialization(uint8_t* buffer, uint32_t total_sz) {
     }
     payload_length(static_cast<uint16_t>(total_sz - sizeof(header_)));
     stream.write(header_);
-    for (headers_type::const_iterator it = ext_headers_.begin(); it != ext_headers_.end(); ++it) {
-        write_header(*it, stream);
+    for (const auto & ext_header : ext_headers_) {
+        write_header(ext_header, stream);
     }
     // Restore our original header types
     for (size_t i = 0; i < ext_headers_.size(); ++i) {
@@ -415,9 +415,9 @@ void IPv6::set_last_next_header(uint8_t value) {
 uint32_t IPv6::calculate_headers_size() const {
     using const_iterator = headers_type::const_iterator;
     uint32_t output = 0;
-    for (const_iterator iter = ext_headers_.begin(); iter != ext_headers_.end(); ++iter) {
-        output += static_cast<uint32_t>(iter->data_size() + sizeof(uint8_t) * 2);
-        output += get_padding_size(*iter);
+    for (const auto & ext_header : ext_headers_) {
+        output += static_cast<uint32_t>(ext_header.data_size() + sizeof(uint8_t) * 2);
+        output += get_padding_size(ext_header);
 
     }
     return output;

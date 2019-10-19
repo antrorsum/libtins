@@ -214,8 +214,8 @@ void LLC::write_serialization(uint8_t* buffer, uint32_t total_sz) {
 			break;
 	}
 
-	for (field_list::const_iterator it = information_fields_.begin(); it != information_fields_.end(); ++it) {
-        stream.write(it->begin(), it->end());
+	for (const auto & information_field : information_fields_) {
+        stream.write(information_field.begin(), information_field.end());
 	}
 }
 

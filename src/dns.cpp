@@ -226,10 +226,10 @@ void DNS::add_record(const resource& resource, const sections_type& sections) {
     if (resource.query_type() == MX) {
         offset += sizeof(uint16_t);
     }
-    for (size_t i = 0; i < sections.size(); ++i) {
+    for (const auto & section : sections) {
         update_records(
-            *sections[i].first, 
-            sections[i].second, 
+            *section.first, 
+            section.second, 
             static_cast<uint32_t>(threshold),
             static_cast<uint32_t>(offset)
         );

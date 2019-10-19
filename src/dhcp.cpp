@@ -230,8 +230,8 @@ PDU::serialization_type DHCP::serialize_list(const vector<ipaddress_type>& ip_li
     serialization_type buffer(ip_list.size() * sizeof(uint32_t));
     uint32_t* ptr = (uint32_t*)&buffer[0];
     using iterator = vector<ipaddress_type>::const_iterator;
-    for (iterator it = ip_list.begin(); it != ip_list.end(); ++it) {
-        *(ptr++) = *it;
+    for (auto it : ip_list) {
+        *(ptr++) = it;
     }
     return buffer;
 }
@@ -248,10 +248,10 @@ void DHCP::write_serialization(uint8_t* buffer, uint32_t total_sz) {
         OutputMemoryStream stream(&result[0], result.size());
         // Magic cookie
         stream.write(Endian::host_to_be<uint32_t>(0x63825363));
-        for (options_type::const_iterator it = options_.begin(); it != options_.end(); ++it) {
-            stream.write(it->option());
-            stream.write<uint8_t>(it->length_field());
-            stream.write(it->data_ptr(), it->data_size());
+        for (const auto & option : options_) {
+            stream.write(option.option());
+            stream.write<uint8_t>(option.length_field());
+            stream.write(option.data_ptr(), option.data_size());
         }
     }
     BootP::write_serialization(buffer, total_sz);

@@ -175,8 +175,8 @@ void TCP::sack(const sack_type& edges) {
     vector<uint8_t> value(edges.size() * sizeof(uint32_t));
     if (edges.size()) {
         OutputMemoryStream stream(value);
-        for (sack_type::const_iterator it = edges.begin(); it != edges.end(); ++it) {
-            stream.write_be(*it);
+        for (unsigned int edge : edges) {
+            stream.write_be(edge);
         }
     }
     add_option(option(SACK, (uint8_t)value.size(), &value[0]));
@@ -303,8 +303,8 @@ void TCP::write_serialization(uint8_t* buffer, uint32_t total_sz) {
     checksum(0);
     header_.doff = (sizeof(tcp_header) + total_options_size) / sizeof(uint32_t);
     stream.write(header_);
-    for (options_type::const_iterator it = options_.begin(); it != options_.end(); ++it) {
-        write_option(*it, stream);
+    for (const auto & option : options_) {
+        write_option(option, stream);
     }
 
     if (options_size < total_options_size) {
@@ -374,8 +374,7 @@ void TCP::write_option(const option& opt, OutputMemoryStream& stream) {
 
 uint32_t TCP::calculate_options_size() const {
     uint32_t options_size = 0;
-    for (options_type::const_iterator iter = options_.begin(); iter != options_.end(); ++iter) {
-        const option& opt = *iter;
+    for (const auto & opt : options_) {
         options_size += sizeof(uint8_t);
         // SACK_OK contains length but not data
         if (opt.data_size() || opt.option() == SACK_OK) {

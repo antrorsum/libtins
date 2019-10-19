@@ -82,12 +82,12 @@ PDU* IPv4Stream::allocate_pdu() const {
     buffer.reserve(total_size_);
     // Check if we actually have all the data we need. Otherwise return nullptr;
     size_t expected = 0;
-    for (fragments_type::const_iterator it = fragments_.begin(); it != fragments_.end(); ++it) {
-        if (expected != it->offset()) {
+    for (const auto & fragment : fragments_) {
+        if (expected != fragment.offset()) {
             return 0;
         }
-        expected = it->offset() + it->payload().size();
-        buffer.insert(buffer.end(), it->payload().begin(), it->payload().end());
+        expected = fragment.offset() + fragment.payload().size();
+        buffer.insert(buffer.end(), fragment.payload().begin(), fragment.payload().end());
     }
     return Internals::pdu_from_flag(
         static_cast<Constants::IP::e>(first_fragment_.protocol()),

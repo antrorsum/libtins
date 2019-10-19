@@ -152,8 +152,8 @@ bool ICMPExtensionsStructure::validate_extensions(const uint8_t* buffer, uint32_
 uint32_t ICMPExtensionsStructure::size() const {
     using iterator = extensions_type::const_iterator;
     uint32_t output = BASE_HEADER_SIZE;
-    for (iterator iter = extensions_.begin(); iter != extensions_.end(); ++iter) {
-        output += iter->size();
+    for (const auto & extension : extensions_) {
+        output += extension.size();
     }
     return output;
 }
@@ -176,9 +176,9 @@ void ICMPExtensionsStructure::serialize(uint8_t* buffer, uint32_t buffer_size) {
     stream.write<uint16_t>(0);
 
     using iterator = extensions_type::const_iterator;
-    for (iterator iter = extensions_.begin(); iter != extensions_.end(); ++iter) {
-        iter->serialize(stream.pointer(), stream.size());
-        stream.skip(iter->size());
+    for (const auto & extension : extensions_) {
+        extension.serialize(stream.pointer(), stream.size());
+        stream.skip(extension.size());
     }
     uint16_t checksum = ~Utils::sum_range(original_ptr, original_ptr + size());
     memcpy(original_ptr + sizeof(uint16_t), &checksum, sizeof(checksum));

@@ -320,12 +320,12 @@ void IP::add_option(const option& opt) {
 
 uint32_t IP::calculate_options_size() const {
     uint32_t options_size = 0;
-    for (options_type::const_iterator iter = options_.begin(); iter != options_.end(); ++iter) {
+    for (const auto & option : options_) {
         options_size += sizeof(uint8_t);
-        const option_identifier option_id = iter->option();
+        const option_identifier option_id = option.option();
         // Only add length field and data size for non [NOOP, EOL] options
         if (option_id.op_class != CONTROL || option_id.number > NOOP) {
-            options_size += sizeof(uint8_t) + iter->data_size();
+            options_size += sizeof(uint8_t) + option.data_size();
         }
     }
     return options_size;    
@@ -455,8 +455,8 @@ void IP::write_serialization(uint8_t* buffer, uint32_t total_sz) {
     // Restore the fragment offset field in case we flipped it
     header_.frag_off = original_frag_off;
 
-    for (options_type::const_iterator it = options_.begin(); it != options_.end(); ++it) {
-        write_option(*it, stream);
+    for (const auto & option : options_) {
+        write_option(option, stream);
     }
     const uint32_t options_size = calculate_options_size();
     const uint32_t padded_options_size = pad_options_size(options_size);

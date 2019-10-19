@@ -118,15 +118,15 @@ struct InterfaceInfoCollector {
                     prefix.address = ((struct sockaddr_in6 *)addr->ifa_addr)->sin6_addr.s6_addr;
                     Tins::IPv6Address mask = ((struct sockaddr_in6 *)addr->ifa_netmask)->sin6_addr.s6_addr;
                     prefix.prefix_length = 0;
-                    for (Tins::IPv6Address::iterator iter = mask.begin(); iter != mask.end(); ++iter) {
-                        if (*iter == 255) {
+                    for (unsigned char & iter : mask) {
+                        if (iter == 255) {
                             prefix.prefix_length += 8;
                         }
                         else {
                             uint8_t current_value = 128;
-                            while (*iter > 0) {
+                            while (iter > 0) {
                                 prefix.prefix_length += 1;
-                                *iter &= ~current_value;
+                                iter &= ~current_value;
                                 current_value /= 2;
                             }
                             break;
@@ -202,8 +202,8 @@ NetworkInterface NetworkInterface::default_interface() {
 vector<NetworkInterface> NetworkInterface::all() {
     const set<string> interfaces = Utils::network_interfaces();
     vector<NetworkInterface> output;
-    for (set<string>::const_iterator it = interfaces.begin(); it != interfaces.end(); ++it) {
-        output.push_back(*it);
+    for (const auto & interface : interfaces) {
+        output.push_back(interface);
     }
     return output;
 }
@@ -243,10 +243,10 @@ NetworkInterface::NetworkInterface(IPv4Address ip)
         entries_type entries;
         uint32_t ip_int = ip;
         Utils::route_entries(std::back_inserter(entries));
-        for (entries_type::const_iterator it(entries.begin()); it != entries.end(); ++it) {
-            if ((ip_int & it->mask) == it->destination) {
-                if (!best_match || it->mask > best_match->mask || it->metric < best_match->metric) {
-                    best_match = &*it;
+        for (const auto & entrie : entries) {
+            if ((ip_int & entrie.mask) == entrie.destination) {
+                if (!best_match || entrie.mask > best_match->mask || entrie.metric < best_match->metric) {
+                    best_match = &entrie;
                 }
             }
         }
@@ -272,10 +272,10 @@ NetworkInterface::NetworkInterface(IPv6Address ipv6)
         const Utils::Route6Entry* best_match = 0;
         entries_type entries;
         Utils::route6_entries(std::back_inserter(entries));
-        for (entries_type::const_iterator it(entries.begin()); it != entries.end(); ++it) {
-            if ((ipv6 & it->mask) == it->destination) {
-                if (!best_match || it->mask > best_match->mask || it->metric < best_match->metric) {
-                    best_match = &*it;
+        for (const auto & entrie : entries) {
+            if ((ipv6 & entrie.mask) == entrie.destination) {
+                if (!best_match || entrie.mask > best_match->mask || entrie.metric < best_match->metric) {
+                    best_match = &entrie;
                 }
             }
         }

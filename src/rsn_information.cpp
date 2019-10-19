@@ -109,12 +109,12 @@ RSNInformation::serialization_type RSNInformation::serialize() const {
     stream.write(version_);
     stream.write(group_suite_);
     stream.write(pairwise_cyphers_size);
-    for (cyphers_type::const_iterator it = pairwise_cyphers_.begin(); it != pairwise_cyphers_.end(); ++it) {
-        stream.write(Endian::host_to_le<uint32_t>(*it));
+    for (auto pairwise_cypher : pairwise_cyphers_) {
+        stream.write(Endian::host_to_le<uint32_t>(pairwise_cypher));
     }
     stream.write(akm_cyphers_size);
-    for (akm_type::const_iterator it = akm_cyphers_.begin(); it != akm_cyphers_.end(); ++it) {
-        stream.write(Endian::host_to_le<uint32_t>(*it));
+    for (auto akm_cypher : akm_cyphers_) {
+        stream.write(Endian::host_to_le<uint32_t>(akm_cypher));
     }
     stream.write(capabilities_);
     return buffer;

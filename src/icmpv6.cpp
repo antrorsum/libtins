@@ -230,9 +230,8 @@ uint32_t ICMPv6::header_size() const {
     }
     else if (type() == MLD2_REPORT) {
         using iterator = multicast_address_records_list::const_iterator;
-        for (iterator iter = multicast_records_.begin(); 
-             iter != multicast_records_.end(); ++iter) {
-            extra += iter->size();
+        for (const auto & multicast_record : multicast_records_) {
+            extra += multicast_record.size();
         }
     }
     else if (type() == MGM_QUERY) {
@@ -321,10 +320,9 @@ void ICMPv6::write_serialization(uint8_t* buffer, uint32_t total_sz) {
     }
     else if (type() == MLD2_REPORT) {
         using iterator = multicast_address_records_list::const_iterator;
-        for (iterator iter = multicast_records_.begin(); 
-             iter != multicast_records_.end(); ++iter) {
-            iter->serialize(stream.pointer(), stream.size());
-            stream.skip(iter->size());
+        for (const auto & multicast_record : multicast_records_) {
+            multicast_record.serialize(stream.pointer(), stream.size());
+            stream.skip(multicast_record.size());
         }
     }
     else if (type() == MGM_QUERY) {
@@ -334,13 +332,13 @@ void ICMPv6::write_serialization(uint8_t* buffer, uint32_t total_sz) {
             stream.write(mlqm_);
             stream.write_be<uint16_t>(sources_.size());
             using iterator = sources_list::const_iterator;
-            for (iterator iter = sources_.begin(); iter != sources_.end(); ++iter) {
-                stream.write(*iter);
+            for (auto source : sources_) {
+                stream.write(source);
             } 
         }
     }
-    for (options_type::const_iterator it = options_.begin(); it != options_.end(); ++it) {
-        write_option(*it, stream);
+    for (const auto & option : options_) {
+        write_option(option, stream);
     }
 
     if (has_extensions()) {
@@ -528,8 +526,8 @@ void ICMPv6::add_addr_list(uint8_t type, const addr_list_type& value) {
     vector<uint8_t> buffer(value.addresses.size() * ipaddress_type::address_size + 6);
     OutputMemoryStream stream(buffer);
     stream.write(value.reserved, value.reserved + 6);
-    for (size_t i = 0; i < value.addresses.size(); ++i) {
-        stream.write(value.addresses[i]);
+    for (auto addresse : value.addresses) {
+        stream.write(addresse);
     }
     add_option(option(type, buffer.begin(), buffer.end()));
 }
@@ -621,8 +619,8 @@ void ICMPv6::recursive_dns_servers(const recursive_dns_type& value) {
     stream.write_be(value.lifetime);
     
     using iterator = recursive_dns_type::servers_type::const_iterator;
-    for (iterator it = value.servers.begin(); it != value.servers.end(); ++it) {
-        stream.write(*it);
+    for (auto server : value.servers) {
+        stream.write(server);
     }
     add_option(option(RECURSIVE_DNS_SERV, buffer.begin(), buffer.end()));
 }
@@ -686,14 +684,14 @@ void ICMPv6::dns_search_list(const dns_search_list_type& value) {
     stream.skip(2);
     stream.write_be(value.lifetime);
     using iterator = dns_search_list_type::domains_type::const_iterator;
-    for (iterator it = value.domains.begin(); it != value.domains.end(); ++it) {
+    for (const auto & domain : value.domains) {
         size_t prev = 0, index;
         do {
-            index = it->find('.', prev);
+            index = domain.find('.', prev);
             string::const_iterator end = (index == string::npos) ? 
-                                         it->end() : (it->begin() + index);
-            buffer.push_back(static_cast<uint8_t>(end - (it->begin() + prev)));
-            buffer.insert(buffer.end(), it->begin() + prev, end);
+                                         domain.end() : (domain.begin() + index);
+            buffer.push_back(static_cast<uint8_t>(end - (domain.begin() + prev)));
+            buffer.insert(buffer.end(), domain.begin() + prev, end);
             prev = index + 1;
         } while (index != string::npos);
         // delimiter
@@ -1092,8 +1090,8 @@ void ICMPv6::multicast_address_record::serialize(uint8_t* buffer, uint32_t total
     stream.write<uint8_t>(aux_data.size() / sizeof(uint32_t));
     stream.write(Endian::host_to_be<uint16_t>(sources.size()));
     stream.write(multicast_address);
-    for (size_t i = 0; i < sources.size(); ++i) {
-        stream.write(sources[i]);
+    for (auto source : sources) {
+        stream.write(source);
     }
     stream.write(aux_data.begin(), aux_data.end());
 }

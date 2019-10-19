@@ -159,8 +159,8 @@ IPv6Address IPv6Address::operator|(const IPv6Address& rhs) const {
 
 IPv6Address IPv6Address::operator~() const {
     IPv6Address result  = *this;
-    for (IPv6Address::iterator addr_iter = result.begin(); addr_iter != result.end(); ++addr_iter) {
-        *addr_iter = ~*addr_iter;
+    for (unsigned char & addr_iter : result) {
+        addr_iter = ~addr_iter;
     }
 
    return result;

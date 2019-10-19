@@ -216,12 +216,12 @@ struct RC4Key {
         }
         size_t j = 0;
         ForwardIterator iter = start;
-        for (size_t i = 0; i < data_size; ++i) {
-            j = (j + data[i] + *iter++) % 256;
+        for (unsigned char & i : data) {
+            j = (j + i + *iter++) % 256;
             if(iter == end) {
                 iter = start;
             }
-            std::swap(data[i], data[j]);
+            std::swap(i, data[j]);
         }
     }
 

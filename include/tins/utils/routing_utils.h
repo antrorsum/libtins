@@ -174,8 +174,8 @@ TINS_API bool gateway_from_ip(IPv6Address ip, IPv6Address& gw_addr);
 template<typename ForwardIterator>
 void Tins::Utils::route_entries(ForwardIterator output) {
     std::vector<RouteEntry> entries = route_entries();
-    for (size_t i = 0; i < entries.size(); ++i) {
-        *output = entries[i];
+    for (auto & entrie : entries) {
+        *output = entrie;
         ++output;
     }
 }
@@ -183,8 +183,8 @@ void Tins::Utils::route_entries(ForwardIterator output) {
 template<typename ForwardIterator>
 void Tins::Utils::route6_entries(ForwardIterator output) {
     std::vector<Route6Entry> entries = route6_entries();
-    for (size_t i = 0; i < entries.size(); ++i) {
-        *output = entries[i];
+    for (auto & entrie : entries) {
+        *output = entrie;
         ++output;
     }
 }

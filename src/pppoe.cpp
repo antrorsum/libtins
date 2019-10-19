@@ -78,9 +78,9 @@ PPPoE::PPPoE(const uint8_t* buffer, uint32_t total_sz)
 }
 
 const PPPoE::tag* PPPoE::search_tag(TagTypes identifier) const {
-    for (tags_type::const_iterator it = tags_.begin(); it != tags_.end(); ++it) {
-        if (it->option() == identifier) {
-            return &*it;
+    for (const auto & tag : tags_) {
+        if (tag.option() == identifier) {
+            return &tag;
         }
     }
     return 0;
@@ -116,10 +116,10 @@ void PPPoE::write_serialization(uint8_t* buffer, uint32_t total_sz) {
         payload_length(tags_size_);
     }
     stream.write(header_);
-    for (tags_type::const_iterator it = tags_.begin(); it != tags_.end(); ++it) {
-        stream.write<uint16_t>(it->option());
-        stream.write(Endian::host_to_be<uint16_t>(it->length_field()));
-        stream.write(it->data_ptr(), it->data_size());
+    for (const auto & tag : tags_) {
+        stream.write<uint16_t>(tag.option());
+        stream.write(Endian::host_to_be<uint16_t>(tag.length_field()));
+        stream.write(tag.data_ptr(), tag.data_size());
     }
 }
 

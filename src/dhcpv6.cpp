@@ -212,8 +212,8 @@ void DHCPv6::write_serialization(uint8_t* buffer, uint32_t total_sz) {
         stream.write(link_addr_);
         stream.write(peer_addr_);
     }
-    for (options_type::const_iterator it = options_.begin(); it != options_.end(); ++it) {
-        write_option(*it, stream);
+    for (const auto & option : options_) {
+        write_option(option, stream);
     }
 }
 
@@ -337,8 +337,8 @@ void DHCPv6::option_request(const option_request_type& value) {
     
     vector<uint8_t> buffer(value.size() * sizeof(uint16_t));
     OutputMemoryStream stream(buffer);
-    for (iterator it = value.begin(); it != value.end(); ++it) {
-        stream.write_be(*it);
+    for (unsigned short it : value) {
+        stream.write_be(it);
     }
     add_option(option(OPTION_REQUEST, buffer.begin(), buffer.end()));
 }

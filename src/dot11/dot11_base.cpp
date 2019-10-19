@@ -216,10 +216,10 @@ void Dot11::write_serialization(uint8_t* buffer, uint32_t total_sz) {
     stream.write(header_);
     write_ext_header(stream);
     write_fixed_parameters(stream);
-    for (vector<option>::const_iterator it = options_.begin(); it != options_.end(); ++it) {
-        stream.write<uint8_t>(it->option());
-        stream.write<uint8_t>(it->length_field());
-        stream.write(it->data_ptr(), it->data_size());
+    for (const auto & option : options_) {
+        stream.write<uint8_t>(option.option());
+        stream.write<uint8_t>(option.length_field());
+        stream.write(option.data_ptr(), option.data_size());
     }
 }
 

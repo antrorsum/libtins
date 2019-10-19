@@ -96,10 +96,10 @@ PacketSender::PacketSender(const NetworkInterface& iface,
 }
 
 PacketSender::~PacketSender() {
-    for (unsigned i(0); i < sockets_.size(); ++i) {
-        if (sockets_[i] != INVALID_RAW_SOCKET)  {
+    for (int socket : sockets_) {
+        if (socket != INVALID_RAW_SOCKET)  {
             #ifndef _WIN32
-                ::close(sockets_[i]);
+                ::close(socket);
             #else
                 ::closesocket(sockets_[i]);
             #endif
@@ -109,8 +109,8 @@ PacketSender::~PacketSender() {
         ::close(ether_socket_);
     }
 
-    for (PcapHandleMap::iterator it = pcap_handles_.begin(); it != pcap_handles_.end(); ++it) {
-        pcap_close(it->second);
+    for (auto & pcap_handle : pcap_handles_) {
+        pcap_close(pcap_handle.second);
     }
     pcap_handles_.clear();
 }

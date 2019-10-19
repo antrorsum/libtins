@@ -126,8 +126,8 @@ void Dot11ManagementFrame::rsn_information(const RSNInformation& info) {
 vector<uint8_t> Dot11ManagementFrame::serialize_rates(const rates_type& rates) {
     vector<uint8_t> buffer(rates.size());
     uint8_t* ptr = &buffer[0];
-    for (rates_type::const_iterator it = rates.begin(); it != rates.end(); ++it) {
-        uint8_t result = static_cast<uint8_t>(*it * 2);
+    for (float rate : rates) {
+        uint8_t result = static_cast<uint8_t>(rate * 2);
         if (result == 2 || result == 4 || result == 11 || result == 22) {
             result |= 0x80;
         }
@@ -169,9 +169,9 @@ void Dot11ManagementFrame::power_capability(uint8_t min_power, uint8_t max_power
 void Dot11ManagementFrame::supported_channels(const channels_type& new_channels) {
     vector<uint8_t> buffer(new_channels.size() * 2);
     uint8_t* ptr = &buffer[0];
-    for (channels_type::const_iterator it = new_channels.begin(); it != new_channels.end(); ++it) {
-        *(ptr++) = it->first;
-        *(ptr++) = it->second;
+    for (const auto & new_channel : new_channels) {
+        *(ptr++) = new_channel.first;
+        *(ptr++) = new_channel.second;
     }
     add_tagged_option(SUPPORTED_CHANNELS, static_cast<uint8_t>(buffer.size()), &buffer[0]);
 }
@@ -228,9 +228,9 @@ void Dot11ManagementFrame::ibss_dfs(const ibss_dfs_params& params) {
     OutputMemoryStream stream(buffer);
     stream.write(params.dfs_owner);
     stream.write(params.recovery_interval);
-    for (channels_type::const_iterator it = params.channel_map.begin(); it != params.channel_map.end(); ++it) {
-        stream.write(it->first);
-        stream.write(it->second);
+    for (const auto & it : params.channel_map) {
+        stream.write(it.first);
+        stream.write(it.second);
     }
 
     add_tagged_option(IBSS_DFS, static_cast<uint8_t>(buffer.size()), &buffer[0]);
