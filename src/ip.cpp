@@ -64,7 +64,7 @@ PDU::metadata IP::extract_metadata(const uint8_t *buffer, uint32_t total_sz) {
     const auto* header = (const ip_header*)buffer;
     PDUType next_type = Internals::ip_type_to_pdu_flag(
         static_cast<Constants::IP::e>(header->protocol));
-    return {header->ihl * 4, pdu_flag, next_type};
+    return {header->ihl * 4u, pdu_flag, next_type};
 }
 
 IP::IP(address_type ip_dst, address_type ip_src) {
