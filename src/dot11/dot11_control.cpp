@@ -145,7 +145,7 @@ Dot11Ack::Dot11Ack(const uint8_t* buffer, uint32_t total_sz)
 
 Dot11BlockAckRequest::Dot11BlockAckRequest(const address_type& dst_addr, 
                                            const address_type& target_addr)
-: Dot11ControlTA(dst_addr, target_addr), bar_control_(0), start_sequence_(0) {
+: Dot11ControlTA(dst_addr, target_addr) {
     subtype(BLOCK_ACK_REQ);
 }
 
@@ -195,7 +195,7 @@ uint32_t Dot11BlockAckRequest::header_size() const {
 
 Dot11BlockAck::Dot11BlockAck(const address_type& dst_addr, 
                              const address_type& target_addr)
-: Dot11ControlTA(dst_addr, target_addr), bar_control_(0), start_sequence_(0), bitmap_() {
+: Dot11ControlTA(dst_addr, target_addr) {
     subtype(BLOCK_ACK);
 }
 

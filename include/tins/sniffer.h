@@ -309,9 +309,9 @@ private:
     BaseSniffer(const BaseSniffer&);
     BaseSniffer& operator=(const BaseSniffer&);
 
-    pcap_t* handle_;
-    bpf_u_int32 mask_;
-    bool extract_raw_;
+    pcap_t* handle_{0};
+    bpf_u_int32 mask_{0};
+    bool extract_raw_{false};
     PcapSniffingMethod pcap_sniffing_method_;
 };
 
@@ -653,17 +653,17 @@ protected:
 
     void configure_sniffer_post_activation(Sniffer& sniffer) const;
 
-    uint32_t flags_;
+    uint32_t flags_{0};
     unsigned snap_len_;
-    unsigned buffer_size_;
+    unsigned buffer_size_{0};
     std::string filter_;
     BaseSniffer::PcapSniffingMethod pcap_sniffing_method_;
     unsigned timeout_;
-    bool promisc_;
-    bool rfmon_;
-    bool immediate_mode_;
-    pcap_direction_t direction_;
-    int timestamp_precision_;
+    bool promisc_{false};
+    bool rfmon_{false};
+    bool immediate_mode_{false};
+    pcap_direction_t direction_{PCAP_D_INOUT};
+    int timestamp_precision_{0};
 };
 
 template <typename Functor>

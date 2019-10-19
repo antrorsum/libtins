@@ -44,7 +44,7 @@ using Tins::Memory::OutputMemoryStream;
 namespace Tins {
 
 PPPoE::PPPoE() 
-: header_(), tags_size_() {
+: header_() {
     version(1);
     type(1);
 }

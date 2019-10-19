@@ -58,7 +58,7 @@ using Tins::Memory::OutputMemoryStream;
 namespace Tins {
 
 Loopback::Loopback()
-: family_() {
+ {
     
 }
 

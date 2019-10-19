@@ -152,7 +152,7 @@ private:
     static const uint32_t BASE_HEADER_SIZE;
 
     payload_type payload_;
-    uint8_t extension_class_, extension_type_;
+    uint8_t extension_class_{0}, extension_type_{0};
 };
 
 /**
@@ -297,8 +297,8 @@ public:
 private:
     static const uint32_t BASE_HEADER_SIZE;
 
-    uint16_t version_and_reserved_;
-    uint16_t checksum_;
+    uint16_t version_and_reserved_{0};
+    uint16_t checksum_{0};
     extensions_type extensions_;
 };
 

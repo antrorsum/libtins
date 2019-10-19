@@ -114,7 +114,7 @@ IPv6::fragment_header IPv6::fragment_header::from_extension_header(const ext_hea
 }
 
 IPv6::IPv6(address_type ip_dst, address_type ip_src, PDU* /*child*/)
-: header_(), next_header_() {
+: header_() {
     version(6);
     dst_addr(ip_dst);
     src_addr(ip_src);

@@ -90,8 +90,8 @@ struct StreamIdentifier {
 
     address_type min_address;
     address_type max_address;
-    uint16_t min_address_port;
-    uint16_t max_address_port;
+    uint16_t min_address_port{0};
+    uint16_t max_address_port{0};
 
     static StreamIdentifier make_identifier(const PDU& packet);
     static StreamIdentifier make_identifier(const Stream& stream);

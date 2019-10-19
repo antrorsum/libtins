@@ -710,7 +710,7 @@ private:
 
 
     dot11_header header_;
-    uint32_t options_size_;
+    uint32_t options_size_{0};
     options_type options_;
 };
 

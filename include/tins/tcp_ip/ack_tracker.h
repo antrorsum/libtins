@@ -143,8 +143,8 @@ private:
     void cleanup_sacked_intervals(uint32_t old_ack, uint32_t new_ack);
 
     interval_set_type acked_intervals_;
-    uint32_t ack_number_;
-    bool use_sack_;
+    uint32_t ack_number_{0};
+    bool use_sack_{false};
 };
 
 } // TCPIP

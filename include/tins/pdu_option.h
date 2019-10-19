@@ -215,7 +215,7 @@ public:
     PDUOption(option_type opt = option_type(), 
               size_t length = 0,
               const data_type* data = 0) 
-    : option_(opt), size_(static_cast<uint16_t>(length)), real_size_(0) {
+    : option_(opt), size_(static_cast<uint16_t>(length)) {
         if (data != 0) {
             set_payload_contents(data, data + length);
         }
@@ -412,7 +412,7 @@ private:
     }
 
     option_type option_;
-    uint16_t size_, real_size_;
+    uint16_t size_, real_size_{0};
     union {
         data_type small_buffer[small_buffer_size];
         data_type* big_buffer_ptr;

@@ -41,7 +41,7 @@ namespace Tins {
 namespace TCPIP {
 
 DataTracker::DataTracker() 
-: seq_number_(0), total_buffered_bytes_(0) {
+ {
 
 }
 

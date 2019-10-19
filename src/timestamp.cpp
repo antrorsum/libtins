@@ -59,7 +59,7 @@ Timestamp Timestamp::current_time() {
 }
 
 Timestamp::Timestamp()
-: timestamp_(0) {
+ {
 
 }
 

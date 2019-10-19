@@ -94,7 +94,7 @@ public:
 private:
     Timestamp(uint64_t value);
 
-    uint64_t timestamp_;
+    uint64_t timestamp_{0};
 };
 
 } // Tins

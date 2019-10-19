@@ -60,7 +60,7 @@ const StreamFollower::timestamp_type StreamFollower::DEFAULT_KEEP_ALIVE = minute
 StreamFollower::StreamFollower() 
 : max_buffered_chunks_(DEFAULT_MAX_BUFFERED_CHUNKS),
   max_buffered_bytes_(DEFAULT_MAX_BUFFERED_BYTES), last_cleanup_(0),
-  stream_keep_alive_(DEFAULT_KEEP_ALIVE), attach_to_flows_(false) {
+  stream_keep_alive_(DEFAULT_KEEP_ALIVE) {
 
 }
 

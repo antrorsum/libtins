@@ -460,11 +460,11 @@ public:
      * The type used to store the FS parameters set option data.
      */
     struct fh_params_set {
-        uint16_t dwell_time;
-        uint8_t hop_set, hop_pattern, hop_index;
+        uint16_t dwell_time{0};
+        uint8_t hop_set{0}, hop_pattern{0}, hop_index{0};
         
         fh_params_set()
-        : dwell_time(0), hop_set(0), hop_pattern(0), hop_index(0) {}
+         {}
         
         fh_params_set(uint16_t dwell_time, 
                       uint8_t hop_set, 
@@ -480,11 +480,11 @@ public:
      * The type used to store the CF parameters set option data.
      */
     struct cf_params_set {
-        uint8_t cfp_count, cfp_period;
-        uint16_t cfp_max_duration, cfp_dur_remaining;
+        uint8_t cfp_count{0}, cfp_period{0};
+        uint16_t cfp_max_duration{0}, cfp_dur_remaining{0};
         
         cf_params_set()
-        : cfp_count(0), cfp_period(0), cfp_max_duration(0), cfp_dur_remaining(0) {}
+         {}
         
         cf_params_set(uint8_t cfp_count, 
                       uint8_t cfp_period,
@@ -504,10 +504,10 @@ public:
         static const size_t minimum_size = address_type::address_size + sizeof(uint8_t) + 2 * sizeof(uint8_t);
         
         address_type dfs_owner;
-        uint8_t recovery_interval; 
+        uint8_t recovery_interval{0}; 
         channel_map_type channel_map;
        
-        ibss_dfs_params() : recovery_interval(0) {}
+        ibss_dfs_params()  {}
        
         ibss_dfs_params(const address_type& addr, 
                         uint8_t recovery_interval,
@@ -546,11 +546,11 @@ public:
     struct fh_pattern_type {
         static const size_t minimum_size = sizeof(uint8_t) * 4;
         
-        uint8_t flag, number_of_sets, modulus, offset;
+        uint8_t flag{0}, number_of_sets{0}, modulus{0}, offset{0};
         byte_array random_table;
         
         fh_pattern_type()
-        : flag(0), number_of_sets(0), modulus(0), offset(0) {}
+         {}
         
         fh_pattern_type(uint8_t flag, 
                         uint8_t sets,
@@ -567,10 +567,10 @@ public:
      * The type used to store the Channel Switch option data.
      */
     struct channel_switch_type {
-        uint8_t switch_mode, new_channel, switch_count;
+        uint8_t switch_mode{0}, new_channel{0}, switch_count{0};
         
         channel_switch_type()
-        : switch_mode(0), new_channel(0), switch_count(0) {}
+         {}
         
         channel_switch_type(uint8_t mode, 
                             uint8_t channel,
@@ -584,11 +584,11 @@ public:
      * The type used to store the Quiet option data.
      */
     struct quiet_type {
-        uint8_t quiet_count, quiet_period;
-        uint16_t quiet_duration, quiet_offset;
+        uint8_t quiet_count{0}, quiet_period{0};
+        uint16_t quiet_duration{0}, quiet_offset{0};
         
         quiet_type() 
-        : quiet_count(0), quiet_period(0), quiet_duration(0), quiet_offset(0) {}
+         {}
         
         quiet_type(uint8_t count, 
                    uint8_t period,
@@ -604,12 +604,12 @@ public:
      * The type used to store the BSS Load option data.
      */
     struct bss_load_type {
-        uint16_t station_count;
-        uint16_t available_capacity;
-        uint8_t channel_utilization;
+        uint16_t station_count{0};
+        uint16_t available_capacity{0};
+        uint8_t channel_utilization{0};
         
         bss_load_type() 
-        : station_count(0), available_capacity(0), channel_utilization(0) {}
+         {}
         
         bss_load_type(uint16_t count, uint8_t utilization, uint16_t capacity) 
         : station_count(count), available_capacity(capacity),
@@ -622,11 +622,11 @@ public:
      * The type used to store the TIM option data.
      */
     struct tim_type {
-        uint8_t dtim_count, dtim_period, bitmap_control;
+        uint8_t dtim_count{0}, dtim_period{0}, bitmap_control{0};
         byte_array partial_virtual_bitmap;
         
         tim_type()
-        : dtim_count(0), dtim_period(0), bitmap_control(0) {}
+         {}
         
         tim_type(uint8_t count, 
                  uint8_t period,

@@ -53,7 +53,7 @@ PDU::metadata DNS::extract_metadata(const uint8_t* /*buffer*/, uint32_t total_sz
 }
 
 DNS::DNS() 
-: header_(), answers_idx_(), authority_idx_(), additional_idx_() { 
+: header_() { 
 }
 
 DNS::DNS(const uint8_t* buffer, uint32_t total_sz) 
@@ -595,7 +595,7 @@ bool DNS::matches_response(const uint8_t* ptr, uint32_t total_sz) const {
 // SOA record
 
 DNS::soa_record::soa_record() 
-: serial_(0), refresh_(0), retry_(0), expire_(0), minimum_ttl_(0) {
+ {
 
 }
 

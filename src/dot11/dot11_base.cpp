@@ -59,7 +59,7 @@ namespace Tins {
 const Dot11::address_type Dot11::BROADCAST = "ff:ff:ff:ff:ff:ff";
 
 Dot11::Dot11(const address_type& dst_hw_addr) 
-: header_(), options_size_(0) {
+: header_() {
     addr1(dst_hw_addr);
 }
 

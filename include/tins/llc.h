@@ -409,7 +409,7 @@ private:
     	super_control_field super;
     	un_control_field unnumbered;
     } control_field;
-    Format type_;
+    Format type_{LLC::INFORMATION};
     uint8_t information_field_length_;
     field_list information_fields_;
 };

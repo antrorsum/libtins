@@ -77,7 +77,7 @@ Iterator erase_iterator(Iterator it, Container& cont) {
 // TCPStreamFollower
 
 TCPStreamFollower::TCPStreamFollower()
-: last_identifier_(0) {
+ {
     
 }
 

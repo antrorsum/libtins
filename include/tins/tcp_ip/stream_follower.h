@@ -226,7 +226,7 @@ private:
     uint32_t max_buffered_bytes_;
     timestamp_type last_cleanup_;
     timestamp_type stream_keep_alive_;
-    bool attach_to_flows_;
+    bool attach_to_flows_{false};
 };
 
 } // TCPIP

@@ -189,7 +189,7 @@ public:
         /**
          * \brief Default constructs this Query.
          */
-        query() : type_(), qclass_() {}
+        query()  {}
         
         /**
          * \brief Setter for the name field.
@@ -264,8 +264,8 @@ public:
         }
     private:
         std::string name_;
-        QueryType type_;
-        QueryClass qclass_;
+        QueryType type_{};
+        QueryClass qclass_{};
     };
     
     class resource;
@@ -426,11 +426,11 @@ public:
 
         std::string mname_;
         std::string rname_;
-        uint32_t serial_;
-        uint32_t refresh_;
-        uint32_t retry_;
-        uint32_t expire_;
-        uint32_t minimum_ttl_;
+        uint32_t serial_{0};
+        uint32_t refresh_{0};
+        uint32_t retry_{0};
+        uint32_t expire_{0};
+        uint32_t minimum_ttl_{0};
     };
 
     /**
@@ -457,7 +457,7 @@ public:
         : dname_(std::move(dname)), data_(std::move(data)), type_(type),
           qclass_(rclass), ttl_(ttl), preference_(preference) {}
         
-        resource() : type_(), qclass_(), ttl_(), preference_() {}
+        resource()  {}
         
         /**
          * \brief Getter for the domain name field.
@@ -593,9 +593,9 @@ public:
         }
     private:
         std::string dname_, data_;
-        uint16_t type_, qclass_;
-        uint32_t ttl_;
-        uint16_t preference_;
+        uint16_t type_{}, qclass_{};
+        uint32_t ttl_{};
+        uint16_t preference_{};
     };
 
     TINS_DEPRECATED(typedef query Query);
@@ -1034,7 +1034,7 @@ private:
     
     dns_header header_;
     byte_array records_data_;
-    uint32_t answers_idx_, authority_idx_, additional_idx_;
+    uint32_t answers_idx_{}, authority_idx_{}, additional_idx_{};
 };
 
 } // Tins

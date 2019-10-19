@@ -50,7 +50,7 @@ namespace Tins {
 namespace TCPIP {
 
 StreamIdentifier::StreamIdentifier() 
-: min_address_port(0), max_address_port(0) {
+ {
     min_address.fill(0);
     max_address.fill(0);
 }

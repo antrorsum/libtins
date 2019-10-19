@@ -150,8 +150,8 @@ private:
 
     payload_type payload_;
     buffered_payload_type buffered_payload_;
-    uint32_t seq_number_;
-    uint32_t total_buffered_bytes_;
+    uint32_t seq_number_{0};
+    uint32_t total_buffered_bytes_{0};
 };
 
 } // TCPIP

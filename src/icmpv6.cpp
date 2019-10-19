@@ -47,7 +47,7 @@ using Tins::Memory::OutputMemoryStream;
 namespace Tins {
 
 ICMPv6::ICMPv6(Types tp)
-: options_size_(), reach_time_(0), retrans_timer_(0), mlqm_(), use_mldv2_(true) {
+:  mlqm_() {
     memset(&header_, 0, sizeof(header_));
     type(tp);
 }

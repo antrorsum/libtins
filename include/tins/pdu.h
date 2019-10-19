@@ -207,17 +207,17 @@ public:
         /**
          * The total header size for the current protocol
          */
-        uint32_t header_size;
+        uint32_t header_size{0};
 
         /**
          * The current PDU type
          */
-        PDUType current_pdu_type;
+        PDUType current_pdu_type{PDU::UNKNOWN};
 
         /**
          * The next PDU type
          */
-        PDUType next_pdu_type;
+        PDUType next_pdu_type{PDU::UNKNOWN};
     };
 
     /** 
@@ -523,8 +523,8 @@ protected:
 private:
     void parent_pdu(PDU* parent);
 
-    PDU* inner_pdu_;
-    PDU* parent_pdu_;
+    PDU* inner_pdu_{};
+    PDU* parent_pdu_{};
 };
 
 /**

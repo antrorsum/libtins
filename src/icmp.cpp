@@ -53,7 +53,7 @@ PDU::metadata ICMP::extract_metadata(const uint8_t* /*buffer*/, uint32_t total_s
 }
 
 ICMP::ICMP(Flags flag) 
-: orig_timestamp_or_address_mask_(), recv_timestamp_(), trans_timestamp_() {
+ {
     memset(&header_, 0, sizeof(icmp_header));
     type(flag);
 }

@@ -251,7 +251,7 @@ public:
         small_uint<1> A, L;
         uint32_t valid_lifetime,
                  preferred_lifetime,
-                 reserved2;
+                 reserved2{0};
         ipaddress_type prefix;
         
         prefix_info_type(uint8_t prefix_len = 0, 
@@ -261,7 +261,7 @@ public:
                          uint32_t preferred_lifetime = 0,
                          const ipaddress_type& prefix = ipaddress_type())
         : prefix_len(prefix_len), A(A), L(L), valid_lifetime(valid_lifetime),
-          preferred_lifetime(preferred_lifetime), reserved2(0), prefix(prefix) { }
+          preferred_lifetime(preferred_lifetime),  prefix(prefix) { }
           
         static prefix_info_type from_option(const option& opt);
     };
@@ -499,11 +499,11 @@ public:
      * The type used to store the shortcut limit option.
      */
     struct shortcut_limit_type {
-        uint8_t limit, reserved1;
-        uint32_t reserved2;
+        uint8_t limit, reserved1{};
+        uint32_t reserved2{};
 
         shortcut_limit_type(uint8_t limit = 0)
-        : limit(limit), reserved1(), reserved2() {
+        : limit(limit) {
 
         }
 
@@ -514,11 +514,11 @@ public:
      * The type used to store new advertisement interval option.
      */
     struct new_advert_interval_type {
-        uint16_t reserved;
+        uint16_t reserved{};
         uint32_t interval;
 
         new_advert_interval_type(uint32_t interval = 0)
-        : reserved(), interval(interval) {
+        :  interval(interval) {
 
         }
 
@@ -1592,13 +1592,13 @@ private:
     ipaddress_type dest_address_;
     ipaddress_type multicast_address_;
     options_type options_;
-    uint32_t options_size_;
-    uint32_t reach_time_, retrans_timer_;
+    uint32_t options_size_{};
+    uint32_t reach_time_{0}, retrans_timer_{0};
     multicast_address_records_list multicast_records_;
     multicast_listener_query_message_fields mlqm_;
     sources_list sources_;
     ICMPExtensionsStructure extensions_;
-    bool use_mldv2_;
+    bool use_mldv2_{true};
 };
 
 } // Tins

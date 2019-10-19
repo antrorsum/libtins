@@ -43,7 +43,7 @@ const uint8_t LLC::GLOBAL_DSAP_ADDR = 0xFF;
 const uint8_t LLC::NULL_ADDR = 0x00;
 
 LLC::LLC()
-: header_(), control_field(), type_(LLC::INFORMATION) {
+: header_(), control_field() {
 	control_field_length_ = 2;
 	information_field_length_ = 0;
 }

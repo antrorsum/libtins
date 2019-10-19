@@ -127,7 +127,7 @@ void Dot11Data::write_ext_header(OutputMemoryStream& stream) {
 
 Dot11QoSData::Dot11QoSData(const address_type& dst_hw_addr, 
                            const address_type& src_hw_addr) 
-: Dot11Data(dst_hw_addr, src_hw_addr), qos_control_() {
+: Dot11Data(dst_hw_addr, src_hw_addr) {
     subtype(Dot11::QOS_DATA_DATA);
 }
 

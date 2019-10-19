@@ -119,7 +119,7 @@ public:
 private:
     void write_serialization(uint8_t* buffer, uint32_t total_sz);
 
-    uint32_t family_;
+    uint32_t family_{};
 };
 
 } // Tins

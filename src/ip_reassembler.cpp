@@ -38,7 +38,7 @@ namespace Tins {
 namespace Internals {
 
 IPv4Stream::IPv4Stream() 
-: received_size_(), total_size_(), received_end_(false) {
+ {
 
 }
 
@@ -107,7 +107,7 @@ uint16_t IPv4Stream::extract_offset(const IP* ip) {
 } // Internals
 
 IPv4Reassembler::IPv4Reassembler()
-: technique_(NONE) {
+ {
 
 }
 

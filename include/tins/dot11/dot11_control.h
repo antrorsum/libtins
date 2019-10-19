@@ -601,8 +601,8 @@ public:
 protected:
     void write_ext_header(Memory::OutputMemoryStream& stream);
 private:
-    uint16_t bar_control_;
-    uint16_t start_sequence_;
+    uint16_t bar_control_{0};
+    uint16_t start_sequence_{0};
 };
 
 /**
@@ -759,8 +759,8 @@ public:
 private:
     void write_ext_header(Memory::OutputMemoryStream& stream);
 
-    uint16_t bar_control_, start_sequence_;
-    uint8_t bitmap_[bitmap_size];
+    uint16_t bar_control_{0}, start_sequence_{0};
+    uint8_t bitmap_[bitmap_size]{};
 };
 
 } // namespace Tins

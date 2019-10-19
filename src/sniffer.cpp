@@ -52,7 +52,7 @@ using std::string;
 namespace Tins {
 
 BaseSniffer::BaseSniffer() 
-: handle_(0), mask_(0), extract_raw_(false) {
+ {
     
 }
     
@@ -84,10 +84,10 @@ bpf_u_int32 BaseSniffer::get_if_mask() const {
 
 struct sniff_data {
     struct timeval tv;
-    PDU* pdu;
-    bool packet_processed;
+    PDU* pdu{0};
+    bool packet_processed{true};
 
-sniff_data() : tv(), pdu(0), packet_processed(true) { }
+sniff_data() : tv() { }
 };
 
 template<typename T>
@@ -426,10 +426,9 @@ const unsigned SnifferConfiguration::DEFAULT_SNAP_LEN = 65535;
 const unsigned SnifferConfiguration::DEFAULT_TIMEOUT = 1000;
 
 SnifferConfiguration::SnifferConfiguration()
-: flags_(0), snap_len_(DEFAULT_SNAP_LEN), buffer_size_(0),
-  pcap_sniffing_method_(pcap_loop), timeout_(DEFAULT_TIMEOUT), promisc_(false),
-  rfmon_(false), immediate_mode_(false), direction_(PCAP_D_INOUT),
-  timestamp_precision_(0) {
+:  snap_len_(DEFAULT_SNAP_LEN), 
+  pcap_sniffing_method_(pcap_loop), timeout_(DEFAULT_TIMEOUT)
+  {
 
 }
 

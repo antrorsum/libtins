@@ -209,7 +209,7 @@ vector<NetworkInterface> NetworkInterface::all() {
 }
     
 NetworkInterface::NetworkInterface()
-: iface_id_(0) {
+ {
 
 }
 

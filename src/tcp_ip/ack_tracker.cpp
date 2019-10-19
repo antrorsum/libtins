@@ -100,7 +100,7 @@ uint32_t AckedRange::last() const {
 // AckTracker
 
 AckTracker::AckTracker()
-: ack_number_(0), use_sack_(false) {
+ {
     
 }
 

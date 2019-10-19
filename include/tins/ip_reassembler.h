@@ -47,7 +47,7 @@ class IPv4Fragment {
 public:
     using payload_type = PDU::serialization_type;
 
-    IPv4Fragment() : offset_() { }
+    IPv4Fragment()  { }
 
     template<typename T>
     IPv4Fragment(T* pdu, uint16_t offset)
@@ -64,7 +64,7 @@ public:
     }
 private:
     payload_type payload_;
-    uint16_t offset_;
+    uint16_t offset_{};
 };
 
 class TINS_API IPv4Stream {
@@ -82,10 +82,10 @@ private:
     bool extract_more_frag(const IP* ip);
 
     fragments_type fragments_;
-    size_t received_size_;
-    size_t total_size_;
+    size_t received_size_{};
+    size_t total_size_{};
     IP first_fragment_;
-    bool received_end_;
+    bool received_end_{false};
 };
 } // namespace Internals
 
@@ -192,7 +192,7 @@ private:
     address_pair make_address_pair(IPv4Address addr1, IPv4Address addr2) const;
     
     streams_type streams_;
-    OverlappingTechnique technique_;
+    OverlappingTechnique technique_{NONE};
 };
 
 /**

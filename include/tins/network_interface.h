@@ -257,7 +257,7 @@ public:
 private:
     id_type resolve_index(const char* name);
 
-    id_type iface_id_;
+    id_type iface_id_{0};
 };
 
 } // Tins

@@ -426,7 +426,7 @@ private:
 
     pppoe_header header_;
     tags_type tags_;
-    uint16_t tags_size_;
+    uint16_t tags_size_{};
 };
 }
 

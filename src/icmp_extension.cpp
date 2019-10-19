@@ -44,7 +44,7 @@ const uint32_t ICMPExtension::BASE_HEADER_SIZE = sizeof(uint16_t) + sizeof(uint8
 // ICMPExtension class
 
 ICMPExtension::ICMPExtension() 
-: extension_class_(0), extension_type_(0) {
+ {
 
 } 
 
@@ -103,7 +103,7 @@ const uint32_t ICMPExtensionsStructure::MINIMUM_ICMP_PAYLOAD = 128;
 const uint32_t ICMPExtensionsStructure::BASE_HEADER_SIZE = sizeof(uint16_t) * 2;
 
 ICMPExtensionsStructure::ICMPExtensionsStructure() 
-: version_and_reserved_(0), checksum_(0) {
+ {
     version(2);
 }
 

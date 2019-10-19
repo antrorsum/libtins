@@ -142,7 +142,7 @@ public:
      * The PDU* will be set to a null pointer.
      */
     Packet() 
-    : pdu_(0) { }
+     { }
     
     /**
      * \brief Constructs a Packet from a PDU* and a Timestamp.
@@ -311,7 +311,7 @@ public:
         return* this;
     }
 private:
-    PDU* pdu_;
+    PDU* pdu_{0};
     Timestamp ts_;
 };
 }

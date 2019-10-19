@@ -355,7 +355,7 @@ public:
 private:
     void write_fixed_parameters(Memory::OutputMemoryStream& stream);
 
-    uint16_t qos_control_;
+    uint16_t qos_control_{};
 };
 }
 

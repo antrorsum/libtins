@@ -98,7 +98,7 @@ PDU::metadata DHCPv6::extract_metadata(const uint8_t* /*buffer*/, uint32_t total
 }
 
 DHCPv6::DHCPv6() 
-: header_data_(), options_size_() {
+ {
 
 }
 

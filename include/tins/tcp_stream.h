@@ -60,9 +60,9 @@ public:
      */
     struct StreamInfo {
         IPv4Address client_addr, server_addr;
-        uint16_t client_port, server_port;
+        uint16_t client_port{0}, server_port{0};
         
-        StreamInfo() : client_port(0), server_port(0) {}
+        StreamInfo()  {}
         
         StreamInfo(IPv4Address client, IPv4Address server,
                    uint16_t cport, uint16_t sport);
@@ -308,7 +308,7 @@ private:
     static void dummy_function(TCPStream&) { }
     
     sessions_type sessions_;
-    uint64_t last_identifier_;
+    uint64_t last_identifier_{0};
 };
 
 template<typename DataFunctor, typename EndFunctor>

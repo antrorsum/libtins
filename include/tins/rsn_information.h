@@ -215,7 +215,7 @@ public:
 private:
     void init(const uint8_t* buffer, uint32_t total_sz);
 
-    uint16_t version_, capabilities_;
+    uint16_t version_{1}, capabilities_{0};
     CypherSuites group_suite_;
     akm_type akm_cyphers_;
     cyphers_type pairwise_cyphers_;

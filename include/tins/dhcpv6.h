@@ -912,8 +912,8 @@ private:
         return option->to<T>();
     }
 
-    uint8_t header_data_[4];
-    uint32_t options_size_;
+    uint8_t header_data_[4]{};
+    uint32_t options_size_{};
     ipaddress_type link_addr_, peer_addr_;
     options_type options_;
 };
