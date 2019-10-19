@@ -252,7 +252,7 @@ vector<IPv6Address> convert(const uint8_t* ptr, uint32_t data_size, PDU::endian_
     const uint8_t* end = ptr + data_size;
     vector<IPv6Address> output;
     while (ptr < end) {
-        output.push_back(IPv6Address(ptr));
+        output.emplace_back(ptr);
         ptr += IPv6Address::address_size;
     }
     return output;

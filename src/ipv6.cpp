@@ -228,9 +228,9 @@ vector<IPv6::header_option_type> IPv6::parse_header_options(const uint8_t* data,
                 throw invalid_ipv6_extension_header();
             }
             if (option != PAD_N) {
-                options.push_back(make_pair(option, vector<uint8_t>(stream.pointer(),
+                options.emplace_back(option, vector<uint8_t>(stream.pointer(),
                                                                     stream.pointer() +
-                                                                    size)));
+                                                                    size));
             }
             stream.skip(size);
         } catch (const malformed_packet&) {

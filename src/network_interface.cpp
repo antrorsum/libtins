@@ -203,7 +203,7 @@ vector<NetworkInterface> NetworkInterface::all() {
     const set<string> interfaces = Utils::network_interfaces();
     vector<NetworkInterface> output;
     for (const auto & interface : interfaces) {
-        output.push_back(interface);
+        output.emplace_back(interface);
     }
     return output;
 }
