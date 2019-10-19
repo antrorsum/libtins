@@ -84,7 +84,7 @@ bpf_u_int32 BaseSniffer::get_if_mask() const {
 
 struct sniff_data {
     struct timeval tv;
-    PDU* pdu{0};
+    PDU* pdu{nullptr};
     bool packet_processed{true};
 
 sniff_data() : tv() { }
@@ -96,7 +96,7 @@ T* safe_alloc(const u_char* bytes, bpf_u_int32 len) {
         return new T((const uint8_t*)bytes, len);
     }
     catch (malformed_packet&) {
-        return 0;
+        return nullptr;
     }
 }
 
@@ -163,7 +163,7 @@ void sniff_loop_dot11_handler(u_char* user, const struct pcap_pkthdr* h, const u
 PtrPacket BaseSniffer::next_packet() {
     sniff_data data;
     const int iface_type = pcap_datalink(handle_);
-    pcap_handler handler = 0;
+    pcap_handler handler = nullptr;
     if (extract_raw_) {
         handler = &sniff_loop_handler<RawPDU>;
     }
@@ -210,10 +210,10 @@ PtrPacket BaseSniffer::next_packet() {
         }
     }
     // keep calling pcap_loop until a well-formed packet is found.
-    while (data.pdu == 0 && data.packet_processed) {
+    while (data.pdu == nullptr && data.packet_processed) {
         data.packet_processed = false;
         if (pcap_sniffing_method_(handle_, 1, handler, (u_char*)&data) < 0) {
-            return PtrPacket(0, Timestamp());
+            return PtrPacket(nullptr, Timestamp());
         }
     }
     return PtrPacket(data.pdu, data.tv);
@@ -224,7 +224,7 @@ void BaseSniffer::set_extract_raw_pdus(bool value) {
 }
 
 void BaseSniffer::set_pcap_sniffing_method(PcapSniffingMethod method) {
-    if (method == 0) {
+    if (method == nullptr) {
         throw std::runtime_error("Sniffing method cannot be null");
     }
     pcap_sniffing_method_ = method;
@@ -251,7 +251,7 @@ BaseSniffer::iterator BaseSniffer::begin() {
 }
 
 BaseSniffer::iterator BaseSniffer::end() {
-    return iterator(0);
+    return iterator(nullptr);
 }
 
 bool BaseSniffer::set_filter(const string& filter) {

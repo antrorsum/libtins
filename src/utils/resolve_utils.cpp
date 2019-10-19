@@ -67,7 +67,7 @@ addrinfo* resolve_domain(const string& to_resolve, int family) {
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_protocol = IPPROTO_TCP;
     hints.ai_family = family;
-    if (!getaddrinfo(to_resolve.c_str(), 0, &hints, &result)) {
+    if (!getaddrinfo(to_resolve.c_str(), nullptr, &hints, &result)) {
         return result;
     }
     else {

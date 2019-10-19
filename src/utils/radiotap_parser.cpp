@@ -143,8 +143,8 @@ RadioTapParser::RadioTapParser(const vector<uint8_t>& buffer)
 : current_bit_(MAX_RADIOTAP_FIELD), current_flags_(0), namespace_index_(0),
   current_namespace_(RADIOTAP_NS) {
     if (buffer.empty()) {
-        start_ = 0;
-        end_ = 0;
+        start_ = nullptr;
+        end_ = nullptr;
         current_ptr_ = start_;
         current_flags_ = 0;
     }
@@ -188,7 +188,7 @@ const uint8_t* RadioTapParser::current_option_ptr() const {
 
 bool RadioTapParser::advance_field() {
     // If we have no buffer to parse, then we can't advance
-    if (start_ == 0 || current_bit_ == MAX_RADIOTAP_FIELD) {
+    if (start_ == nullptr || current_bit_ == MAX_RADIOTAP_FIELD) {
         return false;
     }
     // If we manage to advance the field, return true

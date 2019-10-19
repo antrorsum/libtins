@@ -98,7 +98,7 @@ void PDU::send(PacketSender &, const NetworkInterface &) {
 }
 
 PDU* PDU::recv_response(PacketSender &, const NetworkInterface &) { 
-    return 0; 
+    return nullptr; 
 }
 
 bool PDU::matches_response(const uint8_t* /*ptr*/, uint32_t /*total_sz*/) const {
@@ -118,10 +118,10 @@ void PDU::inner_pdu(const PDU& next_pdu) {
 }
 
 PDU* PDU::release_inner_pdu() {
-    PDU* result = 0;
+    PDU* result = nullptr;
     swap(result, inner_pdu_);
     if (result) {
-        result->parent_pdu(0);
+        result->parent_pdu(nullptr);
     }
     return result;
 }

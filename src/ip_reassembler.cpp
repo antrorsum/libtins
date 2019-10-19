@@ -84,14 +84,14 @@ PDU* IPv4Stream::allocate_pdu() const {
     size_t expected = 0;
     for (const auto & fragment : fragments_) {
         if (expected != fragment.offset()) {
-            return 0;
+            return nullptr;
         }
         expected = fragment.offset() + fragment.payload().size();
         buffer.insert(buffer.end(), fragment.payload().begin(), fragment.payload().end());
     }
     return Internals::pdu_from_flag(
         static_cast<Constants::IP::e>(first_fragment_.protocol()),
-        buffer.empty() ? 0 :& buffer[0],
+        buffer.empty() ? nullptr :& buffer[0],
         static_cast<uint32_t>(buffer.size())
     );
 }

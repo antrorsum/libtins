@@ -413,8 +413,8 @@ set<string> network_interfaces() {
 #else
 set<string> network_interfaces() {
     set<string> output;
-    struct ifaddrs* ifaddrs = 0;
-    struct ifaddrs* if_it = 0;
+    struct ifaddrs* ifaddrs = nullptr;
+    struct ifaddrs* if_it = nullptr;
     getifaddrs(&ifaddrs);
     for (if_it = ifaddrs; if_it; if_it = if_it->ifa_next) {
         output.insert(if_it->ifa_name);

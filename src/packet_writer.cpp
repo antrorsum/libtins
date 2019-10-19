@@ -54,7 +54,7 @@ PacketWriter::~PacketWriter() {
 void PacketWriter::write(PDU& pdu) {
     timeval tv;
     #ifndef _WIN32
-        gettimeofday(&tv, 0);
+        gettimeofday(&tv, nullptr);
     #else
         // fixme
         tv = timeval();

@@ -121,7 +121,7 @@ void Dot11::add_option(const option& opt) {
 const Dot11::option* Dot11::search_option(OptionTypes type) const {
     // Search for the iterator. If we found something, return it, otherwise return nullptr.
     auto iter = search_option_iterator(type);
-    return (iter != options_.end()) ? &*iter : 0;
+    return (iter != options_.end()) ? &*iter : nullptr;
 }
 
 Dot11::options_type::const_iterator Dot11::search_option_iterator(OptionTypes type) const {

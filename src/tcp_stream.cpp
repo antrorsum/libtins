@@ -140,7 +140,7 @@ TCPStream::fragments_type TCPStream::clone_fragments(const fragments_type& frags
 void TCPStream::safe_insert(fragments_type& frags, uint32_t seq, RawPDU* raw) {
     RawPDU*& stored_raw = frags[seq];
     // New segment, insert it
-    if (stored_raw == 0) {
+    if (stored_raw == nullptr) {
         stored_raw = raw;
     }
     else {

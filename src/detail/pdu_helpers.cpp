@@ -89,7 +89,7 @@ Tins::PDU* pdu_from_flag(Constants::Ethernet::e flag,
                     return pdu;
                 }
             }
-            return rawpdu_on_no_match ? new RawPDU(buffer, size) : 0;
+            return rawpdu_on_no_match ? new RawPDU(buffer, size) : nullptr;
     };
 }
 
@@ -120,7 +120,7 @@ Tins::PDU* pdu_from_flag(Constants::IP::e flag,
     if (rawpdu_on_no_match) {
         return new Tins::RawPDU(buffer, size);
     }
-    return 0;
+    return nullptr;
 }
 
 #ifdef TINS_HAVE_PCAP
@@ -150,7 +150,7 @@ PDU* pdu_from_dlt_flag(int flag,
         case DLT_PPI:
             return new PPI(buffer, size);
         default:
-            return rawpdu_on_no_match ? new RawPDU(buffer, size) : 0;
+            return rawpdu_on_no_match ? new RawPDU(buffer, size) : nullptr;
     };
 }
 #endif // TINS_HAVE_PCAP
@@ -197,7 +197,7 @@ Tins::PDU* pdu_from_flag(PDU::PDUType type, const uint8_t* buffer, uint32_t size
                 return Tins::Dot11::from_bytes(buffer, size);
         #endif // TINS_HAVE_DOT11
         default:
-            return 0;
+            return nullptr;
     };
 }
 

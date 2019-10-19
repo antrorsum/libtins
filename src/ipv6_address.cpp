@@ -114,7 +114,7 @@ string IPv6Address::to_string() const {
             }
         #endif
     #else
-        if (inet_ntop(AF_INET6, address_, buffer, sizeof(buffer)) == 0) {
+        if (inet_ntop(AF_INET6, address_, buffer, sizeof(buffer)) == nullptr) {
             throw invalid_address();
         }
     #endif

@@ -380,7 +380,7 @@ PDU* IPv6::recv_response(PacketSender& sender, const NetworkInterface &) {
     if (inner_pdu() && inner_pdu()->pdu_type() == PDU::ICMPv6) {
         type = PacketSender::ICMPV6_SOCKET;
     }
-    return sender.recv_l3(*this, 0, sizeof(sockaddr_in6), type);
+    return sender.recv_l3(*this, nullptr, sizeof(sockaddr_in6), type);
 }
 #endif
 
@@ -400,7 +400,7 @@ const IPv6::ext_header* IPv6::search_header(ExtensionHeader id) const {
         }
         ++it;
     }
-    return 0;
+    return nullptr;
 }
 
 void IPv6::set_last_next_header(uint8_t value) {

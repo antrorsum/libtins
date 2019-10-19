@@ -146,7 +146,7 @@ bool DHCPv6::remove_option(OptionTypes type) {
 const DHCPv6::option* DHCPv6::search_option(OptionTypes type) const {
     // Search for the iterator. If we found something, return it, otherwise return nullptr.
     auto iter = search_option_iterator(type);
-    return (iter != options_.end()) ? &*iter : 0;
+    return (iter != options_.end()) ? &*iter : nullptr;
 }
 
 DHCPv6::options_type::const_iterator DHCPv6::search_option_iterator(OptionTypes type) const {
@@ -263,7 +263,7 @@ DHCPv6::status_code_type DHCPv6::status_code() const {
 }
 
 bool DHCPv6::has_rapid_commit() const {
-    return search_option(RAPID_COMMIT) != NULL;
+    return search_option(RAPID_COMMIT) != nullptr;
 }
 
 DHCPv6::user_class_type DHCPv6::user_class() const {
@@ -287,7 +287,7 @@ uint8_t DHCPv6::reconfigure_msg() const {
 }
 
 bool DHCPv6::has_reconfigure_accept() const {
-    return search_option(RECONF_ACCEPT) != NULL;
+    return search_option(RECONF_ACCEPT) != nullptr;
 }
 
 DHCPv6::duid_type DHCPv6::client_id() const {

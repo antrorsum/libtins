@@ -267,7 +267,7 @@ PDU* PacketSender::send_recv(PDU& pdu, const NetworkInterface& iface) {
         pdu.send(*this, iface);
     }
     catch (runtime_error&) {
-        return 0;
+        return nullptr;
     }
     return pdu.recv_response(*this, iface);
 }
@@ -354,7 +354,7 @@ PDU* PacketSender::recv_match_loop(const vector<int>& sockets,
     #endif
     
     timeout.tv_sec  = _timeout;
-    end_time.tv_sec = static_cast<long>(time(0) + _timeout);
+    end_time.tv_sec = static_cast<long>(time(nullptr) + _timeout);
     end_time.tv_usec = timeout.tv_usec = timeout_usec_;
     while (true) {
         FD_ZERO(&readfds);
@@ -363,8 +363,8 @@ PDU* PacketSender::recv_match_loop(const vector<int>& sockets,
             FD_SET(*it, &readfds);
             max_fd = (max_fd > *it) ? max_fd : *it;
         }
-        if ((read = select(max_fd + 1, &readfds, 0, 0, &timeout)) == -1) {
-            return 0;
+        if ((read = select(max_fd + 1, &readfds, nullptr, nullptr, &timeout)) == -1) {
+            return nullptr;
         }
         if (read > 0) {
             for (auto it = sockets.begin(); it != sockets.end(); ++it) {
@@ -400,7 +400,7 @@ PDU* PacketSender::recv_match_loop(const vector<int>& sockets,
         microseconds end = seconds(end_time.tv_sec) + microseconds(end_time.tv_usec);
         microseconds now = duration_cast<microseconds>(system_clock::now().time_since_epoch());
         if (now > end) {
-            return 0;
+            return nullptr;
         }
         // VC complains if we don't statically cast here
         #ifdef _WIN32
@@ -414,7 +414,7 @@ PDU* PacketSender::recv_match_loop(const vector<int>& sockets,
         timeout.tv_sec = static_cast<tv_sec_type>(duration_cast<seconds>(diff).count());
         timeout.tv_usec = static_cast<tv_usec_type>((diff - seconds(timeout.tv_sec)).count());
     }
-    return 0;
+    return nullptr;
 }
 
 int PacketSender::find_type(SocketType type) {

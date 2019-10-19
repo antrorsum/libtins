@@ -109,7 +109,7 @@ struct InterfaceInfoCollector {
                             ((struct sockaddr_in *)TINS_BROADCAST_ADDR(addr))->sin_addr.s_addr);
                     }
                     else {
-                        info->bcast_addr = 0;
+                        info->bcast_addr = nullptr;
                     }
                     found_ip = true;
                 }
@@ -239,7 +239,7 @@ NetworkInterface::NetworkInterface(IPv4Address ip)
         #endif
     }
     else {
-        const Utils::RouteEntry* best_match = 0;
+        const Utils::RouteEntry* best_match = nullptr;
         entries_type entries;
         uint32_t ip_int = ip;
         Utils::route_entries(std::back_inserter(entries));
@@ -269,7 +269,7 @@ NetworkInterface::NetworkInterface(IPv6Address ipv6)
         #endif
     }
     else {
-        const Utils::Route6Entry* best_match = 0;
+        const Utils::Route6Entry* best_match = nullptr;
         entries_type entries;
         Utils::route6_entries(std::back_inserter(entries));
         for (const auto & entrie : entries) {
@@ -332,8 +332,8 @@ NetworkInterface::Info NetworkInterface::info() const {
 
     #else // _WIN32
 
-    struct ifaddrs* ifaddrs = 0;
-    struct ifaddrs* if_it = 0;
+    struct ifaddrs* ifaddrs = nullptr;
+    struct ifaddrs* if_it = nullptr;
     getifaddrs(&ifaddrs);
     for (if_it = ifaddrs; if_it; if_it = if_it->ifa_next) {
         collector(if_it);

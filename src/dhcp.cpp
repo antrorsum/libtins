@@ -105,7 +105,7 @@ bool DHCP::remove_option(OptionTypes type) {
 const DHCP::option* DHCP::search_option(OptionTypes opt) const {
     // Search for the iterator. If we found something, return it, otherwise return nullptr.
     auto iter = search_option_iterator(opt);
-    return (iter != options_.end()) ? &*iter : 0;
+    return (iter != options_.end()) ? &*iter : nullptr;
 }
 
 DHCP::options_type::const_iterator DHCP::search_option_iterator(OptionTypes opt) const {

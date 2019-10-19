@@ -334,7 +334,7 @@ string DNS::decode_domain_name(const string& domain_name) {
 uint32_t DNS::compose_name(const uint8_t* ptr, char* out_ptr) const {
     const uint8_t* start_ptr = ptr;
     const uint8_t* end = &records_data_[0] + records_data_.size();
-    const uint8_t* end_ptr = 0;
+    const uint8_t* end_ptr = nullptr;
     char* current_out_ptr = out_ptr;
     while (*ptr) {
         // It's an offset
@@ -350,7 +350,7 @@ uint32_t DNS::compose_name(const uint8_t* ptr, char* out_ptr) const {
                 throw malformed_packet();
             }
             // We've probably found the end of the original domain name. Save it.
-            if (end_ptr == 0) {
+            if (end_ptr == nullptr) {
                 end_ptr = ptr + sizeof(uint16_t);
             }
             // Now this is our pointer

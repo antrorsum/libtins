@@ -360,7 +360,7 @@ PDU* WEPDecrypter::decrypt(RawPDU& raw, const string& password) {
     RawPDU::payload_type& pload = raw.payload();
     // We require at least the IV, the encrypted checksum and something to decrypt
     if (pload.size() <= 8) {
-        return 0;
+        return nullptr;
     }
     copy(pload.begin(), pload.begin() + 3, key_buffer_.begin());
     copy(password.begin(), password.end(), key_buffer_.begin() + 3);
@@ -374,14 +374,14 @@ PDU* WEPDecrypter::decrypt(RawPDU& raw, const string& password) {
         pload[pload.size() - 7] != ((crc >> 8) & 0xff) ||
         pload[pload.size() - 6] != ((crc >> 16) & 0xff) ||
         pload[pload.size() - 5] != ((crc >> 24) & 0xff)) {
-        return 0;
+        return nullptr;
     }
 
     try {
         return new SNAP(&pload[0], payload_size);
     }
     catch (exception_base&) {
-        return 0;
+        return nullptr;
     }
 }
 
@@ -450,16 +450,16 @@ SessionKeys::SessionKeys(const RSNHandshake& hs, const pmk_type& pmk)
     }
     for (int i(0); i < 4; ++i) {
         PKE[99] = i;
-        HMAC(EVP_sha1(), &pmk[0], pmk.size(), PKE, 100, &ptk_[0] + i * 20, 0);
+        HMAC(EVP_sha1(), &pmk[0], pmk.size(), PKE, 100, &ptk_[0] + i * 20, nullptr);
     }
     auto& last_hs = const_cast<RSNEAPOL&>(hs.handshake()[3]);
     PDU::serialization_type buffer = last_hs.serialize();
     fill(buffer.begin() + 81, buffer.begin() + 81 + 16, 0);
     if (is_ccmp_) {
-        HMAC(EVP_sha1(), &ptk_[0], 16, &buffer[0], buffer.size(), MIC, 0);
+        HMAC(EVP_sha1(), &ptk_[0], 16, &buffer[0], buffer.size(), MIC, nullptr);
     }
     else {
-        HMAC(EVP_md5(), &ptk_[0], 16, &buffer[0], buffer.size(), MIC, 0);
+        HMAC(EVP_md5(), &ptk_[0], 16, &buffer[0], buffer.size(), MIC, nullptr);
     }
     
     if (!equal(MIC, MIC + RSNEAPOL::mic_size, last_hs.mic())) {
@@ -549,14 +549,14 @@ SNAP* SessionKeys::ccmp_decrypt_unicast(const Dot11Data& dot11, RawPDU& raw) con
         return new SNAP(&pload[0], total_sz);
     }
     else {
-        return 0;
+        return nullptr;
     }
 }
 
 SNAP* SessionKeys::tkip_decrypt_unicast(const Dot11Data& dot11, RawPDU& raw) const {
     // at least 20 bytes for IV + crc + stuff
     if (raw.payload_size() <= 20) {
-        return 0;
+        return nullptr;
     }
     Crypto::RC4Key key = RC4Key::from_packet(dot11, raw, ptk_);
     RawPDU::payload_type& pload = raw.payload();
@@ -567,7 +567,7 @@ SNAP* SessionKeys::tkip_decrypt_unicast(const Dot11Data& dot11, RawPDU& raw) con
         pload[pload.size() - 11] != ((crc >> 8) & 0xff) ||
         pload[pload.size() - 10] != ((crc >> 16) & 0xff) ||
         pload[pload.size() - 9] != ((crc >> 24) & 0xff)) {
-        return 0;
+        return nullptr;
     }
 
     return new SNAP(&pload[0], pload.size() - 20);

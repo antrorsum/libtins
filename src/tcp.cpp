@@ -168,7 +168,7 @@ void TCP::sack_permitted() {
 }
 
 bool TCP::has_sack_permitted() const {
-    return search_option(SACK_OK) != NULL;
+    return search_option(SACK_OK) != nullptr;
 }
 
 void TCP::sack(const sack_type& edges) {
@@ -344,7 +344,7 @@ void TCP::write_serialization(uint8_t* buffer, uint32_t total_sz) {
 const TCP::option* TCP::search_option(OptionTypes type) const {
     // Search for the iterator. If we found something, return it, otherwise return nullptr.
     auto iter = search_option_iterator(type);
-    return (iter != options_.end()) ? &*iter : 0;
+    return (iter != options_.end()) ? &*iter : nullptr;
 }
 
 TCP::options_type::const_iterator TCP::search_option_iterator(OptionTypes type) const {

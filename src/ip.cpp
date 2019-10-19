@@ -347,7 +347,7 @@ bool IP::remove_option(option_identifier id) {
 
 const IP::option* IP::search_option(option_identifier id) const {
     auto iter = search_option_iterator(id);
-    return (iter != options_.end()) ? &*iter : 0;
+    return (iter != options_.end()) ? &*iter : nullptr;
 }
 
 IP::options_type::const_iterator IP::search_option_iterator(option_identifier id) const {
@@ -411,7 +411,7 @@ PDU* IP::recv_response(PacketSender& sender, const NetworkInterface &) {
         type = pdu_type_to_sender_type(inner_pdu()->pdu_type());
     }
 
-    return sender.recv_l3(*this, 0, sizeof(link_addr), type);
+    return sender.recv_l3(*this, nullptr, sizeof(link_addr), type);
 }
 
 void IP::prepare_for_serialize() {

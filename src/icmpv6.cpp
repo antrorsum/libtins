@@ -436,7 +436,7 @@ void ICMPv6::use_mldv2(bool value) {
 const ICMPv6::option* ICMPv6::search_option(OptionTypes type) const {
     // Search for the iterator. If we found something, return it, otherwise return nullptr.
     auto iter = search_option_iterator(type);
-    return (iter != options_.end()) ? &*iter : 0;
+    return (iter != options_.end()) ? &*iter : nullptr;
 }
 
 ICMPv6::options_type::const_iterator ICMPv6::search_option_iterator(OptionTypes type) const {

@@ -214,9 +214,9 @@ public:
      */
     PDUOption(option_type opt = option_type(), 
               size_t length = 0,
-              const data_type* data = 0) 
+              const data_type* data = nullptr) 
     : option_(opt), size_(static_cast<uint16_t>(length)) {
-        if (data != 0) {
+        if (data != nullptr) {
             set_payload_contents(data, data + length);
         }
     }
@@ -251,7 +251,7 @@ public:
         }
         real_size_ = rhs.real_size_;
         if (real_size_ > small_buffer_size) {
-            payload_.big_buffer_ptr = 0;
+            payload_.big_buffer_ptr = nullptr;
             std::swap(payload_.big_buffer_ptr, rhs.payload_.big_buffer_ptr);
             rhs.real_size_ = 0;
         }

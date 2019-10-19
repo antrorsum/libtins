@@ -81,7 +81,7 @@ EAPOL* EAPOL::from_bytes(const uint8_t* buffer, uint32_t total_sz) {
             return new Tins::RSNEAPOL(buffer, total_sz);
             break;
     }
-    return 0;
+    return nullptr;
 }
 
 void EAPOL::version(uint8_t new_version) {

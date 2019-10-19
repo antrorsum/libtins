@@ -72,7 +72,7 @@ public:
      * This constructor is available only in C++11.
      */
     BaseSniffer(BaseSniffer &&rhs) TINS_NOEXCEPT
-    : handle_(0), mask_(), extract_raw_(false),
+    : handle_(nullptr), mask_(), extract_raw_(false),
         pcap_sniffing_method_(pcap_loop) {
         *this = std::move(rhs);
     }
@@ -309,7 +309,7 @@ private:
     BaseSniffer(const BaseSniffer&);
     BaseSniffer& operator=(const BaseSniffer&);
 
-    pcap_t* handle_{0};
+    pcap_t* handle_{nullptr};
     bpf_u_int32 mask_{0};
     bool extract_raw_{false};
     PcapSniffingMethod pcap_sniffing_method_;
@@ -453,7 +453,7 @@ public:
      * Constructs a SnifferIterator.
      * \param sniffer The sniffer to iterate.
      */
-    SnifferIterator(BaseSniffer* sniffer = 0)
+    SnifferIterator(BaseSniffer* sniffer = nullptr)
     : sniffer_(sniffer) {
         if (sniffer_) {
             advance();
@@ -512,7 +512,7 @@ private:
     void advance() {
         pkt_ = sniffer_->next_packet();
         if (!pkt_) {
-            sniffer_ = 0;
+            sniffer_ = nullptr;
         }
     }
 

@@ -116,7 +116,7 @@ void EthernetII::send(PacketSender& sender, const NetworkInterface& iface) {
         throw invalid_interface();
     }
     // Sending using pcap_sendpacket/BSD bpf packet mode is the same here
-    sender.send_l2(*this, 0, 0, iface);
+    sender.send_l2(*this, nullptr, 0, iface);
 }
 
 bool EthernetII::matches_response(const uint8_t* ptr, uint32_t total_sz) const {
