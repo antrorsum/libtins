@@ -102,14 +102,14 @@ T* safe_alloc(const u_char* bytes, bpf_u_int32 len) {
 
 template<typename T>
 void sniff_loop_handler(u_char* user, const struct pcap_pkthdr* h, const u_char* bytes) {
-    sniff_data* data = (sniff_data*)user;
+    auto* data = (sniff_data*)user;
     data->packet_processed = true;
     data->tv = h->ts;
     data->pdu = safe_alloc<T>(bytes, h->caplen);
 }
 
 void sniff_loop_eth_handler(u_char* user, const struct pcap_pkthdr* h, const u_char* bytes) {
-    sniff_data* data = (sniff_data*)user;
+    auto* data = (sniff_data*)user;
     data->packet_processed = true;
     data->tv = h->ts;
     if (Internals::is_dot3((const uint8_t*)bytes, h->caplen)) {
@@ -132,8 +132,8 @@ void sniff_loop_raw_handler(u_char* user, const struct pcap_pkthdr* h, const u_c
     #endif
     } TINS_END_PACK;
 
-    sniff_data* data = (sniff_data*)user;
-    const base_ip_header* header = (const base_ip_header*)bytes;
+    auto* data = (sniff_data*)user;
+    const auto* header = (const base_ip_header*)bytes;
     data->packet_processed = true;
     data->tv = h->ts;
     switch (header->version) {
@@ -148,7 +148,7 @@ void sniff_loop_raw_handler(u_char* user, const struct pcap_pkthdr* h, const u_c
 
 #ifdef TINS_HAVE_DOT11
 void sniff_loop_dot11_handler(u_char* user, const struct pcap_pkthdr* h, const u_char* bytes) {
-    sniff_data* data = (sniff_data*)user;
+    auto* data = (sniff_data*)user;
     data->packet_processed = true;
     data->tv = h->ts;
     try {

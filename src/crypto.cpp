@@ -321,9 +321,9 @@ void WEPDecrypter::remove_password(const address_type& addr) {
 }
 
 bool WEPDecrypter::decrypt(PDU& pdu) {
-    Dot11Data* dot11 = pdu.find_pdu<Dot11Data>();
+    auto* dot11 = pdu.find_pdu<Dot11Data>();
     if (dot11) {
-        RawPDU* raw = dot11->find_pdu<RawPDU>();
+        auto* raw = dot11->find_pdu<RawPDU>();
         if (raw) {
             address_type addr;
             if (!dot11->from_ds() && !dot11->to_ds()) {
@@ -339,7 +339,7 @@ bool WEPDecrypter::decrypt(PDU& pdu) {
                 // ????
                 addr = dot11->addr3();
             }
-            passwords_type::iterator it = passwords_.find(addr);
+            auto it = passwords_.find(addr);
             if (it != passwords_.end()) {
                 dot11->inner_pdu(decrypt(*raw, it->second));
                 // If its valid, then return true
@@ -366,7 +366,7 @@ PDU* WEPDecrypter::decrypt(RawPDU& raw, const string& password) {
     // Generate the key
     RC4Key key(key_buffer_.begin(), key_buffer_.begin() + password.size() + 3);
     rc4(pload.begin() + 4, pload.end(), key, pload.begin());
-    uint32_t payload_size = static_cast<uint32_t>(pload.size() - 8);
+    auto payload_size = static_cast<uint32_t>(pload.size() - 8);
     uint32_t crc = Utils::crc32(&pload[0], payload_size);
     if (pload[pload.size() - 8] != (crc & 0xff) ||
         pload[pload.size() - 7] != ((crc >> 8) & 0xff) ||
@@ -450,7 +450,7 @@ SessionKeys::SessionKeys(const RSNHandshake& hs, const pmk_type& pmk)
         PKE[99] = i;
         HMAC(EVP_sha1(), &pmk[0], pmk.size(), PKE, 100, &ptk_[0] + i * 20, 0);
     }
-    RSNEAPOL& last_hs = const_cast<RSNEAPOL&>(hs.handshake()[3]);
+    auto& last_hs = const_cast<RSNEAPOL&>(hs.handshake()[3]);
     PDU::serialization_type buffer = last_hs.serialize();
     fill(buffer.begin() + 81, buffer.begin() + 81 + 16, 0);
     if (is_ccmp_) {
@@ -642,7 +642,7 @@ void WPA2Decrypter::add_decryption_keys(const addr_pair& addresses,
 }
 
 void WPA2Decrypter::try_add_keys(const Dot11Data& dot11, const RSNHandshake& hs) {
-    bssids_map::const_iterator it = find_ap(dot11);
+    auto it = find_ap(dot11);
     if (it != aps_.end()) {
         addr_pair addr_p = extract_addr_pair(dot11);
         try {
@@ -722,8 +722,8 @@ bool WPA2Decrypter::decrypt(PDU& pdu) {
         }
     }
     else {
-        Dot11Data* data = pdu.find_pdu<Dot11Data>();
-        RawPDU* raw = pdu.find_pdu<RawPDU>();
+        auto* data = pdu.find_pdu<Dot11Data>();
+        auto* raw = pdu.find_pdu<RawPDU>();
         if (data && raw && data->wep()) {
             // search for the tuple (bssid, src_addr)
             keys_map::const_iterator it = keys_.find(extract_addr_pair(*data));

@@ -124,7 +124,7 @@ bool BootP::matches_response(const uint8_t* ptr, uint32_t total_sz) const {
     if (total_sz < sizeof(bootp_)) {
         return false;
     }
-    const bootp_header* bootp_ptr = (const bootp_header *)ptr;
+    const auto* bootp_ptr = (const bootp_header *)ptr;
     return bootp_ptr->xid == bootp_.xid;
 }
 

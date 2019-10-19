@@ -127,7 +127,7 @@ vector<uint8_t> Dot11ManagementFrame::serialize_rates(const rates_type& rates) {
     vector<uint8_t> buffer(rates.size());
     uint8_t* ptr = &buffer[0];
     for (float rate : rates) {
-        uint8_t result = static_cast<uint8_t>(rate * 2);
+        auto result = static_cast<uint8_t>(rate * 2);
         if (result == 2 || result == 4 || result == 11 || result == 22) {
             result |= 0x80;
         }
@@ -273,7 +273,7 @@ void Dot11ManagementFrame::fh_pattern_table(const fh_pattern_type& params) {
     *(ptr++) = params.number_of_sets;
     *(ptr++) = params.modulus;
     *(ptr++) = params.offset;
-    byte_array::const_iterator it(params.random_table.begin());
+    auto it(params.random_table.begin());
     for (; it != params.random_table.end(); ++it) {
         *(ptr++) = *it;
     }

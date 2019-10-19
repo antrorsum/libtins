@@ -211,7 +211,7 @@ uint32_t RadioTap::header_size() const {
 uint32_t RadioTap::trailer_size() const {
     RadioTapParser parser(options_payload_);
     if (parser.skip_to_field(FLAGS)) {
-        const uint8_t flags_value = parser.current_option().to<uint8_t>();
+        const auto flags_value = parser.current_option().to<uint8_t>();
         // If there's FCS at the end, then return its size
         if ((flags_value & FCS) != 0) {
             return sizeof(uint32_t);
@@ -349,7 +349,7 @@ bool RadioTap::matches_response(const uint8_t* ptr, uint32_t total_sz) const {
     if (sizeof(header_) < total_sz) {
         return false;
     }
-    const radiotap_header* radio_ptr = (const radiotap_header*)ptr;
+    const auto* radio_ptr = (const radiotap_header*)ptr;
     if (radio_ptr->it_len <= total_sz) {
         ptr += radio_ptr->it_len;
         total_sz -= radio_ptr->it_len;

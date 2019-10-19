@@ -56,7 +56,7 @@ ICMPExtension::ICMPExtension(uint8_t ext_class, uint8_t ext_type)
 ICMPExtension::ICMPExtension(const uint8_t* buffer, uint32_t total_sz) {
     InputMemoryStream stream(buffer, total_sz);
 
-    uint16_t length = stream.read_be<uint16_t>();
+    auto length = stream.read_be<uint16_t>();
     extension_class_ = stream.read<uint8_t>();
     extension_type_ = stream.read<uint8_t>();
     // Length is BASE_HEADER_SIZE + payload size, make sure it's valid
@@ -114,7 +114,7 @@ ICMPExtensionsStructure::ICMPExtensionsStructure(const uint8_t* buffer, uint32_t
     checksum_ = stream.read<uint16_t>();
     while (stream) {
         extensions_.push_back(ICMPExtension(stream.pointer(), stream.size()));
-        uint16_t size = stream.read_be<uint16_t>();
+        auto size = stream.read_be<uint16_t>();
         stream.skip(size - sizeof(uint16_t));
     }
 }
@@ -141,7 +141,7 @@ bool ICMPExtensionsStructure::validate_extensions(const uint8_t* buffer, uint32_
     // The buffer is read only, so we can't set the initial checksum to 0. Therefore, 
     // we sum the first 2 bytes and then the payload
     uint32_t actual_checksum = input.read<uint16_t>();
-    uint16_t checksum = input.read<uint16_t>();
+    auto checksum = input.read<uint16_t>();
     buffer += BASE_HEADER_SIZE;
     total_sz -= BASE_HEADER_SIZE;
     // Now do the checksum over the payload

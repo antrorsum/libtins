@@ -116,7 +116,7 @@ vector<uint8_t> RadioTapWriter::build_padding_vector(const uint8_t* last_ptr,
                                                      RadioTapParser& parser) {
     vector<uint8_t> paddings;
     while (parser.has_fields()) {
-        const uint32_t flag = static_cast<uint32_t>(parser.current_field());
+        const auto flag = static_cast<uint32_t>(parser.current_field());
         const uint32_t bit = get_bit(flag);
         const RadioTapParser::FieldMetadata& meta = RadioTapParser::RADIOTAP_METADATA[bit];
         const uint8_t* current_ptr = parser.current_option_ptr();

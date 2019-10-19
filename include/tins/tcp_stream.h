@@ -358,7 +358,7 @@ bool TCPStreamFollower::callback(PDU& pdu,
         ip->src_addr(), ip->dst_addr(),
         tcp->sport(), tcp->dport()
     );
-    sessions_type::iterator it = sessions_.find(info);
+    auto it = sessions_.find(info);
     if (it == sessions_.end()) {
         std::swap(info.client_addr, info.server_addr);
         std::swap(info.client_port, info.server_port);

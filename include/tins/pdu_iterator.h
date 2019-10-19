@@ -88,12 +88,12 @@ public:
     }
 private:
     void advance() {
-        Concrete& self = static_cast<Concrete&>(*this);
+        auto& self = static_cast<Concrete&>(*this);
         self = Concrete(self->inner_pdu());
     }
 
     void retreat() {
-        Concrete& self = static_cast<Concrete&>(*this);
+        auto& self = static_cast<Concrete&>(*this);
         self = Concrete(self->parent_pdu());
     }
 };

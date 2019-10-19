@@ -164,7 +164,7 @@ bool TCPStream::generic_process(uint32_t& my_seq,
     if (tcp->get_flag(TCP::FIN) || tcp->get_flag(TCP::RST)) {
         fin_sent_ = true;
     }
-    RawPDU* raw = static_cast<RawPDU*>(tcp->release_inner_pdu()); 
+    auto* raw = static_cast<RawPDU*>(tcp->release_inner_pdu()); 
     if (raw) {
         const uint32_t chunk_end = add_sequence_numbers(tcp->seq(), raw->payload_size());
         // If the end of the chunk ends after our current sequence number, process it.
@@ -180,7 +180,7 @@ bool TCPStream::generic_process(uint32_t& my_seq,
                 seq = my_seq;
             }
             safe_insert(frags, seq, raw);
-            fragments_type::iterator it = frags.find(my_seq);
+            auto it = frags.find(my_seq);
             // Keep looping while the fragments seq is lower or equal to our seq
             while (it != frags.end() && compare_seq_numbers(it->first, my_seq) <= 0) {
                 // Does this fragment start before our sequence number?

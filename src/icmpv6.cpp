@@ -102,7 +102,7 @@ ICMPv6::ICMPv6(const uint8_t* buffer, uint32_t total_sz)
 
 void ICMPv6::parse_options(InputMemoryStream& stream) {
     while (stream) {
-        const uint8_t opt_type = stream.read<uint8_t>();
+        const auto opt_type = stream.read<uint8_t>();
         const uint32_t opt_size = static_cast<uint32_t>(stream.read<uint8_t>()) * 8;
         if (opt_size < sizeof(uint8_t) << 1) {
             throw malformed_packet();
@@ -273,7 +273,7 @@ bool ICMPv6::matches_response(const uint8_t* ptr, uint32_t total_sz) const {
     if (total_sz < sizeof(header_)) {
         return false;
     }
-    const icmp6_header* hdr_ptr = (const icmp6_header*)ptr;
+    const auto* hdr_ptr = (const icmp6_header*)ptr;
     if (type() == ECHO_REQUEST && hdr_ptr->type == ECHO_REPLY) {
         return hdr_ptr->u_echo.identifier == header_.u_echo.identifier &&
                hdr_ptr->u_echo.sequence == header_.u_echo.sequence;
@@ -366,7 +366,7 @@ void ICMPv6::write_serialization(uint8_t* buffer, uint32_t total_sz) {
         );
     }
 
-    const Tins::IPv6* ipv6 = tins_cast<const Tins::IPv6*>(parent_pdu());
+    const auto* ipv6 = tins_cast<const Tins::IPv6*>(parent_pdu());
     if (ipv6) {
         uint32_t checksum = Utils::pseudoheader_checksum(
             ipv6->src_addr(),  
@@ -414,7 +414,7 @@ void ICMPv6::internal_add_option(const option& option) {
 }
 
 bool ICMPv6::remove_option(OptionTypes type) {
-    options_type::iterator iter = search_option_iterator(type);
+    auto iter = search_option_iterator(type);
     if (iter == options_.end()) {
         return false;
     }
@@ -435,7 +435,7 @@ void ICMPv6::use_mldv2(bool value) {
 
 const ICMPv6::option* ICMPv6::search_option(OptionTypes type) const {
     // Search for the iterator. If we found something, return it, otherwise return nullptr.
-    options_type::const_iterator iter = search_option_iterator(type);
+    auto iter = search_option_iterator(type);
     return (iter != options_.end()) ? &*iter : 0;
 }
 
@@ -533,7 +533,7 @@ void ICMPv6::add_addr_list(uint8_t type, const addr_list_type& value) {
 }
 
 void ICMPv6::rsa_signature(const rsa_sign_type& value) {
-    uint32_t total_sz = static_cast<uint32_t>(2 + sizeof(value.key_hash) + value.signature.size());
+    auto total_sz = static_cast<uint32_t>(2 + sizeof(value.key_hash) + value.signature.size());
     uint8_t padding = 8 - total_sz % 8;
     if (padding == 8) {
         padding = 0;
@@ -638,7 +638,7 @@ void ICMPv6::handover_key_request(const handover_key_req_type& value) {
 }
 
 void ICMPv6::handover_key_reply(const handover_key_reply_type& value) {
-    const uint32_t data_size = static_cast<uint32_t>(value.key.size() + 2 + sizeof(uint16_t));
+    const auto data_size = static_cast<uint32_t>(value.key.size() + 2 + sizeof(uint16_t));
     uint8_t padding = get_option_padding(data_size+2);
     vector<uint8_t> buffer(data_size + padding);
     OutputMemoryStream stream(buffer);
@@ -652,7 +652,7 @@ void ICMPv6::handover_key_reply(const handover_key_reply_type& value) {
 }
 
 void ICMPv6::handover_assist_info(const handover_assist_info_type& value) {
-    const uint32_t data_size = static_cast<uint32_t>(value.hai.size() + 2);
+    const auto data_size = static_cast<uint32_t>(value.hai.size() + 2);
     uint8_t padding = get_option_padding(data_size+2);
     vector<uint8_t> buffer(data_size + padding);
     OutputMemoryStream stream(buffer);
@@ -665,7 +665,7 @@ void ICMPv6::handover_assist_info(const handover_assist_info_type& value) {
 }
 
 void ICMPv6::mobile_node_identifier(const mobile_node_id_type& value) {
-    const uint32_t data_size = static_cast<uint32_t>(value.mn.size() + 2);
+    const auto data_size = static_cast<uint32_t>(value.mn.size() + 2);
     uint8_t padding = get_option_padding(data_size+2);
     vector<uint8_t> buffer(data_size + padding);
     OutputMemoryStream stream(buffer);

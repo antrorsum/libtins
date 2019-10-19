@@ -51,7 +51,7 @@ PDU::metadata TCP::extract_metadata(const uint8_t *buffer, uint32_t total_sz) {
     if (TINS_UNLIKELY(total_sz < sizeof(tcp_header))) {
         throw malformed_packet();
     }
-    const tcp_header* header = (const tcp_header*)buffer;
+    const auto* header = (const tcp_header*)buffer;
     return metadata(header->doff * 4, pdu_flag, PDU::UNKNOWN);
 }
 
@@ -80,7 +80,7 @@ TCP::TCP(const uint8_t* buffer, uint32_t total_sz) {
     }
 
     while (stream.pointer() < header_end) {
-        const OptionTypes option_type = (OptionTypes)stream.read<uint8_t>();
+        const auto option_type = (OptionTypes)stream.read<uint8_t>();
         if (option_type == EOL) {
             stream.skip(header_end - stream.pointer());
             break;
@@ -314,7 +314,7 @@ void TCP::write_serialization(uint8_t* buffer, uint32_t total_sz) {
 
     uint32_t check = 0;
     const PDU* parent = parent_pdu();
-    if (const Tins::IP* ip_packet = tins_cast<const Tins::IP*>(parent)) {
+    if (const auto* ip_packet = tins_cast<const Tins::IP*>(parent)) {
         check = Utils::pseudoheader_checksum(
             ip_packet->src_addr(),  
             ip_packet->dst_addr(), 
@@ -322,7 +322,7 @@ void TCP::write_serialization(uint8_t* buffer, uint32_t total_sz) {
             Constants::IP::PROTO_TCP
         ) + Utils::sum_range(buffer, buffer + total_sz);
     }
-    else if (const Tins::IPv6* ipv6_packet = tins_cast<const Tins::IPv6*>(parent)) {
+    else if (const auto* ipv6_packet = tins_cast<const Tins::IPv6*>(parent)) {
         check = Utils::pseudoheader_checksum(
             ipv6_packet->src_addr(),  
             ipv6_packet->dst_addr(), 
@@ -343,7 +343,7 @@ void TCP::write_serialization(uint8_t* buffer, uint32_t total_sz) {
 
 const TCP::option* TCP::search_option(OptionTypes type) const {
     // Search for the iterator. If we found something, return it, otherwise return nullptr.
-    options_type::const_iterator iter = search_option_iterator(type);
+    auto iter = search_option_iterator(type);
     return (iter != options_.end()) ? &*iter : 0;
 }
 
@@ -391,7 +391,7 @@ uint32_t TCP::pad_options_size(uint32_t size) const {
 }
 
 bool TCP::remove_option(OptionTypes type) {
-    options_type::iterator iter = search_option_iterator(type);
+    auto iter = search_option_iterator(type);
     if (iter == options_.end()) {
         return false;
     }
@@ -403,7 +403,7 @@ bool TCP::matches_response(const uint8_t* ptr, uint32_t total_sz) const {
     if (total_sz < sizeof(header_)) {
         return false;
     }
-    const tcp_header* tcp_ptr = (const tcp_header*)ptr;
+    const auto* tcp_ptr = (const tcp_header*)ptr;
     if (tcp_ptr->sport == header_.dport && tcp_ptr->dport == header_.sport) {
         const uint32_t data_offset = tcp_ptr->doff * sizeof(uint32_t);
         uint32_t sz = (total_sz < data_offset) ? total_sz : data_offset;

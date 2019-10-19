@@ -236,7 +236,7 @@ bool RadioTapParser::has_fields() const {
 bool RadioTapParser::has_field(RadioTap::PresentFlags flag) const {
     const uint8_t* ptr = start_;
     while (ptr + sizeof(uint32_t) < end_) {
-        const RadioTapFlags* flags = (const RadioTapFlags*)ptr;
+        const auto* flags = (const RadioTapFlags*)ptr;
         if (is_field_set(flag, flags)) {
             return true;
         }
@@ -319,7 +319,7 @@ bool RadioTapParser::is_field_set(uint32_t bit, const RadioTapFlags* flags) cons
         RadioTapFlags* flags;
         uint32_t flags_32;
     } TINS_END_PACK;
-    const FlagsUnion* flags_union = reinterpret_cast<const FlagsUnion*>(flags); 
+    const auto* flags_union = reinterpret_cast<const FlagsUnion*>(flags); 
     return (Endian::le_to_host(flags_union->flags_32) & bit) != 0;
 }
 

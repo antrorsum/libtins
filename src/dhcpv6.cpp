@@ -109,7 +109,7 @@ DHCPv6::DHCPv6(const uint8_t* buffer, uint32_t total_sz)
         throw malformed_packet();
     }
     // Relay Agent/Server Messages
-    const MessageType message_type = (MessageType)*stream.pointer();
+    const auto message_type = (MessageType)*stream.pointer();
     bool is_relay_msg = (message_type == RELAY_FORWARD || message_type == RELAY_REPLY);
     uint32_t required_size = is_relay_msg ? 2 : 4;
     stream.read(&header_data_, required_size);
@@ -118,8 +118,8 @@ DHCPv6::DHCPv6(const uint8_t* buffer, uint32_t total_sz)
         stream.read(peer_addr_);
     }
     while (stream) {
-        uint16_t opt = stream.read_be<uint16_t>();
-        uint16_t data_size = stream.read_be<uint16_t>();
+        auto opt = stream.read_be<uint16_t>();
+        auto data_size = stream.read_be<uint16_t>();
         if (!stream.can_read(data_size)) {
             throw malformed_packet();
         }
@@ -134,7 +134,7 @@ void DHCPv6::add_option(const option& opt) {
 }
 
 bool DHCPv6::remove_option(OptionTypes type) {
-    options_type::iterator iter = search_option_iterator(type);
+    auto iter = search_option_iterator(type);
     if (iter == options_.end()) {
         return false;
     }
@@ -145,7 +145,7 @@ bool DHCPv6::remove_option(OptionTypes type) {
 
 const DHCPv6::option* DHCPv6::search_option(OptionTypes type) const {
     // Search for the iterator. If we found something, return it, otherwise return nullptr.
-    options_type::const_iterator iter = search_option_iterator(type);
+    auto iter = search_option_iterator(type);
     return (iter != options_.end()) ? &*iter : 0;
 }
 
@@ -602,7 +602,7 @@ DHCPv6::duid_type DHCPv6::duid_type::from_option(const option& opt) {
         throw malformed_option();
     }
     InputMemoryStream stream(opt.data_ptr(), opt.data_size());
-    uint16_t id = stream.read_be<uint16_t>();
+    auto id = stream.read_be<uint16_t>();
     return duid_type(
         id,
         serialization_type(stream.pointer(), stream.pointer() + stream.size())

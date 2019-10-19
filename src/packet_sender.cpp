@@ -359,7 +359,7 @@ PDU* PacketSender::recv_match_loop(const vector<int>& sockets,
     while (true) {
         FD_ZERO(&readfds);
         int max_fd = 0;
-        for (vector<int>::const_iterator it = sockets.begin(); it != sockets.end(); ++it) {
+        for (auto it = sockets.begin(); it != sockets.end(); ++it) {
             FD_SET(*it, &readfds);
             max_fd = (max_fd > *it) ? max_fd : *it;
         }
@@ -367,7 +367,7 @@ PDU* PacketSender::recv_match_loop(const vector<int>& sockets,
             return 0;
         }
         if (read > 0) {
-            for (vector<int>::const_iterator it = sockets.begin(); it != sockets.end(); ++it) {
+            for (auto it = sockets.begin(); it != sockets.end(); ++it) {
                 if (FD_ISSET(*it, &readfds)) {
                     recvfrom_ret_type size;
                     // Crappy way of only conditionally running this on BSD + layer2
@@ -418,7 +418,7 @@ PDU* PacketSender::recv_match_loop(const vector<int>& sockets,
 }
 
 int PacketSender::find_type(SocketType type) {
-    SocketTypeMap::iterator it = types_.find(type);
+    auto it = types_.find(type);
     if (it == types_.end()) {
         return -1;
     }

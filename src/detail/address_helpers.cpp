@@ -39,7 +39,7 @@ namespace Tins {
 namespace Internals {
 
 bool increment(IPv4Address &addr) {
-    uint32_t addr_int = Endian::be_to_host<uint32_t>(addr);
+    auto addr_int = Endian::be_to_host<uint32_t>(addr);
     bool reached_end = ++addr_int == 0xffffffff;
     addr = IPv4Address(Endian::be_to_host<uint32_t>(addr_int));
     return reached_end;
@@ -50,7 +50,7 @@ bool increment(IPv6Address& addr) {
 }
 
 bool decrement(IPv4Address& addr) {
-    uint32_t addr_int = Endian::be_to_host<uint32_t>(addr);
+    auto addr_int = Endian::be_to_host<uint32_t>(addr);
     bool reached_end = --addr_int == 0;
     addr = IPv4Address(Endian::be_to_host<uint32_t>(addr_int));
     return reached_end;
@@ -61,7 +61,7 @@ bool decrement(IPv6Address& addr) {
 }
 
 IPv4Address last_address_from_mask(IPv4Address addr, IPv4Address mask) {
-    uint32_t addr_int = Endian::be_to_host<uint32_t>(addr),
+    auto addr_int = Endian::be_to_host<uint32_t>(addr),
              mask_int = Endian::be_to_host<uint32_t>(mask);
     return IPv4Address(Endian::host_to_be(addr_int | ~mask_int));
 }

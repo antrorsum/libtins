@@ -102,7 +102,7 @@ bool Dot3::matches_response(const uint8_t* ptr, uint32_t total_sz) const {
     if (total_sz < sizeof(header_)) {
         return false;
     }
-    const dot3_header* eth_ptr = (const dot3_header*)ptr;
+    const auto* eth_ptr = (const dot3_header*)ptr;
     if (address_type(header_.src_mac) == address_type(eth_ptr->dst_mac)) {
         if (address_type(header_.src_mac) == address_type(eth_ptr->dst_mac) || 
             dst_addr() == BROADCAST) {

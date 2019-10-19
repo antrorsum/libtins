@@ -71,7 +71,7 @@ vector<T> convert_vector(const uint8_t* ptr, uint32_t data_size, PDU::endian_typ
     InputMemoryStream input(ptr, data_size);
 
     vector<T> output(data_size / sizeof(T));
-    typename vector<T>::iterator it = output.begin();
+    auto it = output.begin();
     while (input) {
         const T value = input.read<T>();
         if (endian == PDU::BE) {
@@ -177,7 +177,7 @@ IPv4Address convert(const uint8_t* ptr, uint32_t data_size, PDU::endian_type end
         throw malformed_option();
     }
     InputMemoryStream input(ptr, data_size);
-    const uint32_t ip_int = input.read<uint32_t>();
+    const auto ip_int = input.read<uint32_t>();
     if (endian == PDU::BE) {
         return IPv4Address(ip_int);
     }
@@ -231,9 +231,9 @@ vector<IPv4Address> convert(const uint8_t* ptr, uint32_t data_size, PDU::endian_
     }
     InputMemoryStream input(ptr, data_size);
     vector<IPv4Address> output(data_size / sizeof(uint32_t));
-    vector<IPv4Address>::iterator it = output.begin();
+    auto it = output.begin();
     while (input) {
-        const uint32_t ip_int = input.read<uint32_t>();
+        const auto ip_int = input.read<uint32_t>();
         if (endian == PDU::BE) {
             *it++ = IPv4Address(ip_int);
         }

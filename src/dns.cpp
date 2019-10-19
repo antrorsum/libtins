@@ -80,7 +80,7 @@ DNS::DNS(const uint8_t* buffer, uint32_t total_sz)
 
 void DNS::skip_to_dname_end(InputMemoryStream& stream) const {
     while (stream) {
-        uint8_t value = stream.read<uint8_t>();
+        auto value = stream.read<uint8_t>();
         if (value == 0) {
             // Found the ending null byte, we're done
             break;
@@ -104,7 +104,7 @@ void DNS::skip_to_section_end(InputMemoryStream& stream,
     for (uint32_t i = 0; i < num_records; ++i) {
         skip_to_dname_end(stream);
         stream.skip(sizeof(uint16_t) * 2 + sizeof(uint32_t));
-        uint16_t data_size = stream.read_be<uint16_t>();
+        auto data_size = stream.read_be<uint16_t>();
         if (TINS_UNLIKELY(!stream.can_read(data_size))) {
             throw malformed_packet();
         }
@@ -300,7 +300,7 @@ string DNS::decode_domain_name(const string& domain_name) {
     if (domain_name.empty()) {
         return output;
     }
-    const uint8_t* ptr = (const uint8_t*)&domain_name[0];
+    const auto* ptr = (const uint8_t*)&domain_name[0];
     const uint8_t* end = ptr + domain_name.size();
     while (*ptr) {
         // We can't handle offsets
@@ -540,8 +540,8 @@ DNS::queries_type DNS::queries() const {
         char buffer[256];
         while (stream) {
             stream.skip(compose_name(stream.pointer(), buffer));
-            uint16_t query_type = stream.read_be<uint16_t>();
-            uint16_t query_class = stream.read_be<uint16_t>();
+            auto query_type = stream.read_be<uint16_t>();
+            auto query_class = stream.read_be<uint16_t>();
             output.emplace_back(buffer, (QueryType)query_type, (QueryClass)query_class);
         }
     }
@@ -588,7 +588,7 @@ bool DNS::matches_response(const uint8_t* ptr, uint32_t total_sz) const {
     if (total_sz < sizeof(header_)) {
         return false;
     }
-    const dns_header* hdr = (const dns_header*)ptr;
+    const auto* hdr = (const dns_header*)ptr;
     return hdr->id == header_.id;
 }
 

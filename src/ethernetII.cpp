@@ -58,7 +58,7 @@ PDU::metadata EthernetII::extract_metadata(const uint8_t *buffer, uint32_t total
     if (TINS_UNLIKELY(total_sz < sizeof(ethernet_header))) {
         throw malformed_packet();
     }
-    const ethernet_header* header = (const ethernet_header*)buffer;
+    const auto* header = (const ethernet_header*)buffer;
     PDUType next_type = Internals::ether_type_to_pdu_flag(
         static_cast<Constants::Ethernet::e>(Endian::be_to_host(header->payload_type)));
     return metadata(sizeof(ethernet_header), pdu_flag, next_type); 
@@ -123,7 +123,7 @@ bool EthernetII::matches_response(const uint8_t* ptr, uint32_t total_sz) const {
     if (total_sz < sizeof(header_)) {
         return false;
     }
-    const ethernet_header* eth_ptr = (const ethernet_header*)ptr;
+    const auto* eth_ptr = (const ethernet_header*)ptr;
     if (address_type(header_.src_mac) == address_type(eth_ptr->dst_mac)) {
         if (address_type(header_.src_mac) == address_type(eth_ptr->dst_mac) || 
            !dst_addr().is_unicast()) {
@@ -142,7 +142,7 @@ void EthernetII::write_serialization(uint8_t* buffer, uint32_t total_sz) {
         const PDUType type = inner_pdu()->pdu_type();
         // Dirty trick to successfully tag PPPoE session/discovery packets
         if (type == PDU::PPPOE) {
-            const PPPoE* pppoe = static_cast<const PPPoE*>(inner_pdu());
+            const auto* pppoe = static_cast<const PPPoE*>(inner_pdu());
             flag = (pppoe->code() == 0) ? Constants::Ethernet::PPPOES 
                                         : Constants::Ethernet::PPPOED;
         }

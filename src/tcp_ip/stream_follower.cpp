@@ -80,7 +80,7 @@ void StreamFollower::process_packet(PDU& packet, const timestamp_type& ts) {
         return;
     }
     stream_id identifier = stream_id::make_identifier(packet);
-    streams_type::iterator iter = streams_.find(identifier);
+    auto iter = streams_.find(identifier);
     if (iter == streams_.end()) {
         // Start tracking if they're either SYNs or they contain data (attach
         // to an already running flow).
@@ -166,7 +166,7 @@ Stream& StreamFollower::find_stream(const IPv6Address& client_addr, uint16_t cli
 }
 
 Stream& StreamFollower::find_stream(const stream_id& id) {
-    streams_type::iterator iter = streams_.find(id);
+    auto iter = streams_.find(id);
     if (iter == streams_.end()) {
         throw stream_not_found();
     }
@@ -180,7 +180,7 @@ void StreamFollower::follow_partial_streams(bool value) {
 }
 
 void StreamFollower::cleanup_streams(const timestamp_type& now) {
-    streams_type::iterator iter = streams_.begin();
+    auto iter = streams_.begin();
     while (iter != streams_.end()) {
         if (iter->second.last_seen() + stream_keep_alive_ <= now) {
             // If we have a termination callback, execute it

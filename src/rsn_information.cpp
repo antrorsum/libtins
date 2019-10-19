@@ -101,8 +101,8 @@ RSNInformation::serialization_type RSNInformation::serialize() const {
     size += (sizeof(uint16_t) << 1); // 2 lists count.
     size += sizeof(uint32_t) * (akm_cyphers_.size() + pairwise_cyphers_.size());
 
-    const uint16_t pairwise_cyphers_size = Endian::host_to_le<uint16_t>(pairwise_cyphers_.size());
-    const uint16_t akm_cyphers_size = Endian::host_to_le<uint16_t>(akm_cyphers_.size());
+    const auto pairwise_cyphers_size = Endian::host_to_le<uint16_t>(pairwise_cyphers_.size());
+    const auto akm_cyphers_size = Endian::host_to_le<uint16_t>(akm_cyphers_.size());
     
     serialization_type buffer(size);
     OutputMemoryStream stream(&buffer[0], buffer.size());

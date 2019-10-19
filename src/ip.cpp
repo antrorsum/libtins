@@ -61,7 +61,7 @@ PDU::metadata IP::extract_metadata(const uint8_t *buffer, uint32_t total_sz) {
     if (TINS_UNLIKELY(total_sz < sizeof(ip_header))) {
         throw malformed_packet();
     }
-    const ip_header* header = (const ip_header*)buffer;
+    const auto* header = (const ip_header*)buffer;
     PDUType next_type = Internals::ip_type_to_pdu_flag(
         static_cast<Constants::IP::e>(header->protocol));
     return metadata(header->ihl * 4, pdu_flag, next_type);
@@ -125,7 +125,7 @@ IP::IP(const uint8_t* buffer, uint32_t total_sz) {
         // since this is the case when using TCP segmentation offload
         if (tot_len() != 0) {
             const uint32_t advertised_length = (uint32_t)tot_len() - head_len() * sizeof(uint32_t);
-            const uint32_t stream_size = static_cast<uint32_t>(stream.size());
+            const auto stream_size = static_cast<uint32_t>(stream.size());
             total_sz = (stream_size < advertised_length) ? stream_size : advertised_length;
         }
         else {
@@ -337,7 +337,7 @@ uint32_t IP::pad_options_size(uint32_t size) const {
 }
 
 bool IP::remove_option(option_identifier id) {
-    options_type::iterator iter = search_option_iterator(id);
+    auto iter = search_option_iterator(id);
     if (iter == options_.end()) {
         return false;
     }
@@ -346,7 +346,7 @@ bool IP::remove_option(option_identifier id) {
 }
 
 const IP::option* IP::search_option(option_identifier id) const {
-    options_type::const_iterator iter = search_option_iterator(id);
+    auto iter = search_option_iterator(id);
     return (iter != options_.end()) ? &*iter : 0;
 }
 
@@ -475,7 +475,7 @@ bool IP::matches_response(const uint8_t* ptr, uint32_t total_sz) const {
     if (total_sz < sizeof(header_)) {
         return false;
     }
-    const ip_header* ip_ptr = (const ip_header*)ptr;
+    const auto* ip_ptr = (const ip_header*)ptr;
     // dest unreachable?
     if (ip_ptr->protocol == Constants::IP::PROTO_ICMP) {
         const uint8_t* pkt_ptr = ptr + sizeof(ip_header);

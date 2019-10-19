@@ -109,7 +109,7 @@ uint32_t pseudoheader_checksum(IPv4Address source_ip, IPv4Address dest_ip, uint3
     stream.write(dest_ip);
     stream.write(Endian::host_to_be<uint16_t>(flag));
     stream.write(Endian::host_to_be<uint16_t>(len));
-    uint16_t* ptr = (uint16_t*)buffer, *end = (uint16_t*)(buffer + sizeof(buffer));
+    auto* ptr = (uint16_t*)buffer, *end = (uint16_t*)(buffer + sizeof(buffer));
     while (ptr < end) {
         checksum += *ptr++;
     }
@@ -129,7 +129,7 @@ void UDP::write_serialization(uint8_t* buffer, uint32_t total_sz) {
     stream.write(header_);
     uint32_t checksum = 0;
     const PDU* parent = parent_pdu();
-    if (const Tins::IP* ip_packet = tins_cast<const Tins::IP*>(parent)) {
+    if (const auto* ip_packet = tins_cast<const Tins::IP*>(parent)) {
         checksum = Utils::pseudoheader_checksum(
             ip_packet->src_addr(), 
             ip_packet->dst_addr(), 
@@ -137,7 +137,7 @@ void UDP::write_serialization(uint8_t* buffer, uint32_t total_sz) {
             Constants::IP::PROTO_UDP
         ) + Utils::sum_range(buffer, buffer + total_sz);
     }
-    else if (const Tins::IPv6* ip6_packet = tins_cast<const Tins::IPv6*>(parent)) {
+    else if (const auto* ip6_packet = tins_cast<const Tins::IPv6*>(parent)) {
         checksum = Utils::pseudoheader_checksum(
             ip6_packet->src_addr(), 
             ip6_packet->dst_addr(), 
@@ -161,7 +161,7 @@ bool UDP::matches_response(const uint8_t* ptr, uint32_t total_sz) const {
     if (total_sz < sizeof(udp_header)) {
         return false;
     }
-    const udp_header* udp_ptr = (const udp_header*)ptr;
+    const auto* udp_ptr = (const udp_header*)ptr;
     if (udp_ptr->sport == header_.dport && udp_ptr->dport == header_.sport) {
         if (inner_pdu()) { 
             return inner_pdu()->matches_response(

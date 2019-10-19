@@ -61,7 +61,7 @@ DHCP::DHCP(const uint8_t* buffer, uint32_t total_sz)
 : BootP(buffer, total_sz, 0), size_(sizeof(uint32_t)) {
     InputMemoryStream stream(buffer, total_sz);
     stream.skip(BootP::header_size() - vend().size());
-    const uint32_t magic_number = stream.read<uint32_t>();
+    const auto magic_number = stream.read<uint32_t>();
     if (magic_number != Endian::host_to_be<uint32_t>(0x63825363)) {
         throw malformed_packet();
     }
@@ -93,7 +93,7 @@ void DHCP::internal_add_option(const option& opt) {
 }
 
 bool DHCP::remove_option(OptionTypes type) {
-    options_type::iterator iter = search_option_iterator(type);
+    auto iter = search_option_iterator(type);
     if (iter == options_.end()) {
         return false;
     }
@@ -104,7 +104,7 @@ bool DHCP::remove_option(OptionTypes type) {
 
 const DHCP::option* DHCP::search_option(OptionTypes opt) const {
     // Search for the iterator. If we found something, return it, otherwise return nullptr.
-    options_type::const_iterator iter = search_option_iterator(opt);
+    auto iter = search_option_iterator(opt);
     return (iter != options_.end()) ? &*iter : 0;
 }
 
@@ -228,7 +228,7 @@ uint32_t DHCP::rebind_time() const {
 
 PDU::serialization_type DHCP::serialize_list(const vector<ipaddress_type>& ip_list) {
     serialization_type buffer(ip_list.size() * sizeof(uint32_t));
-    uint32_t* ptr = (uint32_t*)&buffer[0];
+    auto* ptr = (uint32_t*)&buffer[0];
     using iterator = vector<ipaddress_type>::const_iterator;
     for (auto it : ip_list) {
         *(ptr++) = it;

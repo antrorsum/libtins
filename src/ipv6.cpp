@@ -56,7 +56,7 @@ PDU::metadata IPv6::extract_metadata(const uint8_t *buffer, uint32_t total_sz) {
         throw malformed_packet();
     }
     InputMemoryStream stream(buffer, total_sz);
-    const ipv6_header* header = (const ipv6_header*)buffer;
+    const auto* header = (const ipv6_header*)buffer;
     uint32_t header_size = sizeof(ipv6_header);
     uint8_t current_header = header->next_header;
     stream.skip(sizeof(ipv6_header));
@@ -106,7 +106,7 @@ IPv6::fragment_header IPv6::fragment_header::from_extension_header(const ext_hea
     }
     Memory::InputMemoryStream stream(hdr.data_ptr(), hdr.data_size());
     fragment_header header;
-    uint16_t field = stream.read_be<uint16_t>();
+    auto field = stream.read_be<uint16_t>();
     header.fragment_offset = field >> 3;
     header.more_fragments = field & 1;
     header.identification = stream.read_be<uint32_t>();
@@ -131,7 +131,7 @@ IPv6::IPv6(const uint8_t* buffer, uint32_t total_sz) {
             if (current_header == FRAGMENT) {
                 is_payload_fragmented = true;
             }
-            const uint8_t ext_type = stream.read<uint8_t>();
+            const auto ext_type = stream.read<uint8_t>();
             // every ext header is at least 8 bytes long
             // minus one, from the next_header field.
             const uint32_t ext_size = (static_cast<uint32_t>(stream.read<uint8_t>()) + 1) * 8;
@@ -146,11 +146,11 @@ IPv6::IPv6(const uint8_t* buffer, uint32_t total_sz) {
                 // could be a jumbogram, look for Jumbo Payload Option
                 InputMemoryStream options(stream.pointer(), payload_size);
                 while (options) {
-                    const uint8_t opt_type = options.read<uint8_t>();
+                    const auto opt_type = options.read<uint8_t>();
                     if (opt_type == PAD_1) {
                         continue;
                     }
-                    const uint8_t opt_size = options.read<uint8_t>();
+                    const auto opt_size = options.read<uint8_t>();
                     if (opt_type == JUMBO_PAYLOAD) {
                         if (opt_size != 4) {
                             throw malformed_packet();
@@ -219,11 +219,11 @@ vector<IPv6::header_option_type> IPv6::parse_header_options(const uint8_t* data,
 
     while (stream.size() > 0) {
         try {
-            uint8_t option = stream.read<uint8_t>();
+            auto option = stream.read<uint8_t>();
             if (option == PAD_1) {
                 continue;
             }
-            uint8_t size = stream.read<uint8_t>();
+            auto size = stream.read<uint8_t>();
             if (size > stream.size()) {
                 throw invalid_ipv6_extension_header();
             }
@@ -255,7 +255,7 @@ void IPv6::traffic_class(uint8_t new_traffic_class) {
 
 void IPv6::flow_label(small_uint<20> new_flow_label) {
     #if TINS_IS_LITTLE_ENDIAN
-    uint32_t value = Endian::host_to_be<uint32_t>(new_flow_label);
+    auto value = Endian::host_to_be<uint32_t>(new_flow_label);
     header_.flow_label[2] = (value >> 24) & 0xff;
     header_.flow_label[1] = (value >> 16) & 0xff;
     header_.flow_label[0] = ((value >> 8) & 0x0f) | (header_.flow_label[0] & 0xf0);
@@ -292,7 +292,7 @@ bool IPv6::matches_response(const uint8_t* ptr, uint32_t total_sz) const {
     if (total_sz < sizeof(ipv6_header)) {
         return false;
     }
-    const ipv6_header* hdr_ptr = (const ipv6_header*)ptr;
+    const auto* hdr_ptr = (const ipv6_header*)ptr;
     // checks for ff02 multicast
     if (src_addr() == hdr_ptr->dst_addr && 
         (dst_addr() == hdr_ptr->src_addr || (header_.dst_addr[0] == 0xff && header_.dst_addr[1] == 0x02))) {
@@ -393,7 +393,7 @@ void IPv6::add_header(const ext_header& header) {
 }
 
 const IPv6::ext_header* IPv6::search_header(ExtensionHeader id) const {
-    headers_type::const_iterator it = ext_headers_.begin();
+    auto it = ext_headers_.begin();
     while (it != ext_headers_.end()) {
         if (it->option() == id) {
             return &*it;

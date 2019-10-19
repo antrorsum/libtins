@@ -119,7 +119,7 @@ bool ARP::matches_response(const uint8_t* ptr, uint32_t total_sz) const {
     if (total_sz < sizeof(header_)) {
         return false;
     }
-    const arp_header* arp_ptr = (const arp_header*)ptr;
+    const auto* arp_ptr = (const arp_header*)ptr;
     return arp_ptr->sender_ip_address == header_.target_ip_address && 
            arp_ptr->target_ip_address == header_.sender_ip_address;
 }

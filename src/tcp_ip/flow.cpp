@@ -87,7 +87,7 @@ void Flow::out_of_order_callback(const flow_packet_callback_type& callback) {
 
 void Flow::process_packet(PDU& pdu) {
     TCP* tcp = pdu.find_pdu<TCP>();
-    RawPDU* raw = pdu.find_pdu<RawPDU>(); 
+    auto* raw = pdu.find_pdu<RawPDU>(); 
     // Update the internal state first
     if (tcp) {
         update_state(*tcp);

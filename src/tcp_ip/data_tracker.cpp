@@ -69,7 +69,7 @@ bool DataTracker::process_payload(uint32_t seq, payload_type payload) {
     // Store this payload
     store_payload(seq, move(payload));
     // Keep looping while the fragments seq is lower or equal to our seq
-    buffered_payload_type::iterator iter = buffered_payload_.find(seq_number_);
+    auto iter = buffered_payload_.find(seq_number_);
     while (iter != buffered_payload_.end() && seq_compare(iter->first, seq_number_) <= 0) {
         // Does this fragment start before our sequence number?
         if (seq_compare(iter->first, seq_number_) < 0) {
@@ -154,7 +154,7 @@ uint32_t DataTracker::total_buffered_bytes() const {
 }
 
 void DataTracker::store_payload(uint32_t seq, payload_type payload) {
-    buffered_payload_type::iterator iter = buffered_payload_.find(seq);
+    auto iter = buffered_payload_.find(seq);
     // New segment, store it
     if (iter == buffered_payload_.end()) {
         total_buffered_bytes_ += payload.size();
@@ -171,7 +171,7 @@ void DataTracker::store_payload(uint32_t seq, payload_type payload) {
 
 DataTracker::buffered_payload_type::iterator
 DataTracker::erase_iterator(buffered_payload_type::iterator iter) {
-    buffered_payload_type::iterator output = iter;
+    auto output = iter;
     total_buffered_bytes_ -= iter->second.size();
     ++output;
     buffered_payload_.erase(iter);

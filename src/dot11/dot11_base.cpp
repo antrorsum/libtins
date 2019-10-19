@@ -82,8 +82,8 @@ void Dot11::write_fixed_parameters(Memory::OutputMemoryStream& /*stream*/) {
 void Dot11::parse_tagged_parameters(InputMemoryStream& stream) {
     if (stream) {
         while (stream.size() >= 2) {
-            OptionTypes opcode = static_cast<OptionTypes>(stream.read<uint8_t>());
-            uint8_t length = stream.read<uint8_t>();
+            auto opcode = static_cast<OptionTypes>(stream.read<uint8_t>());
+            auto length = stream.read<uint8_t>();
             if (!stream.can_read(length)) {
                 throw malformed_packet();
             }
@@ -104,7 +104,7 @@ void Dot11::internal_add_option(const option& opt) {
 }
 
 bool Dot11::remove_option(OptionTypes type) {
-    options_type::iterator iter = search_option_iterator(type);
+    auto iter = search_option_iterator(type);
     if (iter == options_.end()) {
         return false;
     }
@@ -120,7 +120,7 @@ void Dot11::add_option(const option& opt) {
 
 const Dot11::option* Dot11::search_option(OptionTypes type) const {
     // Search for the iterator. If we found something, return it, otherwise return nullptr.
-    options_type::const_iterator iter = search_option_iterator(type);
+    auto iter = search_option_iterator(type);
     return (iter != options_.end()) ? &*iter : 0;
 }
 
@@ -230,7 +230,7 @@ Dot11* Dot11::from_bytes(const uint8_t* buffer, uint32_t total_sz) {
     if (total_sz < 2) {
         throw malformed_packet();
     }
-    const dot11_header* hdr = (const dot11_header*)buffer;
+    const auto* hdr = (const dot11_header*)buffer;
     if (hdr->control.type == MANAGEMENT) {
         switch (hdr->control.subtype) {
             case BEACON:

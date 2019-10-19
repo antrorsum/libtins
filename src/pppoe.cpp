@@ -66,8 +66,8 @@ PPPoE::PPPoE(const uint8_t* buffer, uint32_t total_sz)
     }
     else {
         while (stream) {
-            TagTypes opt_type = static_cast<TagTypes>(stream.read<uint16_t>());
-            uint16_t opt_len = stream.read_be<uint16_t>();
+            auto opt_type = static_cast<TagTypes>(stream.read<uint16_t>());
+            auto opt_len = stream.read_be<uint16_t>();
             if (!stream.can_read(opt_len)) {
                 throw malformed_packet();
             }

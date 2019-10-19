@@ -44,7 +44,7 @@ IPv4Stream::IPv4Stream()
 
 void IPv4Stream::add_fragment(IP* ip) {
     const uint16_t offset = extract_offset(ip);
-    fragments_type::iterator it = fragments_.begin();
+    auto it = fragments_.begin();
     while (it != fragments_.end() && offset > it->offset()) {
         ++it;
     }

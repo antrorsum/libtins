@@ -42,8 +42,8 @@ using std::pair;
 namespace Tins {
 
 bool RSNHandshakeCapturer::process_packet(const PDU& pdu) {
-    const RSNEAPOL* eapol = pdu.find_pdu<RSNEAPOL>();
-    const Dot11Data* dot11 = pdu.find_pdu<Dot11Data>();
+    const auto* eapol = pdu.find_pdu<RSNEAPOL>();
+    const auto* dot11 = pdu.find_pdu<Dot11Data>();
     if (!eapol || !dot11) {
         return false;
     }
@@ -86,7 +86,7 @@ bool RSNHandshakeCapturer::process_packet(const PDU& pdu) {
 bool RSNHandshakeCapturer::do_insert(const handshake_map::key_type& key,
                                      const RSNEAPOL* eapol,
                                      size_t expected) {
-    handshake_map::iterator iter = handshakes_.find(key);
+    auto iter = handshakes_.find(key);
     if (iter != handshakes_.end()) {
         if (iter->second.size() != expected) {
             // skip repeated
