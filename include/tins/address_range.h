@@ -166,12 +166,12 @@ public:
     /**
      * The type of addresses stored in the range.
      */
-    typedef Address address_type;
+    using address_type = Address;
 
     /**
      * The iterator type.
      */
-    typedef AddressRangeIterator<address_type> const_iterator;
+    using const_iterator = AddressRangeIterator<address_type>;
 
     /**
      * \brief The iterator type.
@@ -179,7 +179,7 @@ public:
      * This is the same type as const_iterator, since the
      * addresses stored in this range are read only.
      */
-    typedef const_iterator iterator;
+    using iterator = const_iterator;
 
     /**
      * \brief Constructs an address range from two addresses.
@@ -289,12 +289,12 @@ private:
 /**
  * An IPv4 address range.
  */
-typedef AddressRange<IPv4Address> IPv4Range;
+using IPv4Range = AddressRange<IPv4Address>;
 
 /**
  * An IPv6 address range.
  */
-typedef AddressRange<IPv6Address> IPv6Range;
+using IPv6Range = AddressRange<IPv6Address>;
 
 /**
  * \brief Constructs an AddressRange from a base address and a mask.

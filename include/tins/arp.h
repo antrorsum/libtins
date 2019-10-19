@@ -52,12 +52,12 @@ public:
     /**
      * The type of the hardware address.
      */
-    typedef HWAddress<6> hwaddress_type;
+    using hwaddress_type = HWAddress<6>;
     
     /**
      * The type of the IP address.
      */
-    typedef IPv4Address ipaddress_type;
+    using ipaddress_type = IPv4Address;
 
     /**
      * \brief This PDU's flag.

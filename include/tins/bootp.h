@@ -49,17 +49,17 @@ public:
     /**
      * The type of the IP addresses.
      */
-    typedef IPv4Address ipaddress_type;
+    using ipaddress_type = IPv4Address;
     
     /**
      * The type of the chaddr field.
      */
-    typedef HWAddress<16> chaddr_type;
+    using chaddr_type = HWAddress<16>;
     
     /**
      * The type of the vend field.
      */
-    typedef std::vector<uint8_t> vend_type;
+    using vend_type = std::vector<uint8_t>;
     
     /**
      * \brief This PDU's flag.

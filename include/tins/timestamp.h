@@ -44,8 +44,8 @@ namespace Tins {
  */
 class TINS_API Timestamp {
 public:
-    typedef time_t seconds_type;
-    typedef suseconds_t microseconds_type;
+    using seconds_type = time_t;
+    using microseconds_type = suseconds_t;
     
     /**
      * \brief Constructs a Timestamp which will hold the current time.

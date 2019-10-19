@@ -56,7 +56,7 @@ public:
     /**
      * The type used to store hardware addresses.
      */
-    typedef HWAddress<6> address_type;
+    using address_type = HWAddress<6>;
 
     /**
      * \brief IEEE 802.11 options struct.
@@ -66,7 +66,7 @@ public:
     /**
      * The type used to store tagged options.
      */
-    typedef std::vector<option> options_type;
+    using options_type = std::vector<option>;
 
     /**
      * \brief This PDU's flag.

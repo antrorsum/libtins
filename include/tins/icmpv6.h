@@ -139,12 +139,12 @@ public:
     /**
      * The type used to store addresses.
      */
-    typedef IPv6Address ipaddress_type;
+    using ipaddress_type = IPv6Address;
     
     /**
      * The type used to store addresses.
      */
-    typedef HWAddress<6> hwaddress_type;
+    using hwaddress_type = HWAddress<6>;
     
     /**
      * The type used to represent ICMPv6 options.
@@ -154,19 +154,19 @@ public:
     /**
      * The type used to store options.
      */
-    typedef std::vector<option> options_type;
+    using options_type = std::vector<option>;
     
     /**
      * \brief The type used to store the new home agent information 
      * option data.
      */
-    typedef std::vector<uint16_t> new_ha_info_type;
+    using new_ha_info_type = std::vector<uint16_t>;
     
     /**
      * The type used to store the source/target address list options.
      */
     struct addr_list_type {
-        typedef std::vector<ipaddress_type> addresses_type;
+        using addresses_type = std::vector<ipaddress_type>;
         
         uint8_t reserved[6];
         addresses_type addresses;
@@ -182,7 +182,7 @@ public:
     /**
      * The type used to store the nonce option data.
      */
-    typedef std::vector<uint8_t> nonce_type;
+    using nonce_type = std::vector<uint8_t>;
     
     /**
      * The type used to store the MTU option.
@@ -209,7 +209,7 @@ public:
      * \brief The type used to store the link layer address option data.
      */
     struct lladdr_type {
-        typedef std::vector<uint8_t> address_type;
+        using address_type = std::vector<uint8_t>;
         
         uint8_t option_code;
         address_type address;
@@ -270,7 +270,7 @@ public:
      * The type used to store the RSA signature option.
      */
     struct rsa_sign_type {
-        typedef std::vector<uint8_t> signature_type;
+        using signature_type = std::vector<uint8_t>;
         
         uint8_t key_hash[16];
         signature_type signature;
@@ -369,7 +369,7 @@ public:
      * The type used to store the route information option.
      */
     struct route_info_type {
-        typedef std::vector<uint8_t> prefix_type;
+        using prefix_type = std::vector<uint8_t>;
         
         uint8_t prefix_len;
         small_uint<2> pref;
@@ -390,7 +390,7 @@ public:
      * The type used to store the recursive DNS servers option.
      */
     struct recursive_dns_type {
-        typedef std::vector<ipaddress_type> servers_type;
+        using servers_type = std::vector<ipaddress_type>;
         
         uint32_t lifetime;
         servers_type servers;
@@ -406,7 +406,7 @@ public:
      * The type used to store the handover key request option.
      */
     struct handover_key_req_type {
-        typedef std::vector<uint8_t> key_type;
+        using key_type = std::vector<uint8_t>;
         
         small_uint<4> AT;
         key_type key;
@@ -436,7 +436,7 @@ public:
      * The type used to store the handover assist information option.
      */
     struct handover_assist_info_type {
-        typedef std::vector<uint8_t> hai_type;
+        using hai_type = std::vector<uint8_t>;
         
         uint8_t option_code;
         hai_type hai;
@@ -452,7 +452,7 @@ public:
      * The type used to store the mobile node identifier option.
      */
     struct mobile_node_id_type {
-        typedef std::vector<uint8_t> mn_type;
+        using mn_type = std::vector<uint8_t>;
         
         uint8_t option_code;
         mn_type mn;
@@ -468,7 +468,7 @@ public:
      * The type used to store the DNS search list option.
      */
     struct dns_search_list_type {
-        typedef std::vector<std::string> domains_type;
+        using domains_type = std::vector<std::string>;
         
         uint32_t lifetime;
         domains_type domains;
@@ -529,8 +529,8 @@ public:
      * The type used to represent a multicast address record
      */
     struct multicast_address_record {
-        typedef std::vector<ipaddress_type> sources_type;
-        typedef std::vector<uint8_t> aux_data_type;
+        using sources_type = std::vector<ipaddress_type>;
+        using aux_data_type = std::vector<uint8_t>;
 
         multicast_address_record(uint8_t type = 0) : type(type) { }
 
@@ -547,13 +547,13 @@ public:
     /*
      * The type used to store all multicast address records in a packet
      */
-    typedef std::vector<multicast_address_record> multicast_address_records_list;
+    using multicast_address_records_list = std::vector<multicast_address_record>;
 
     /*
      * The type used to store all source address (from Multicast 
      * Listener Query messages) in a packet 
      */
-    typedef std::vector<ipaddress_type> sources_list;
+    using sources_list = std::vector<ipaddress_type>;
 
     /**
      * \brief Constructs an ICMPv6 object.

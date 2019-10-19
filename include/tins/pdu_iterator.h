@@ -46,12 +46,12 @@ public:
     /**
      * Iterator's category
      */
-    typedef std::bidirectional_iterator_tag iterator_category;
+    using iterator_category = std::bidirectional_iterator_tag;
 
     /**
      * Iterator difference type
      */
-    typedef std::ptrdiff_t difference_type;
+    using difference_type = std::ptrdiff_t;
 
     /**
      * Advances this iterator
@@ -130,17 +130,17 @@ public:
     /**
      * The used pointer type
      */
-    typedef PDU* pointer;
+    using pointer = PDU *;
 
     /**
      * The used reference type
      */
-    typedef PDU& reference;
+    using reference = PDU &;
 
     /**
      * The used value type
      */
-    typedef PDU& value_type;
+    using value_type = PDU &;
 
     /**
      * Constructs an iterator using a PDU
@@ -180,17 +180,17 @@ public:
     /**
      * The used pointer type
      */
-    typedef const PDU* pointer;
+    using pointer = const PDU *;
 
     /**
      * The used reference type
      */
-    typedef const PDU& reference;
+    using reference = const PDU &;
 
     /**
      * The used value type
      */
-    typedef const PDU& value_type;
+    using value_type = const PDU &;
 
     /**
      * Constructs an iterator using a PDU

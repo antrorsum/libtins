@@ -62,8 +62,8 @@ namespace Internals {
 template<size_t n>
 class byte_array {
 public:
-    typedef uint8_t* iterator;
-    typedef const uint8_t* const_iterator;
+    using iterator = uint8_t *;
+    using const_iterator = const uint8_t *;
 
     byte_array() {
         std::memset(data, 0, size());

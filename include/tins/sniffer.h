@@ -65,7 +65,7 @@ public:
     /**
      * The iterator type.
      */
-    typedef SnifferIterator iterator;
+    using iterator = SnifferIterator;
 
     /**
      * \brief Move constructor.
@@ -249,7 +249,7 @@ public:
      *
      * \sa set_pcap_sniffing_method
      */
-    typedef int(*PcapSniffingMethod)(pcap_t*, int, pcap_handler, u_char*);
+    using PcapSniffingMethod = int (*)(pcap_t *, int, pcap_handler, u_char *);
 
     /**
      * \brief set sniffing method to either pcap_loop or pcap_dispatch.
@@ -424,8 +424,8 @@ public:
 template <typename T>
 class HandlerProxy {
 public:
-    typedef T* ptr_type;
-    typedef bool (T::*fun_type)(PDU&) ;
+    using ptr_type = T *;
+    using fun_type = bool (T::*)(PDU &) ;
 
     HandlerProxy(ptr_type ptr, fun_type function)
     : object_(ptr), fun_(function) {}

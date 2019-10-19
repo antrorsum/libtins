@@ -427,7 +427,7 @@ set<string> network_interfaces() {
 #endif // _WIN32
 
 bool gateway_from_ip(IPv4Address ip, IPv4Address& gw_addr) {
-    typedef vector<RouteEntry> entries_type;
+    using entries_type = vector<RouteEntry>;
     entries_type entries = route_entries();
     uint32_t ip_int = ip;
     for (entries_type::const_iterator it(entries.begin()); it != entries.end(); ++it) {
@@ -440,7 +440,7 @@ bool gateway_from_ip(IPv4Address ip, IPv4Address& gw_addr) {
 }
 
 bool gateway_from_ip(IPv6Address ip, IPv6Address& gw_addr) {
-    typedef vector<Route6Entry> entries_type;
+    using entries_type = vector<Route6Entry>;
     entries_type entries =route6_entries();
     for (entries_type::const_iterator it(entries.begin()); it != entries.end(); ++it) {
         if ((ip & it->mask) == it->destination) {

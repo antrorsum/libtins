@@ -85,17 +85,17 @@ public:
     /**
      * The type used to store the cypher suites.
      */
-    typedef std::vector<CypherSuites> cyphers_type;
+    using cyphers_type = std::vector<CypherSuites>;
     
     /**
      * The type used to store the AKM suites.
      */
-    typedef std::vector<AKMSuites> akm_type;
+    using akm_type = std::vector<AKMSuites>;
     
     /**
      * The type returned on serialization.
      */
-    typedef std::vector<uint8_t> serialization_type;
+    using serialization_type = std::vector<uint8_t>;
 
     /**
      * \brief Constructs an RSNInformation object.

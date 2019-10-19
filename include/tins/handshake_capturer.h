@@ -50,8 +50,8 @@ namespace Tins {
 template<typename T>
 class EAPOLHandshake {
 public:
-    typedef std::vector<T> container_type;
-    typedef HWAddress<6> address_type;
+    using container_type = std::vector<T>;
+    using address_type = HWAddress<6>;
     
     /**
      * \brief Default constructor.
@@ -101,7 +101,7 @@ private:
 /**
  * The type used to store RSN handshakes.
  */
-typedef EAPOLHandshake<RSNEAPOL> RSNHandshake;
+using RSNHandshake = EAPOLHandshake<RSNEAPOL>;
 
 /**
  * Captures 802.1X RSN handshakes.
@@ -111,13 +111,13 @@ public:
     /**
      * The type of handshakes that will be captured.
      */
-    typedef RSNHandshake handshake_type;
+    using handshake_type = RSNHandshake;
 
     /**
      * The type in which all of the captured handshakes
      * will be stored.
      */
-    typedef std::vector<handshake_type> handshakes_type;
+    using handshakes_type = std::vector<handshake_type>;
     
     /**
      * \brief Processes a packet.
@@ -154,8 +154,8 @@ public:
         completed_handshakes_.clear();
     }
 private:
-    typedef handshake_type::address_type address_type;
-    typedef handshake_type::container_type eapol_list;
+    using address_type = handshake_type::address_type;
+    using eapol_list = handshake_type::container_type;
     typedef std::map<std::pair<address_type, address_type>, eapol_list> handshake_map;
 
     bool do_insert(const handshake_map::key_type& key, const RSNEAPOL* eapol, 

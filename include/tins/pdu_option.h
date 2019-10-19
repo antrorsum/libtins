@@ -202,8 +202,8 @@ class PDUOption {
 private:
     static const int small_buffer_size = 8;
 public:
-    typedef uint8_t data_type;
-    typedef OptionType option_type;
+    using data_type = uint8_t;
+    using option_type = OptionType;
 
     /**
      * \brief Constructs a PDUOption.

@@ -43,7 +43,7 @@ namespace Internals {
 
 template<bool, typename T = void>
 struct enable_if {
-    typedef T type;
+    using type = T;
 };
 
 template<typename T>
@@ -53,7 +53,7 @@ struct enable_if<false, T> {
 
 template <typename T>
 struct type_to_type {
-    typedef T type;
+    using type = T;
 };
 
 template<typename T>

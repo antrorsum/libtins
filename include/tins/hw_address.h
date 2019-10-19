@@ -91,17 +91,17 @@ public:
     /**
      * \brief The type of the elements stored in the hardware address.
      */
-    typedef uint8_t storage_type;
+    using storage_type = uint8_t;
     
     /**
      * \brief The random access iterator type.
      */
-    typedef storage_type* iterator;
+    using iterator = storage_type *;
     
     /**
      * \brief Const iterator type.
      */
-    typedef const storage_type* const_iterator;
+    using const_iterator = const storage_type *;
     
     /**
      * \brief Non-member constant indicating the amount of storage_type

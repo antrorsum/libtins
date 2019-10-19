@@ -52,7 +52,7 @@ public:
     /** 
      * The type used to store the payload
      */
-    typedef std::vector<uint8_t> payload_type;
+    using payload_type = std::vector<uint8_t>;
 
     /**
      * The type used to store the buffered payload

@@ -149,7 +149,7 @@ public:
     /**
      * The type used to store the options payload
      */
-    typedef std::vector<uint8_t> options_payload_type;
+    using options_payload_type = std::vector<uint8_t>;
 
     /**
      * \brief Default constructor.

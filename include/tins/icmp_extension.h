@@ -48,13 +48,13 @@ public:
     /**
      * The type used to store the payload 
      */
-    typedef std::vector<uint8_t> payload_type;
+    using payload_type = std::vector<uint8_t>;
 
     /**
      * The type that will be returned when serializing an extensions 
      * structure object
      */
-    typedef std::vector<uint8_t> serialization_type;
+    using serialization_type = std::vector<uint8_t>;
 
     /**
      * \brief Default constructor
@@ -170,12 +170,12 @@ public:
      * The type that will be returned when serializing an extensions 
      * structure object
      */
-    typedef ICMPExtension::serialization_type serialization_type;
+    using serialization_type = ICMPExtension::serialization_type;
 
     /**
      * The type used to store the list of ICMP extensions in this structure
      */
-    typedef std::vector<ICMPExtension> extensions_type;
+    using extensions_type = std::vector<ICMPExtension>;
 
     /**
      * \brief Default constructor

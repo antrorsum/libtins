@@ -72,7 +72,7 @@ public:
     /**
      * The type used to store addresses.
      */
-    typedef IPv4Address address_type;
+    using address_type = IPv4Address;
 
     /**
      * Type used to represent the different IP flags.
@@ -216,7 +216,7 @@ public:
      * The type of the Loose Source and Record Route
      */
     struct generic_route_option_type {
-        typedef std::vector<address_type> routes_type;
+        using routes_type = std::vector<address_type>;
         
         uint8_t pointer;
         routes_type routes;
@@ -230,22 +230,22 @@ public:
     /**
      * The type of the Loose Source and Record Route
      */
-    typedef generic_route_option_type lsrr_type;
+    using lsrr_type = generic_route_option_type;
     
     /**
      * The type of the Strict Source and Record Route
      */
-    typedef generic_route_option_type ssrr_type;
+    using ssrr_type = generic_route_option_type;
     
     /**
      * The type of the Record Route
      */
-    typedef generic_route_option_type record_route_type;
+    using record_route_type = generic_route_option_type;
 
     /**
      * The type used to store IP options.
      */
-    typedef std::vector<option> options_type;
+    using options_type = std::vector<option>;
 
     /**
      * \brief Extracts metadata for this protocol based on the buffer provided

@@ -47,7 +47,7 @@ class NetworkInterface;
 /**
  * The type used to store several PDU option values.
  */
-typedef std::vector<uint8_t> byte_array;
+using byte_array = std::vector<uint8_t>;
 
 /** 
  * \class PDU
@@ -109,7 +109,7 @@ public:
     /**
      * The type that will be returned when serializing PDUs.
      */
-    typedef byte_array serialization_type;
+    using serialization_type = byte_array;
 
     /**
      * The typep used to identify the endianness of every PDU.
@@ -580,18 +580,18 @@ T* operator/= (T* lop, const PDU& rop) {
 namespace Internals {
     template<typename T>
     struct remove_pointer {
-        typedef T type;
+        using type = T;
     };
 
     template<typename T>
     struct remove_pointer<T*> {
-        typedef T type;
+        using type = T;
     };
 }
 
 template<typename T, typename U>
 T tins_cast(U* pdu) {
-    typedef typename Internals::remove_pointer<T>::type TrueT;
+    using TrueT = typename Internals::remove_pointer<T>::type;
     return pdu && (TrueT::pdu_flag == pdu->pdu_type()) ?
            static_cast<T>(pdu) : 0;
 }

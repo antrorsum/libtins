@@ -49,12 +49,12 @@ public:
     /**
      * \brief The type used to store the interface's identifier.
      */
-    typedef uint32_t id_type;
+    using id_type = uint32_t;
     
     /**
      * \brief The type of this interface's address.
      */
-    typedef HWAddress<6> address_type;
+    using address_type = HWAddress<6>;
     
     /**
      *

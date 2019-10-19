@@ -75,17 +75,17 @@ public:
     /**
      * The type used to store payloads
      */
-    typedef Flow::payload_type payload_type;
+    using payload_type = Flow::payload_type;
 
     /** 
      * The type used to represent timestamps
      */
-    typedef std::chrono::microseconds timestamp_type;
+    using timestamp_type = std::chrono::microseconds;
     
     /**
      * The type used for callbacks
      */
-    typedef std::function<void(Stream&)> stream_callback_type;
+    using stream_callback_type = std::function<void (Stream &)>;
 
     /**
      * The type used for packet-triggered callbacks
@@ -95,14 +95,12 @@ public:
      *
      * /sa Flow::buffering_callback
      */
-    typedef std::function<void(Stream&,
-                               uint32_t,
-                               const payload_type&)> stream_packet_callback_type;
+    using stream_packet_callback_type = std::function<void (Stream &, uint32_t, const payload_type &)>;
 
     /**
      * The type used to store hardware addresses
      */
-    typedef HWAddress<6> hwaddress_type;
+    using hwaddress_type = HWAddress<6>;
 
 
     /**

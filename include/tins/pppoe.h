@@ -81,13 +81,13 @@ public:
     /**
      * The type used to store the options.
      */
-    typedef std::vector<tag> tags_type;
+    using tags_type = std::vector<tag>;
     
     /**
      * The type used to store the Vendor-Specific tag's value.
      */
     struct vendor_spec_type {
-        typedef std::vector<uint8_t> data_type;
+        using data_type = std::vector<uint8_t>;
         
         uint32_t vendor_id;
         data_type data;

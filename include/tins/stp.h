@@ -51,7 +51,7 @@ public:
     /**
      * The type used to store BPDU identifier addresses.
      */
-    typedef HWAddress<6> address_type;
+    using address_type = HWAddress<6>;
     
     /**
      * The type used to store the BPDU identifiers.

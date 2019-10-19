@@ -65,7 +65,7 @@ const int PacketSender::INVALID_RAW_SOCKET = -1;
 const uint32_t PacketSender::DEFAULT_TIMEOUT = 2;
 
 #ifndef _WIN32
-    typedef int socket_type;
+    using socket_type = int;
     
     const char* make_error_string() {
         return strerror(errno);
@@ -187,7 +187,7 @@ void PacketSender::open_l3_socket(SocketType type) {
 
         const int on = 1;
         #ifndef _WIN32
-        typedef const void* option_ptr;
+        using option_ptr = const void *;
         #else
         typedef const char* option_ptr;
         #endif
@@ -339,8 +339,8 @@ PDU* PacketSender::recv_match_loop(const vector<int>& sockets,
         typedef int socket_len_type;
         typedef int recvfrom_ret_type;
     #else
-        typedef socklen_t socket_len_type;
-        typedef ssize_t recvfrom_ret_type;
+        using socket_len_type = socklen_t;
+        using recvfrom_ret_type = ssize_t;
     #endif
     fd_set readfds;
     struct timeval timeout,  end_time;
@@ -411,8 +411,8 @@ PDU* PacketSender::recv_match_loop(const vector<int>& sockets,
             typedef long tv_sec_type;
             typedef long tv_usec_type;
         #else
-            typedef time_t tv_sec_type;
-            typedef long tv_usec_type;
+            using tv_sec_type = time_t;
+            using tv_usec_type = long;
         #endif
         microseconds diff = end - now;
         timeout.tv_sec = static_cast<tv_sec_type>(duration_cast<seconds>(diff).count());

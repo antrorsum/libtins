@@ -84,17 +84,17 @@ public:
     /** 
      * The type used to store the payload
      */
-    typedef DataTracker::payload_type payload_type;
+    using payload_type = DataTracker::payload_type;
 
     /**
      * The type used to store the buffered payload
      */
-    typedef DataTracker::buffered_payload_type buffered_payload_type;
+    using buffered_payload_type = DataTracker::buffered_payload_type;
 
     /**
      * The type used to store the callback called when new data is available
      */
-    typedef std::function<void(Flow&)> data_available_callback_type;
+    using data_available_callback_type = std::function<void (Flow &)>;
 
     /**
      * \brief The type used to store the callback called when data is buffered
@@ -102,9 +102,7 @@ public:
      * The arguments are the flow, the sequence number and payload that will
      * be buffered.
      */
-    typedef std::function<void(Flow&,
-                               uint32_t,
-                               const payload_type&)> flow_packet_callback_type;
+    using flow_packet_callback_type = std::function<void (Flow &, uint32_t, const payload_type &)>;
 
     /** 
      * Construct a Flow from an IPv4 address

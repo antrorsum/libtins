@@ -72,7 +72,7 @@ public:
     /**
      * The type used to store addresses.
      */
-    typedef IPv4Address address_type;
+    using address_type = IPv4Address;
 
     /** \brief ICMP flags
      */

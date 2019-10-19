@@ -38,7 +38,7 @@ namespace Internals {
 
 template<typename T>
 struct smart_ptr {
-    typedef std::unique_ptr<T> type;
+    using type = std::unique_ptr<T>;
 };
 
 } // Internals

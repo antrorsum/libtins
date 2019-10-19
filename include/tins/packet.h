@@ -67,8 +67,8 @@ typedef PacketWrapper<PDU*, Timestamp> PtrPacket;
 template<typename PDUType, typename TimestampType>
 class PacketWrapper {
 public:
-    typedef PDUType pdu_type;
-    typedef TimestampType timestamp_type;
+    using pdu_type = PDUType;
+    using timestamp_type = TimestampType;
     
     /**
      * \brief User defined conversion to wrapped_type.

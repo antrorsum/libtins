@@ -397,8 +397,8 @@ private:
         } TINS_END_PACK;
     #endif
     
-    typedef std::vector<uint8_t> field_type;
-    typedef std::vector<field_type> field_list;
+    using field_type = std::vector<uint8_t>;
+    using field_list = std::vector<field_type>;
 
     void write_serialization(uint8_t* buffer, uint32_t total_sz);
 

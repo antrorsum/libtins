@@ -229,7 +229,7 @@ uint32_t ICMPv6::header_size() const {
         extra = sizeof(uint32_t) * 2;
     }
     else if (type() == MLD2_REPORT) {
-        typedef multicast_address_records_list::const_iterator iterator;
+        using iterator = multicast_address_records_list::const_iterator;
         for (iterator iter = multicast_records_.begin(); 
              iter != multicast_records_.end(); ++iter) {
             extra += iter->size();
@@ -320,7 +320,7 @@ void ICMPv6::write_serialization(uint8_t* buffer, uint32_t total_sz) {
         stream.write(retrans_timer_);
     }
     else if (type() == MLD2_REPORT) {
-        typedef multicast_address_records_list::const_iterator iterator;
+        using iterator = multicast_address_records_list::const_iterator;
         for (iterator iter = multicast_records_.begin(); 
              iter != multicast_records_.end(); ++iter) {
             iter->serialize(stream.pointer(), stream.size());
@@ -333,7 +333,7 @@ void ICMPv6::write_serialization(uint8_t* buffer, uint32_t total_sz) {
         if (use_mldv2_) {
             stream.write(mlqm_);
             stream.write_be<uint16_t>(sources_.size());
-            typedef sources_list::const_iterator iterator;
+            using iterator = sources_list::const_iterator;
             for (iterator iter = sources_.begin(); iter != sources_.end(); ++iter) {
                 stream.write(*iter);
             } 
@@ -620,7 +620,7 @@ void ICMPv6::recursive_dns_servers(const recursive_dns_type& value) {
     stream.write<uint8_t>(0);
     stream.write_be(value.lifetime);
     
-    typedef recursive_dns_type::servers_type::const_iterator iterator;
+    using iterator = recursive_dns_type::servers_type::const_iterator;
     for (iterator it = value.servers.begin(); it != value.servers.end(); ++it) {
         stream.write(*it);
     }
@@ -685,7 +685,7 @@ void ICMPv6::dns_search_list(const dns_search_list_type& value) {
     OutputMemoryStream stream(buffer);
     stream.skip(2);
     stream.write_be(value.lifetime);
-    typedef dns_search_list_type::domains_type::const_iterator iterator;
+    using iterator = dns_search_list_type::domains_type::const_iterator;
     for (iterator it = value.domains.begin(); it != value.domains.end(); ++it) {
         size_t prev = 0, index;
         do {

@@ -47,7 +47,7 @@ public:
     /**
      * The supported rates container type.
      */
-    typedef std::vector<float> rates_type;
+    using rates_type = std::vector<float>;
     
     /**
      * The supported channels container type.
@@ -62,7 +62,7 @@ public:
     /**
      * The requested information container type.
      */
-    typedef std::vector<uint8_t> request_info_type;
+    using request_info_type = std::vector<uint8_t>;
 
     /**
      * This PDU's flag.
@@ -642,7 +642,7 @@ public:
      * The type used to store the Vendor Specific option data.
      */
     struct vendor_specific_type {
-        typedef HWAddress<3> oui_type;
+        using oui_type = HWAddress<3>;
 
         oui_type oui;
         byte_array data;
@@ -657,7 +657,7 @@ public:
     /**
      * The type used to store the QOS capability tagged option data.
      */
-    typedef uint8_t qos_capability_type;
+    using qos_capability_type = uint8_t;
 
     /**
      * \brief Getter for the second address.

@@ -150,7 +150,7 @@ bool ICMPExtensionsStructure::validate_extensions(const uint8_t* buffer, uint32_
 }
 
 uint32_t ICMPExtensionsStructure::size() const {
-    typedef extensions_type::const_iterator iterator;
+    using iterator = extensions_type::const_iterator;
     uint32_t output = BASE_HEADER_SIZE;
     for (iterator iter = extensions_.begin(); iter != extensions_.end(); ++iter) {
         output += iter->size();
@@ -175,7 +175,7 @@ void ICMPExtensionsStructure::serialize(uint8_t* buffer, uint32_t buffer_size) {
     // Make checksum 0, for now, we'll compute it at the end
     stream.write<uint16_t>(0);
 
-    typedef extensions_type::const_iterator iterator;
+    using iterator = extensions_type::const_iterator;
     for (iterator iter = extensions_.begin(); iter != extensions_.end(); ++iter) {
         iter->serialize(stream.pointer(), stream.size());
         stream.skip(iter->size());

@@ -72,12 +72,12 @@ public:
     /**
      * The type used to hold the PTK (this has to be PTK_SIZE bytes long).
      */
-    typedef std::vector<uint8_t> ptk_type;
+    using ptk_type = std::vector<uint8_t>;
 
     /**
      * The type used to hold the PMK (this has to be PMK_SIZE bytes long).
      */
-    typedef std::vector<uint8_t> pmk_type;
+    using pmk_type = std::vector<uint8_t>;
     
     /**
      * Default constructs a SessionKeys object.
@@ -144,7 +144,7 @@ public:
     /**
      * The type used to store the PMK.
      */
-    typedef SessionKeys::pmk_type pmk_type;
+    using pmk_type = SessionKeys::pmk_type;
     
     /**
      * \brief Constructs a SupplicantData.
@@ -177,7 +177,7 @@ private:
  */
 class TINS_API WEPDecrypter {
 public:
-    typedef HWAddress<6> address_type;
+    using address_type = HWAddress<6>;
 
     /**
      * \brief Constructs a WEPDecrypter object.
@@ -236,7 +236,7 @@ public:
     /*
      * \brief The type used to store Dot11 addresses.
      */
-    typedef HWAddress<6> address_type;
+    using address_type = HWAddress<6>;
     
     /**
      * \brief Represents a pair of mac addresses.
@@ -436,12 +436,12 @@ public:
     /**
      * The type of the functor object.
      */
-    typedef Functor functor_type;
+    using functor_type = Functor;
 
     /**
      * The type of the decrypter object.
      */
-    typedef Decrypter decrypter_type;
+    using decrypter_type = Decrypter;
     
     /**
      * \brief Constructs an object from a functor and a decrypter.

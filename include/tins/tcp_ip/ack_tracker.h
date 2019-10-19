@@ -51,7 +51,7 @@ namespace TCPIP {
  */
 class TINS_API AckedRange {
 public:
-    typedef boost::icl::discrete_interval<uint32_t> interval_type;
+    using interval_type = boost::icl::discrete_interval<uint32_t>;
 
     /**
      * \brief Constructs an acked range
@@ -96,7 +96,7 @@ public:
     /**
      * The type used to store ACKed intervals
      */
-    typedef boost::icl::interval_set<uint32_t> interval_set_type;
+    using interval_set_type = boost::icl::interval_set<uint32_t>;
 
     /**
      * Default constructor

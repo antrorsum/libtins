@@ -601,10 +601,10 @@ public:
     TINS_DEPRECATED(typedef query Query);
     TINS_DEPRECATED(typedef resource Resource);
     
-    typedef std::vector<query> queries_type;
-    typedef std::vector<resource> resources_type;
-    typedef IPv4Address address_type;
-    typedef IPv6Address address_v6_type;
+    using queries_type = std::vector<query>;
+    using resources_type = std::vector<resource>;
+    using address_type = IPv4Address;
+    using address_v6_type = IPv6Address;
     
     /**
      * \brief Extracts metadata for this protocol based on the buffer provided

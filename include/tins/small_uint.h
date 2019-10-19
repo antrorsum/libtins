@@ -53,12 +53,12 @@ class small_uint {
 private:
     template<bool cond, typename OnTrue, typename OnFalse>
     struct if_then_else {
-        typedef OnTrue type;
+        using type = OnTrue;
     };
 
     template<typename OnTrue, typename OnFalse>
     struct if_then_else<false, OnTrue, OnFalse>  {
-        typedef OnFalse type;
+        using type = OnFalse;
     };
 
     template<size_t i>
@@ -91,7 +91,7 @@ public:
     /**
      * The type used to store the value.
      */
-    typedef typename best_type<n>::type repr_type;
+    using repr_type = typename best_type<n>::type;
     
     /**
      * The maximum value this class can hold.

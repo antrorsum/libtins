@@ -61,7 +61,7 @@ public:
     /**
      * The type used to store addresses.
      */
-    typedef IPv6Address address_type;
+    using address_type = IPv6Address;
     
     /**
      * The type used to represent IPv6 extension headers.
@@ -71,7 +71,7 @@ public:
     /**
      * The type used to store the extension headers.
      */
-    typedef std::vector<ext_header> headers_type;
+    using headers_type = std::vector<ext_header>;
 
     /**
      * The type used to store an extension header option.

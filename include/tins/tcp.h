@@ -131,12 +131,12 @@ public:
     /**
      * The type used to store the options.
      */
-    typedef std::vector<option> options_type;
+    using options_type = std::vector<option>;
     
     /**
      * The type used to store the sack option.
      */
-    typedef std::vector<uint32_t> sack_type;
+    using sack_type = std::vector<uint32_t>;
 
     /**
      * \brief Extracts metadata for this protocol based on the buffer provided

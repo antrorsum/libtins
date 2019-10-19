@@ -169,7 +169,7 @@ public:
     /**
      * The type used to store the DHCP options.
      */
-    typedef std::vector<option> options_type;
+    using options_type = std::vector<option>;
     
     /**
      * \brief Extracts metadata for this protocol based on the buffer provided

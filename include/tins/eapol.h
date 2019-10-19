@@ -200,7 +200,7 @@ public:
     /**
      * The type used to store the key.
      */
-    typedef std::vector<uint8_t> key_type;
+    using key_type = std::vector<uint8_t>;
 
     /**
      * This PDU's flag.
@@ -399,7 +399,7 @@ public:
     /**
      * The type used to store the key.
      */
-    typedef std::vector<uint8_t> key_type;
+    using key_type = std::vector<uint8_t>;
 
     /**
      * \brief This PDU's flag.

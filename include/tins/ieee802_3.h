@@ -33,7 +33,7 @@
 #include <tins/dot3.h>
 
 namespace Tins {
-    typedef Dot3 IEEE802_3;
+    using IEEE802_3 = Dot3;
 }
 
 

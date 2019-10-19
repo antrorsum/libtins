@@ -54,8 +54,8 @@ PDU* default_allocator(const uint8_t* buffer, uint32_t size) {
 template<typename Tag>
 class PDUAllocator {
 public:
-    typedef typename Tag::identifier_type id_type;
-    typedef PDU *(*allocator_type)(const uint8_t *, uint32_t);
+    using id_type = typename Tag::identifier_type;
+    using allocator_type = PDU *(*)(const uint8_t *, uint32_t);
 
     template<typename PDUType>
     static void register_allocator(id_type identifier) {
@@ -92,7 +92,7 @@ typename PDUAllocator<Tag>::pdu_map_types PDUAllocator<Tag>::pdu_types;
 
 template<typename IDType>
 struct pdu_tag {
-    typedef IDType identifier_type;
+    using identifier_type = IDType;
 };
 
 template<typename PDUType>

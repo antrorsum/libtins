@@ -62,7 +62,7 @@ using std::copy;
 
 /** \cond */
 struct InterfaceInfoCollector {
-    typedef Tins::NetworkInterface::Info info_type;
+    using info_type = Tins::NetworkInterface::Info;
     info_type* info;
     int iface_id;
     const char* iface_name;
@@ -229,7 +229,7 @@ NetworkInterface::NetworkInterface(const std::string& name) {
 
 NetworkInterface::NetworkInterface(IPv4Address ip) 
 : iface_id_(0) {
-    typedef vector<Utils::RouteEntry> entries_type;
+    using entries_type = vector<Utils::RouteEntry>;
     
     if (ip == "127.0.0.1") {
         #if defined(BSD) || defined(__FreeBSD_kernel__)
@@ -259,7 +259,7 @@ NetworkInterface::NetworkInterface(IPv4Address ip)
 
 NetworkInterface::NetworkInterface(IPv6Address ipv6)
 : iface_id_(0) {
-    typedef vector<Utils::Route6Entry> entries_type;
+    using entries_type = vector<Utils::Route6Entry>;
 
     if (ipv6 == "::1") {
         #if defined(BSD) || defined(__FreeBSD_kernel__)

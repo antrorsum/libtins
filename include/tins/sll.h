@@ -52,7 +52,7 @@ public:
     /**
      *  The type of the address type
      */
-    typedef HWAddress<8> address_type;
+    using address_type = HWAddress<8>;
     
     /**
      * Default constructor

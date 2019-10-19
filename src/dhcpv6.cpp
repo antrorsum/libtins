@@ -66,7 +66,7 @@ void class_option_data2option(InputIterator start,
 
 template<typename OutputType>
 OutputType option2class_option_data(const uint8_t* ptr, uint32_t total_sz) {
-    typedef typename OutputType::value_type value_type;
+    using value_type = typename OutputType::value_type;
     OutputType output;
     size_t index = 0;
     while (index + 2 < total_sz) {
@@ -333,7 +333,7 @@ void DHCPv6::ia_address(const ia_address_type& value) {
 }
 
 void DHCPv6::option_request(const option_request_type& value) {
-    typedef option_request_type::const_iterator iterator;
+    using iterator = option_request_type::const_iterator;
     
     vector<uint8_t> buffer(value.size() * sizeof(uint16_t));
     OutputMemoryStream stream(buffer);
@@ -585,7 +585,7 @@ DHCPv6::vendor_class_type DHCPv6::vendor_class_type::from_option(const option& o
     if (opt.data_size() < sizeof(uint32_t)) {
         throw malformed_option();
     }
-    typedef vendor_class_type::class_data_type data_type;
+    using data_type = vendor_class_type::class_data_type;
     InputMemoryStream stream(opt.data_ptr(), opt.data_size());
     vendor_class_type output;
     output.enterprise_number = stream.read_be<uint32_t>();

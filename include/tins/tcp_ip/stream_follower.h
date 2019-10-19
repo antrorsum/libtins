@@ -80,12 +80,12 @@ public:
     /**
      * The type used for callbacks
      */
-    typedef Stream::stream_callback_type stream_callback_type;
+    using stream_callback_type = Stream::stream_callback_type;
 
     /**
      * The type used to identify streams 
      */
-    typedef StreamIdentifier stream_id;
+    using stream_id = StreamIdentifier;
 
     /**
      * Enum to indicate the reason why a stream was terminated
@@ -101,7 +101,7 @@ public:
      *
      * \sa StreamFollower::stream_termination_callback
      */
-    typedef std::function<void(Stream&, TerminationReason)> stream_termination_callback_type;
+    using stream_termination_callback_type = std::function<void (Stream &, TerminationReason)>;
 
     /** 
      * Default constructor
@@ -206,7 +206,7 @@ public:
      */
     void follow_partial_streams(bool value);
 private:
-    typedef Stream::timestamp_type timestamp_type;
+    using timestamp_type = Stream::timestamp_type;
 
     static const size_t DEFAULT_MAX_BUFFERED_CHUNKS;
     static const size_t DEFAULT_MAX_SACKED_INTERVALS;

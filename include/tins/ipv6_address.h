@@ -49,12 +49,12 @@ public:
     /**
      * The iterator type.
      */
-    typedef uint8_t* iterator;
+    using iterator = uint8_t *;
     
     /**
      * The const iterator type.
      */
-    typedef const uint8_t* const_iterator;
+    using const_iterator = const uint8_t *;
 
     /**
      * \brief Constructs an IPv6 address from a prefix length

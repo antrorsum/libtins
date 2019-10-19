@@ -413,7 +413,7 @@ void IPv6::set_last_next_header(uint8_t value) {
 }
 
 uint32_t IPv6::calculate_headers_size() const {
-    typedef headers_type::const_iterator const_iterator;
+    using const_iterator = headers_type::const_iterator;
     uint32_t output = 0;
     for (const_iterator iter = ext_headers_.begin(); iter != ext_headers_.end(); ++iter) {
         output += static_cast<uint32_t>(iter->data_size() + sizeof(uint8_t) * 2);

@@ -162,12 +162,12 @@ public:
     /**
      * The type used to store the DHCPv6 options.
      */
-    typedef std::vector<option> options_type;
+    using options_type = std::vector<option>;
 
     /**
      * The type used to store IP addresses.
      */
-    typedef IPv6Address ipaddress_type;
+    using ipaddress_type = IPv6Address;
     
     /**
      * This PDU's flag.
@@ -179,7 +179,7 @@ public:
      * Addresses option.
      */
     struct ia_na_type {
-        typedef std::vector<uint8_t> options_type;
+        using options_type = std::vector<uint8_t>;
         
         uint32_t id, t1, t2;
         options_type options;
@@ -196,7 +196,7 @@ public:
      * Addresses option.
      */
     struct ia_ta_type {
-        typedef std::vector<uint8_t> options_type;
+        using options_type = std::vector<uint8_t>;
         
         uint32_t id;
         options_type options;
@@ -212,7 +212,7 @@ public:
      * The type used to store the Identity Association Address option.
      */
     struct ia_address_type {
-        typedef std::vector<uint8_t> options_type;
+        using options_type = std::vector<uint8_t>;
         
         ipaddress_type address;
         uint32_t preferred_lifetime, valid_lifetime;
@@ -231,7 +231,7 @@ public:
      * The type used to store the Authentication option.
      */
     struct authentication_type {
-        typedef std::vector<uint8_t> auth_info_type;
+        using auth_info_type = std::vector<uint8_t>;
         
         uint8_t protocol, algorithm, rdm;
         uint64_t replay_detection;
@@ -263,7 +263,7 @@ public:
      * The type used to store the Vendor-specific Information option.
      */
     struct vendor_info_type {
-        typedef std::vector<uint8_t> data_type;
+        using data_type = std::vector<uint8_t>;
         
         uint32_t enterprise_number;
         data_type data;
@@ -279,14 +279,14 @@ public:
     /**
      * The type used to store the User Class option's user class data.
      */
-    typedef std::vector<uint8_t> class_option_data_type;
+    using class_option_data_type = std::vector<uint8_t>;
     
     /**
      * The type used to store the User Class option.
      */
     //typedef std::vector<class_option_data_type> user_class_type;
     struct user_class_type {
-        typedef std::vector<class_option_data_type> data_type;
+        using data_type = std::vector<class_option_data_type>;
         data_type data;
 
         user_class_type(const data_type& data = data_type())
@@ -299,7 +299,7 @@ public:
      * The type used to store the Vendor Class option.
      */
     struct vendor_class_type {
-        typedef std::vector<class_option_data_type> class_data_type;
+        using class_data_type = std::vector<class_option_data_type>;
         
         uint32_t enterprise_number;
         class_data_type vendor_class_data;
@@ -318,7 +318,7 @@ public:
      */
     struct duid_llt {
         static const uint16_t duid_id = 1;
-        typedef std::vector<uint8_t> lladdress_type;
+        using lladdress_type = std::vector<uint8_t>;
         
         uint16_t hw_type;
         uint32_t time;
@@ -338,7 +338,7 @@ public:
      */
     struct duid_en {
         static const uint16_t duid_id = 2;
-        typedef std::vector<uint8_t> identifier_type;
+        using identifier_type = std::vector<uint8_t>;
         
         uint32_t enterprise_number;
         identifier_type identifier;
@@ -357,7 +357,7 @@ public:
      */
     struct duid_ll {
         static const uint16_t duid_id = 3;
-        typedef std::vector<uint8_t> lladdress_type;
+        using lladdress_type = std::vector<uint8_t>;
         
         uint16_t hw_type;
         lladdress_type lladdress;
@@ -376,7 +376,7 @@ public:
      * value for the Client/Server Identifier options.
      */
     struct duid_type {
-        typedef PDU::serialization_type data_type;
+        using data_type = PDU::serialization_type;
         
         uint16_t id;
         data_type data;
@@ -399,17 +399,17 @@ public:
     /**
      * The type used to store the Option Request option.
      */
-    typedef std::vector<uint16_t> option_request_type;
+    using option_request_type = std::vector<uint16_t>;
     
     /**
      * The type used to store the Relay Message option.
      */
-    typedef std::vector<uint8_t> relay_msg_type;
+    using relay_msg_type = std::vector<uint8_t>;
     
     /**
      * The type used to store the Interface-ID option.
      */
-    typedef std::vector<uint8_t> interface_id_type;
+    using interface_id_type = std::vector<uint8_t>;
 
     /**
      * \brief Extracts metadata for this protocol based on the buffer provided

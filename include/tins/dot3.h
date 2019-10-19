@@ -48,7 +48,7 @@ public:
     /**
      * \brief The address type.
      */
-    typedef HWAddress<6> address_type; 
+    using address_type = HWAddress<6>; 
     
     /**
      * \brief This PDU's flag.

@@ -229,7 +229,7 @@ uint32_t DHCP::rebind_time() const {
 PDU::serialization_type DHCP::serialize_list(const vector<ipaddress_type>& ip_list) {
     serialization_type buffer(ip_list.size() * sizeof(uint32_t));
     uint32_t* ptr = (uint32_t*)&buffer[0];
-    typedef vector<ipaddress_type>::const_iterator iterator;
+    using iterator = vector<ipaddress_type>::const_iterator;
     for (iterator it = ip_list.begin(); it != ip_list.end(); ++it) {
         *(ptr++) = *it;
     }

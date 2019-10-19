@@ -45,7 +45,7 @@ namespace Tins {
 namespace Internals {
 class IPv4Fragment {
 public:
-    typedef PDU::serialization_type payload_type;
+    using payload_type = PDU::serialization_type;
 
     IPv4Fragment() : offset_() { }
 
@@ -76,7 +76,7 @@ public:
     PDU* allocate_pdu() const;
     const IP& first_fragment() const;
 private:
-    typedef std::vector<IPv4Fragment> fragments_type;
+    using fragments_type = std::vector<IPv4Fragment>;
     
     uint16_t extract_offset(const IP* ip);
     bool extract_more_frag(const IP* ip);
