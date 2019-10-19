@@ -30,11 +30,11 @@
 #ifndef TINS_IEEE8022_H
 #define TINS_IEEE8022_H
 
-#include <vector>
-#include <stdint.h>
+#include <cstdint>
+#include <tins/endianness.h>
 #include <tins/macros.h>
 #include <tins/pdu.h>
-#include <tins/endianness.h>
+#include <vector>
 
 namespace Tins {
 

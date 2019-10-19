@@ -27,22 +27,22 @@
  *
  */
 
-#include <tins/packet_sender.h>
-#include <sys/socket.h>
-#include <sys/select.h>
-#include <sys/time.h>
 #include <arpa/inet.h>
-#include <unistd.h>
+#include <cerrno>
+#include <cstring>
+#include <ctime>
 #include <linux/if_ether.h>
 #include <linux/if_packet.h>
 #include <netdb.h>
 #include <netinet/in.h>
-#include <errno.h>
-#include <cstring>
-#include <ctime>
 #include <sstream>
-#include <tins/pdu.h>
+#include <sys/select.h>
+#include <sys/socket.h>
+#include <sys/time.h>
 #include <tins/macros.h>
+#include <tins/packet_sender.h>
+#include <tins/pdu.h>
+#include <unistd.h>
 // PDUs required by PacketSender::send(PDU&, NetworkInterface)
 #include <tins/ethernetII.h>
 #include <tins/radiotap.h>

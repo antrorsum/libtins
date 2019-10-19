@@ -30,7 +30,7 @@
 #ifndef TINS_TYPE_TRAITS_H
 #define TINS_TYPE_TRAITS_H
 
-#include <stdint.h>
+#include <cstdint>
 #include <tins/cxxstd.h>
 #include <type_traits>
 #include <utility>

@@ -30,13 +30,13 @@
 #ifndef TINS_NETWORK_INTERFACE_H
 #define TINS_NETWORK_INTERFACE_H
 
+#include <cstdint>
 #include <string>
-#include <vector>
-#include <stdint.h>
-#include <tins/macros.h>
 #include <tins/hw_address.h>
 #include <tins/ip_address.h>
 #include <tins/ipv6_address.h>
+#include <tins/macros.h>
+#include <vector>
 
 namespace Tins {
 

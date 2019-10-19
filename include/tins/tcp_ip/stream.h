@@ -34,16 +34,16 @@
 
 #ifdef TINS_HAVE_TCPIP
 
-#include <vector>
 #include <array>
-#include <map>
-#include <functional>
 #include <chrono>
-#include <stdint.h>
-#include <tins/macros.h>
-#include <tins/hw_address.h>
+#include <cstdint>
+#include <functional>
+#include <map>
 #include <tins/config.h>
+#include <tins/hw_address.h>
+#include <tins/macros.h>
 #include <tins/tcp_ip/flow.h>
+#include <vector>
 #ifdef TINS_HAVE_TCP_STREAM_CUSTOM_DATA
     #include <boost/any.hpp>
 #endif

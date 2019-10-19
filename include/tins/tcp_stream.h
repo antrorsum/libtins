@@ -30,16 +30,16 @@
 #ifndef TINS_TCP_STREAM_H
 #define TINS_TCP_STREAM_H
 
-#include <map>
-#include <utility>
-#include <vector>
 #include <algorithm>
-#include <stdint.h>
-#include <tins/macros.h>
-#include <tins/tcp.h>
+#include <cstdint>
+#include <map>
 #include <tins/ip.h>
 #include <tins/ip_address.h>
+#include <tins/macros.h>
+#include <tins/tcp.h>
 #include <tins/utils/pdu_utils.h>
+#include <utility>
+#include <vector>
 
 #ifdef TINS_HAVE_PCAP
 

@@ -31,11 +31,11 @@
 #define TINS_PDU_H
 
 
-#include <stdint.h>
-#include <vector>
-#include <tins/macros.h>
+#include <cstdint>
 #include <tins/cxxstd.h>
 #include <tins/exceptions.h>
+#include <tins/macros.h>
+#include <vector>
 
 /** \brief The Tins namespace.
  */

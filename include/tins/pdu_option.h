@@ -30,12 +30,12 @@
 #ifndef TINS_PDU_OPTION_H
 #define TINS_PDU_OPTION_H
 
-#include <vector>
-#include <string>
+#include <cstdint>
 #include <cstring>
-#include <stdint.h>
-#include <tins/exceptions.h>
+#include <string>
 #include <tins/detail/type_traits.h>
+#include <tins/exceptions.h>
+#include <vector>
 
 namespace Tins {
 

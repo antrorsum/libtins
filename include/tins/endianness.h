@@ -30,7 +30,7 @@
 #ifndef TINS_ENDIANNESS_H
 #define TINS_ENDIANNESS_H
 
-#include <stdint.h>
+#include <cstdint>
 #include <tins/macros.h>
 
 #if defined(__APPLE__)

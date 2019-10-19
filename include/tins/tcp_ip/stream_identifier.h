@@ -35,7 +35,7 @@
 #ifdef TINS_HAVE_TCPIP
 
 #include <array>
-#include <stdint.h>
+#include <cstdint>
 
 namespace Tins {
 

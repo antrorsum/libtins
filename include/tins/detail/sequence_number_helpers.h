@@ -30,7 +30,7 @@
 #ifndef TINS_SEQUENCE_NUMBER_HELPERS_H
 #define TINS_SEQUENCE_NUMBER_HELPERS_H
 
-#include <stdint.h>
+#include <cstdint>
 /**
  * \cond
  */

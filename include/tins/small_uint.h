@@ -30,7 +30,7 @@
 #ifndef TINS_SMALL_UINT_H
 #define TINS_SMALL_UINT_H
 
-#include <stdint.h>
+#include <cstdint>
 #include <stdexcept>
 
 namespace Tins {

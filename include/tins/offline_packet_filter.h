@@ -30,8 +30,8 @@
 #ifndef TINS_OFFLINE_PACKET_FILTER_H
 #define TINS_OFFLINE_PACKET_FILTER_H
 
+#include <cstdint>
 #include <string>
-#include <stdint.h>
 #include <tins/macros.h>
 
 #ifdef TINS_HAVE_PCAP

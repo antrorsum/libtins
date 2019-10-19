@@ -30,12 +30,12 @@
 #ifndef TINS_ETHERNET_II_H
 #define TINS_ETHERNET_II_H
 
-#include <stdint.h>
-#include <tins/macros.h>
-#include <tins/pdu.h>
+#include <cstdint>
 #include <tins/config.h>
 #include <tins/endianness.h>
 #include <tins/hw_address.h>
+#include <tins/macros.h>
+#include <tins/pdu.h>
 
 namespace Tins {
 

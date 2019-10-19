@@ -30,10 +30,10 @@
 #ifndef TINS_HWADDRESS_H
 #define TINS_HWADDRESS_H
 
-#include <stdint.h>
+#include <cstdint>
+#include <cstring>
 #include <iosfwd>
 #include <string>
-#include <cstring>
 #include <tins/cxxstd.h>
 #include <tins/macros.h>
 // std::hash

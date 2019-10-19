@@ -30,7 +30,7 @@
 #ifndef TINS_ICMP_EXTENSION_HELPERS_H
 #define TINS_ICMP_EXTENSION_HELPERS_H
 
-#include <stdint.h>
+#include <cstdint>
 
 /**
  * \cond

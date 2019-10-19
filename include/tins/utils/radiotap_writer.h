@@ -33,9 +33,9 @@
 
 #define TINS_RADIOTAP_WRITER_H
 
-#include <vector>
-#include <stdint.h>
+#include <cstdint>
 #include <tins/radiotap.h>
+#include <vector>
 
 namespace Tins {
 namespace Utils {

@@ -30,10 +30,10 @@
 #ifndef TINS_IPADDRESS_H
 #define TINS_IPADDRESS_H
 
-#include <string>
-#include <iosfwd>
+#include <cstdint>
 #include <functional>
-#include <stdint.h>
+#include <iosfwd>
+#include <string>
 #include <tins/cxxstd.h>
 #include <tins/macros.h>
 

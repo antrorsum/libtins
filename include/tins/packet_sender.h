@@ -31,15 +31,15 @@
 #define TINS_PACKET_SENDER_H
 
 
-#include <string>
-#include <vector>
-#include <stdint.h>
+#include <cstdint>
 #include <map>
-#include <tins/config.h>
 #include <pcap.h>
-#include <tins/network_interface.h>
-#include <tins/macros.h>
+#include <string>
+#include <tins/config.h>
 #include <tins/cxxstd.h>
+#include <tins/macros.h>
+#include <tins/network_interface.h>
+#include <vector>
 
 struct timeval;
 struct sockaddr;

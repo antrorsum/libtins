@@ -30,11 +30,11 @@
 #ifndef TINS_MEMORY_HELPERS_H
 #define TINS_MEMORY_HELPERS_H
 
-#include <stdint.h>
+#include <cstdint>
 #include <cstring>
-#include <vector>
-#include <tins/exceptions.h>
 #include <tins/endianness.h>
+#include <tins/exceptions.h>
+#include <vector>
 
 namespace Tins {
 

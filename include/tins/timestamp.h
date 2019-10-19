@@ -30,10 +30,10 @@
 #ifndef TINS_TIMESTAMP_H
 #define TINS_TIMESTAMP_H
 
-#include <stdint.h>
-#include <tins/macros.h>
-#include <tins/cxxstd.h>
 #include <chrono>
+#include <cstdint>
+#include <tins/cxxstd.h>
+#include <tins/macros.h>
 
 struct timeval;
 

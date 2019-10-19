@@ -30,13 +30,13 @@
 #ifndef TINS_BOOTP_H
 #define TINS_BOOTP_H
 
-#include <stdint.h>
-#include <vector>
-#include <tins/pdu.h>
-#include <tins/macros.h>
+#include <cstdint>
 #include <tins/endianness.h>
-#include <tins/ip_address.h>
 #include <tins/hw_address.h>
+#include <tins/ip_address.h>
+#include <tins/macros.h>
+#include <tins/pdu.h>
+#include <vector>
 
 namespace Tins {
 

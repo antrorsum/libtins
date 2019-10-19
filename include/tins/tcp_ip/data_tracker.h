@@ -30,11 +30,11 @@
 #ifndef TINS_TCP_IP_DATA_TRACKER_H
 #define TINS_TCP_IP_DATA_TRACKER_H
 
-#include <vector>
+#include <cstdint>
 #include <map>
-#include <stdint.h>
 #include <tins/config.h>
 #include <tins/macros.h>
+#include <vector>
 
 #ifdef TINS_HAVE_TCPIP
 

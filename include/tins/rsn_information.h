@@ -32,10 +32,10 @@
 #if !defined(TINS_RSN_INFORMATION) && defined(TINS_HAVE_DOT11)
 #define TINS_RSN_INFORMATION
 
-#include <stdint.h>
-#include <vector>
-#include <tins/macros.h>
+#include <cstdint>
 #include <tins/endianness.h>
+#include <tins/macros.h>
+#include <vector>
 
 namespace Tins{
 class Dot11;

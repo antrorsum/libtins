@@ -30,15 +30,15 @@
 #ifndef TINS_TCP_H
 #define TINS_TCP_H
 
-#include <vector>
-#include <stdint.h>
-#include <utility>
-#include <tins/pdu.h>
-#include <tins/macros.h>
-#include <tins/endianness.h>
-#include <tins/small_uint.h>
-#include <tins/pdu_option.h>
+#include <cstdint>
 #include <tins/cxxstd.h>
+#include <tins/endianness.h>
+#include <tins/macros.h>
+#include <tins/pdu.h>
+#include <tins/pdu_option.h>
+#include <tins/small_uint.h>
+#include <utility>
+#include <vector>
 
 namespace Tins {
 namespace Memory {

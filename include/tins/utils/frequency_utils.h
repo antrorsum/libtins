@@ -30,7 +30,7 @@
 #ifndef TINS_FREQUENCY_UTILS_H
 #define TINS_FREQUENCY_UTILS_H
 
-#include <stdint.h>
+#include <cstdint>
 #include <tins/macros.h>
 
 namespace Tins {

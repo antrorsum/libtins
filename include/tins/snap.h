@@ -30,10 +30,10 @@
 #ifndef TINS_SNAP_H
 #define TINS_SNAP_H
 
-#include <stdint.h>
-#include <tins/pdu.h>
-#include <tins/macros.h>
+#include <cstdint>
 #include <tins/endianness.h>
+#include <tins/macros.h>
+#include <tins/pdu.h>
 #include <tins/small_uint.h>
 
 namespace Tins {

@@ -30,14 +30,14 @@
 #ifndef TINS_DNS_H
 #define TINS_DNS_H
 
-#include <stdint.h>
-#include <vector>
+#include <cstdint>
 #include <cstring>
-#include <string>
 #include <map>
+#include <string>
+#include <tins/endianness.h>
 #include <tins/macros.h>
 #include <tins/pdu.h>
-#include <tins/endianness.h>
+#include <vector>
 
 // Undefining some macros that conflict with some symbols here. 
 // Eventually, the conflicting names will be removed, but until then

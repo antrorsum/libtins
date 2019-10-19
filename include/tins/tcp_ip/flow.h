@@ -35,8 +35,8 @@
 #ifdef TINS_HAVE_TCPIP
 
 #include <array>
+#include <cstdint>
 #include <functional>
-#include <stdint.h>
 #include <tins/macros.h>
 #include <tins/tcp_ip/ack_tracker.h>
 #include <tins/tcp_ip/data_tracker.h>

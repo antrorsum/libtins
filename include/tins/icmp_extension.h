@@ -30,11 +30,11 @@
 #ifndef TINS_ICMP_EXTENSION_H
 #define TINS_ICMP_EXTENSION_H
 
-#include <vector>
-#include <stdint.h>
+#include <cstdint>
+#include <tins/endianness.h>
 #include <tins/macros.h>
 #include <tins/small_uint.h>
-#include <tins/endianness.h>
+#include <vector>
 
 namespace Tins {
 
