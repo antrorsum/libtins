@@ -1209,14 +1209,14 @@ public:
      * \return An uint32_t with the header's size.
      * \sa PDU::header_size()
      */
-    uint32_t header_size() const;
+    uint32_t header_size() const override;
 
     /**
      * \brief Getter for the PDU's type.
      *
      * \sa PDU::pdu_type
      */
-    PDUType pdu_type() const {
+    PDUType pdu_type() const override {
         return pdu_flag;
     }
 
@@ -1225,7 +1225,7 @@ public:
      * \param flag The flag to match
      * \sa PDU::matches_flag
      */
-    bool matches_flag(PDUType flag) const {
+    bool matches_flag(PDUType flag) const override {
        return flag == pdu_flag || Dot11::matches_flag(flag);
     }
 protected:
@@ -1256,7 +1256,7 @@ protected:
      */
     Dot11ManagementFrame(const uint8_t* buffer, uint32_t total_sz);
 
-    void write_ext_header(Memory::OutputMemoryStream& stream);
+    void write_ext_header(Memory::OutputMemoryStream& stream) override;
 
     uint32_t management_frame_size() { 
         return Dot11ManagementFrame::header_size();

@@ -151,12 +151,12 @@ public:
      * \return An uint32_t with the header's size.
      * \sa PDU::header_size()
      */
-    uint32_t header_size() const;
+    uint32_t header_size() const override;
 
     /**
      * \sa PDU::send()
      */
-    void send(PacketSender& sender, const NetworkInterface& iface);
+    void send(PacketSender& sender, const NetworkInterface& iface) override;
 
     /** 
      * \brief Check whether ptr points to a valid response for this PDU.
@@ -165,23 +165,23 @@ public:
      * \param ptr The pointer to the buffer.
      * \param total_sz The size of the buffer.
      */
-    bool matches_response(const uint8_t* ptr, uint32_t total_sz) const;
+    bool matches_response(const uint8_t* ptr, uint32_t total_sz) const override;
 
     /** 
      * \sa PDU::recv_response
      */
-    PDU* recv_response(PacketSender& sender, const NetworkInterface& iface);
+    PDU* recv_response(PacketSender& sender, const NetworkInterface& iface) override;
 
     /**
      * \brief Getter for the PDU's type.
      * \sa PDU::pdu_type
      */
-    PDUType pdu_type() const { return pdu_flag; }
+    PDUType pdu_type() const override { return pdu_flag; }
 
     /**
      * \sa PDU::clone
      */
-    Dot3* clone() const {
+    Dot3* clone() const override {
         return new Dot3(*this);
     }
 private:
@@ -195,7 +195,7 @@ private:
         uint16_t length;
     } TINS_END_PACK;
 
-    void write_serialization(uint8_t* buffer, uint32_t total_sz);
+    void write_serialization(uint8_t* buffer, uint32_t total_sz) override;
 
     dot3_header header_;
 };

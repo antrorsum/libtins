@@ -77,7 +77,7 @@ public:
      * \brief Getter for the PDU's type.
      * \sa PDU::pdu_type
      */
-    PDUType pdu_type() const {
+    PDUType pdu_type() const override {
         return pdu_flag;
     }
 
@@ -86,7 +86,7 @@ public:
      * \param flag The flag to match
      * \sa PDU::matches_flag
      */
-    bool matches_flag(PDUType flag) const {
+    bool matches_flag(PDUType flag) const override {
        return flag == pdu_flag || Dot11::matches_flag(flag);
     }
 };
@@ -144,7 +144,7 @@ protected:
      * \return An uint32_t with the header's size.
      * \sa PDU::header_size()
      */
-    uint32_t header_size() const;
+    uint32_t header_size() const override;
 protected:
     /**
      * \brief Getter for the control ta additional fields size.
@@ -153,7 +153,7 @@ protected:
         return static_cast<uint32_t>(taddr_.size() + sizeof(dot11_header)); 
     }
 
-    void write_ext_header(Memory::OutputMemoryStream& stream);
+    void write_ext_header(Memory::OutputMemoryStream& stream) override;
 private:
 
     address_type taddr_;
@@ -201,7 +201,7 @@ public:
      *
      * \sa PDU::clone
      */
-    Dot11RTS* clone() const {
+    Dot11RTS* clone() const override {
         return new Dot11RTS(*this);
     }
 
@@ -209,7 +209,7 @@ public:
      * \brief Getter for the PDU's type.
      * \sa PDU::pdu_type
      */
-    PDUType pdu_type() const {
+    PDUType pdu_type() const override {
         return pdu_flag;
     }
 
@@ -218,7 +218,7 @@ public:
      * \param flag The flag to match
      * \sa PDU::matches_flag
      */
-    bool matches_flag(PDUType flag) const {
+    bool matches_flag(PDUType flag) const override {
        return flag == pdu_flag || Dot11Control::matches_flag(flag);
     }
 };
@@ -263,7 +263,7 @@ public:
      *
      * \sa PDU::clone
      */
-    Dot11PSPoll* clone() const {
+    Dot11PSPoll* clone() const override {
         return new Dot11PSPoll(*this);
     }
 
@@ -271,7 +271,7 @@ public:
      * \brief Getter for the PDU's type.
      * \sa PDU::pdu_type
      */
-    PDUType pdu_type() const {
+    PDUType pdu_type() const override {
         return pdu_flag;
     }
 
@@ -280,7 +280,7 @@ public:
      * \param flag The flag to match
      * \sa PDU::matches_flag
      */
-    bool matches_flag(PDUType flag) const {
+    bool matches_flag(PDUType flag) const override {
        return flag == pdu_flag || Dot11Control::matches_flag(flag);
     }
 };
@@ -325,7 +325,7 @@ public:
      *
      * \sa PDU::clone
      */
-    Dot11CFEnd* clone() const {
+    Dot11CFEnd* clone() const override {
         return new Dot11CFEnd(*this);
     }
 
@@ -333,7 +333,7 @@ public:
      * \brief Getter for the PDU's type.
      * \sa PDU::pdu_type
      */
-    PDUType pdu_type() const {
+    PDUType pdu_type() const override {
         return pdu_flag;
     }
 
@@ -342,7 +342,7 @@ public:
      * \param flag The flag to match
      * \sa PDU::matches_flag
      */
-    bool matches_flag(PDUType flag) const {
+    bool matches_flag(PDUType flag) const override {
         return flag == pdu_flag || Dot11Control::matches_flag(flag);
     }
 };
@@ -387,7 +387,7 @@ public:
      *
      * \sa PDU::clone
      */
-    Dot11EndCFAck* clone() const {
+    Dot11EndCFAck* clone() const override {
         return new Dot11EndCFAck(*this);
     }
 
@@ -395,7 +395,7 @@ public:
      * \brief Getter for the PDU's type.
      * \sa PDU::pdu_type
      */
-    PDUType pdu_type() const {
+    PDUType pdu_type() const override {
         return pdu_flag;
     }
 
@@ -404,7 +404,7 @@ public:
      * \param flag The flag to match
      * \sa PDU::matches_flag
      */
-    bool matches_flag(PDUType flag) const {
+    bool matches_flag(PDUType flag) const override {
         return flag == pdu_flag || Dot11Control::matches_flag(flag);
     }
 };
@@ -447,7 +447,7 @@ public:
      *
      * \sa PDU::clone
      */
-    Dot11Ack* clone() const {
+    Dot11Ack* clone() const override {
         return new Dot11Ack(*this);
     }
 
@@ -455,7 +455,7 @@ public:
      * \brief Getter for the PDU's type.
      * \sa PDU::pdu_type
      */
-    PDUType pdu_type() const {
+    PDUType pdu_type() const override {
         return pdu_flag;
     }
 
@@ -464,7 +464,7 @@ public:
      * \param flag The flag to match
      * \sa PDU::matches_flag
      */
-    bool matches_flag(PDUType flag) const {
+    bool matches_flag(PDUType flag) const override {
         return flag == pdu_flag || Dot11Control::matches_flag(flag);
     }
 };
@@ -551,7 +551,7 @@ public:
      * \return The header's size.
      * \sa PDU::header_size()
      */
-    uint32_t header_size() const;
+    uint32_t header_size() const override;
 
     /* Setter */
 
@@ -578,7 +578,7 @@ public:
      *
      * \sa PDU::clone
      */
-    Dot11BlockAckRequest* clone() const {
+    Dot11BlockAckRequest* clone() const override {
         return new Dot11BlockAckRequest(*this);
     }
 
@@ -586,7 +586,7 @@ public:
      * \brief Getter for the PDU's type.
      * \sa PDU::pdu_type
      */
-    PDUType pdu_type() const {
+    PDUType pdu_type() const override {
         return pdu_flag;
     }
 
@@ -595,11 +595,11 @@ public:
      * \param flag The flag to match
      * \sa PDU::matches_flag
      */
-    bool matches_flag(PDUType flag) const {
+    bool matches_flag(PDUType flag) const override {
         return flag == pdu_flag || Dot11Control::matches_flag(flag);
     }
 protected:
-    void write_ext_header(Memory::OutputMemoryStream& stream);
+    void write_ext_header(Memory::OutputMemoryStream& stream) override;
 private:
     uint16_t bar_control_{0};
     uint16_t start_sequence_{0};
@@ -692,7 +692,7 @@ public:
      * \return An uint32_t with the header's size.
      * \sa PDU::header_size()
      */
-    uint32_t header_size() const;
+    uint32_t header_size() const override;
 
     /* Setters */
 
@@ -735,7 +735,7 @@ public:
      * \brief Getter for the PDU's type.
      * \sa PDU::pdu_type
      */
-    PDUType pdu_type() const {
+    PDUType pdu_type() const override {
         return pdu_flag;
     }
 
@@ -744,7 +744,7 @@ public:
      * \param flag The flag to match
      * \sa PDU::matches_flag
      */
-    bool matches_flag(PDUType flag) const {
+    bool matches_flag(PDUType flag) const override {
         return flag == pdu_flag || Dot11Control::matches_flag(flag);
     }
 
@@ -753,11 +753,11 @@ public:
      *
      * \sa PDU::clone
      */
-    Dot11BlockAck* clone() const {
+    Dot11BlockAck* clone() const override {
         return new Dot11BlockAck(*this);
     }
 private:
-    void write_ext_header(Memory::OutputMemoryStream& stream);
+    void write_ext_header(Memory::OutputMemoryStream& stream) override;
 
     uint16_t bar_control_{0}, start_sequence_{0};
     uint8_t bitmap_[bitmap_size]{};
