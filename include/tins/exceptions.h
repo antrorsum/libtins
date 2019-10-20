@@ -43,10 +43,10 @@ public:
     exception_base() 
     : std::runtime_error(std::string()) { }
 
-    explicit exception_base(const std::string& message) 
+    exception_base(const std::string& message) 
     : std::runtime_error(message) { }
 
-    explicit exception_base(const char* message) 
+    exception_base(const char* message) 
     : std::runtime_error(message) { }
 };
 
@@ -121,7 +121,7 @@ public:
  */
 class socket_open_error : public exception_base {
 public:
-    explicit socket_open_error(const std::string& msg)
+    socket_open_error(const std::string& msg)
     : exception_base(msg) { }
 };
 
@@ -130,7 +130,7 @@ public:
  */
 class socket_close_error : public exception_base {
 public:
-    explicit socket_close_error(const std::string& msg)
+    socket_close_error(const std::string& msg)
     : exception_base(msg) { }
 };
 
@@ -139,7 +139,7 @@ public:
  */
 class socket_write_error : public exception_base {
 public:
-    explicit socket_write_error(const std::string& msg)
+    socket_write_error(const std::string& msg)
     : exception_base(msg) { }
 };
 
@@ -218,11 +218,11 @@ public:
  */
 class pcap_error : public exception_base {
 public:
-    explicit pcap_error(const char* message) : exception_base(message) {
+    pcap_error(const char* message) : exception_base(message) {
 
     }
 
-    explicit pcap_error(const std::string& message) : exception_base(message) {
+    pcap_error(const std::string& message) : exception_base(message) {
 
     }
 };
@@ -232,7 +232,7 @@ public:
  */
 class invalid_pcap_filter : public exception_base {
 public:
-    explicit invalid_pcap_filter(const char* message) : exception_base(message) {
+    invalid_pcap_filter(const char* message) : exception_base(message) {
 
     }
 };

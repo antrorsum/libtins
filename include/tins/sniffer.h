@@ -335,7 +335,7 @@ public:
      *
      * \param device The device from which to capture packets
      */
-    explicit Sniffer(const std::string& device);
+    Sniffer(const std::string& device);
 
     /**
      * \brief Constructs an instance of Sniffer using the provided configuration.
@@ -418,7 +418,7 @@ public:
      * \param file_name The pcap file which will be parsed.
      * \param filter A capture filter to be used on the file.(optional);
      */
-    explicit FileSniffer(const std::string& file_name, const std::string& filter = "");
+    FileSniffer(const std::string& file_name, const std::string& filter = "");
 };
 
 template <typename T>

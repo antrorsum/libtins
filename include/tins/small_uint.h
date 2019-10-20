@@ -111,7 +111,7 @@ public:
      * 
      * \param val The parameter from which to copy construct.
      */
-    explicit small_uint(repr_type val) {
+    small_uint(repr_type val) {
         if (val > max_value) {
             throw value_too_large();
         }

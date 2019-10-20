@@ -284,7 +284,7 @@ public:
          * \brief Constructs a SOA record from a DNS::resource
          * \param resource The resource from which to construct this record
          */
-        explicit soa_record(const DNS::resource& resource);
+        soa_record(const DNS::resource& resource);
 
         /**
          * \brief Constructs a SOA record from a buffer

@@ -701,7 +701,7 @@ protected:
 
     } TINS_END_PACK;
 private:
-    explicit Dot11(const dot11_header* header_ptr);
+    Dot11(const dot11_header* header_ptr);
     
     void internal_add_option(const option& opt);
     void write_serialization(uint8_t* buffer, uint32_t total_sz) override;

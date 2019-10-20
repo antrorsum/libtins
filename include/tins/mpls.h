@@ -62,7 +62,7 @@ public:
      * The extension's class and type are not checked.
      *
      */
-    explicit MPLS(const ICMPExtension& extension);
+    MPLS(const ICMPExtension& extension);
 
     /**
      * \brief Constructor from buffer

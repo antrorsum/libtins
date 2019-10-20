@@ -149,7 +149,7 @@ public:
      * 
      * \param address The hex-notation address to be parsed.
      */
-    explicit HWAddress(const std::string& address) {
+    HWAddress(const std::string& address) {
         Internals::string_to_hw_address(address, buffer_, n);
     }
     
@@ -167,7 +167,7 @@ public:
      * cstring to be parsed.
      */
     template<size_t i>
-    explicit HWAddress(const char (&address)[i]) {
+    HWAddress(const char (&address)[i]) {
         Internals::string_to_hw_address(address, buffer_, n);
     }
     
@@ -184,7 +184,7 @@ public:
      * \param rhs The HWAddress to be constructed from.
      */
     template<size_t i>
-    explicit HWAddress(const HWAddress<i>& rhs) {
+    HWAddress(const HWAddress<i>& rhs) {
         size_t copy_threshold = i < n ? i : n;
         for (size_t index = 0; index < n; ++index) {
             if (index < copy_threshold) {

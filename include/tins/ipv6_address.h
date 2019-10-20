@@ -74,14 +74,14 @@ public:
      * \param addr The text representation from which to construct this
      * object.
      */
-    explicit IPv6Address(const char* addr);
+    IPv6Address(const char* addr);
     
     /**
      * \brief Constructor from a text representation std::string.
      * \param addr The text representation from which to construct this
      * object.
      */
-    explicit IPv6Address(const std::string& addr);
+    IPv6Address(const std::string& addr);
     
     /**
      * \brief Constructor from a buffer.
@@ -90,7 +90,7 @@ public:
      * 
      * \param ptr The buffer from which to construct this object.
      */
-    explicit IPv6Address(const_iterator ptr);
+    IPv6Address(const_iterator ptr);
     
     /**
      * \brief Retrieve the string representation of this address.

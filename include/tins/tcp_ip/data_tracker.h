@@ -69,7 +69,7 @@ public:
      *
      * \param seq_number The sequence number to use
      */
-    explicit DataTracker(uint32_t seq_number);
+    DataTracker(uint32_t seq_number);
 
     /**
      * \brief Processes the given payload

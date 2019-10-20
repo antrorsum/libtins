@@ -54,7 +54,7 @@ public:
      *
      * \param first The address held by this iterator.
      */
-    explicit AddressRangeIterator(const value_type& address)
+    AddressRangeIterator(const value_type& address)
     : address_(address), reached_end_(false) {
 
     }
