@@ -80,7 +80,7 @@ public:
      * 
      * \param ip std::string containing the dotted-notation address.
      */
-    IPv4Address(const std::string& ip);
+    explicit IPv4Address(const std::string& ip);
     
     /**
      * \brief Constructor taking a IP address represented as a

@@ -105,7 +105,7 @@ public:
      *
      * \param data The payload to use.
      */
-    RawPDU(payload_type  data)
+    explicit RawPDU(payload_type  data)
             : payload_(std::move(data)) { }
 
     /** 
@@ -115,7 +115,7 @@ public:
      * 
      * \param data The payload to use.
      */
-    RawPDU(payload_type&& data)
+    explicit RawPDU(payload_type&& data)
     : payload_(move(data)) { }
 
     /** 
@@ -123,7 +123,7 @@ public:
      * 
      * \param data The content of the payload.
      */
-    RawPDU(const std::string& data);
+    explicit RawPDU(const std::string& data);
 
     /**
      * \brief Setter for the payload field

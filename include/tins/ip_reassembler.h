@@ -149,7 +149,7 @@ public:
      * \param technique The technique to be used for reassembling
      * overlapped fragments.
      */
-    IPv4Reassembler(OverlappingTechnique technique);
+    explicit IPv4Reassembler(OverlappingTechnique technique);
 
     /**
      * \brief Processes a PDU and tries to reassemble it.

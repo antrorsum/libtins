@@ -100,14 +100,14 @@ public:
      * 
      * \param name The name of the interface this object will abstract.
      */
-    NetworkInterface(const std::string& name);
+    explicit NetworkInterface(const std::string& name);
     
     /**
      * \brief Constructor from const char*.
      * 
      * \param name The name of the interface this object will abstract.
      */
-    NetworkInterface(const char* name);
+    explicit NetworkInterface(const char* name);
     
     /**
      * \brief Constructs a NetworkInterface from an ip address.
@@ -117,7 +117,7 @@ public:
      * 
      * \param ip The ip address being looked up.
      */
-    NetworkInterface(IPv4Address ip);
+    explicit NetworkInterface(IPv4Address ip);
 
 
     /**
@@ -128,7 +128,7 @@ public:
      *
      * \param ip The ipv6 address being looked up.
      */
-    NetworkInterface(IPv6Address ipv6);
+    explicit NetworkInterface(IPv6Address ipv6);
     
     /**
      * \brief Getter for this interface's identifier.

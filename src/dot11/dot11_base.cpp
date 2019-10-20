@@ -188,28 +188,22 @@ uint32_t Dot11::header_size() const {
     return sizeof(header_) + options_size_;
 }
 
-#ifndef _WIN32
 void Dot11::send(PacketSender& sender, const NetworkInterface& iface) {
     if (!iface) {
         throw invalid_interface();
     }
-    
-    #if !defined(BSD) && !defined(__FreeBSD_kernel__)
-        sockaddr_ll addr;
 
-        memset(&addr, 0, sizeof(struct sockaddr_ll));
+    sockaddr_ll addr;
 
-        addr.sll_family = Endian::host_to_be<uint16_t>(PF_PACKET);
-        addr.sll_protocol = Endian::host_to_be<uint16_t>(ETH_P_ALL);
-        addr.sll_halen = 6;
-        addr.sll_ifindex = iface.id();
-        memcpy(&(addr.sll_addr), header_.addr1, 6);
-        sender.send_l2(*this, (struct sockaddr*)&addr, (uint32_t)sizeof(addr), iface);
-    #else
-        sender.send_l2(*this, 0, 0, iface);
-    #endif
+    memset(&addr, 0, sizeof(struct sockaddr_ll));
+
+    addr.sll_family = Endian::host_to_be<uint16_t>(PF_PACKET);
+    addr.sll_protocol = Endian::host_to_be<uint16_t>(ETH_P_ALL);
+    addr.sll_halen = 6;
+    addr.sll_ifindex = iface.id();
+    memcpy(&(addr.sll_addr), header_.addr1, 6);
+    sender.send_l2(*this, (struct sockaddr*)&addr, (uint32_t)sizeof(addr), iface);
 }
-#endif // _WIN32
 
 void Dot11::write_serialization(uint8_t* buffer, uint32_t total_sz) {
     OutputMemoryStream stream(buffer, total_sz);

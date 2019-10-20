@@ -110,7 +110,7 @@ public:
      * 
      * \param buffer The buffer from which to construct this object.
      */
-    RSNInformation(const serialization_type& buffer);
+    explicit RSNInformation(const serialization_type& buffer);
     
     /**
      * \brief Constructs a RSNInformation from a buffer.

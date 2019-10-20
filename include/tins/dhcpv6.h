@@ -386,13 +386,13 @@ public:
         duid_type(uint16_t id = 0, data_type  data = data_type())
         : id(id), data(std::move(data)) {}
         
-        duid_type(const duid_llt& identifier)
+        explicit duid_type(const duid_llt& identifier)
         : id(duid_llt::duid_id), data(identifier.serialize()) {}
         
-        duid_type(const duid_en& identifier)
+        explicit duid_type(const duid_en& identifier)
         : id(duid_en::duid_id), data(identifier.serialize()) {}
         
-        duid_type(const duid_ll& identifier)
+        explicit duid_type(const duid_ll& identifier)
         : id(duid_ll::duid_id), data(identifier.serialize()) {}
 
         static duid_type from_option(const option& opt);

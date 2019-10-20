@@ -60,7 +60,7 @@ public:
      * Note that a reference to the buffer will be kept and updated so it must
      * be kept in scope while writing options to it
      */
-    RadioTapWriter(std::vector<uint8_t>& buffer);
+    explicit RadioTapWriter(std::vector<uint8_t>& buffer);
 
     /**
      * \brief Writes an option, adding/removing padding as needed

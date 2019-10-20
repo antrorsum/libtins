@@ -178,7 +178,7 @@ public:
      * This calls PDU::clone on the PDU parameter.
      * 
      */
-    Packet(const PDU& rhs) 
+    explicit Packet(const PDU& rhs) 
     : pdu_(rhs.clone()), ts_(Timestamp::current_time()) { }
     
     /**
@@ -187,13 +187,13 @@ public:
      * This calls PDU::clone on the RefPacket's PDU.
      * 
      */
-    Packet(const RefPacket& pck) 
+    explicit Packet(const RefPacket& pck) 
     : pdu_(pck.pdu().clone()), ts_(pck.timestamp()) { }
 
     /**
      * \brief Constructs a Packet from a PtrPacket object.
      */
-    Packet(const PtrPacket& pck)
+    explicit Packet(const PtrPacket& pck)
     : pdu_(pck.pdu()), ts_(pck.timestamp()) { }
     
     /**

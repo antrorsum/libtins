@@ -72,7 +72,7 @@ public:
     : buffer_(buffer), size_(total_sz) {
     }
 
-    InputMemoryStream(const std::vector<uint8_t>& data) : buffer_(&data[0]), size_(data.size()) {
+    explicit InputMemoryStream(const std::vector<uint8_t>& data) : buffer_(&data[0]), size_(data.size()) {
     }
  
     template <typename T>
@@ -152,7 +152,7 @@ public:
     : buffer_(buffer), size_(total_sz) {
     }
 
-    OutputMemoryStream(std::vector<uint8_t>& buffer)
+    explicit OutputMemoryStream(std::vector<uint8_t>& buffer)
     : buffer_(&buffer[0]), size_(buffer.size()) {
     }
 

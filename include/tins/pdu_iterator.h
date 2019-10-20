@@ -147,7 +147,7 @@ public:
      *
      * \param pdu The PDU to be used for iteration
      */
-    PDUIterator(pointer pdu);
+    explicit PDUIterator(pointer pdu);
 
     /**
      * Get the stored PDU pointer
@@ -197,12 +197,12 @@ public:
      *
      * \param pdu The PDU to be used for iteration
      */
-    ConstPDUIterator(pointer pdu);
+    explicit ConstPDUIterator(pointer pdu);
 
     /**
      * Construct from a PDU iterator
      */
-    ConstPDUIterator(PDUIterator iterator);
+    explicit ConstPDUIterator(PDUIterator iterator);
 
     /**
      * Get the stored PDU pointer
@@ -240,7 +240,7 @@ public:
     }
 
     template <typename OtherIterator>
-    PDUIteratorRange(const PDUIteratorRange<OtherIterator>& other)
+    explicit PDUIteratorRange(const PDUIteratorRange<OtherIterator>& other)
     : start_(other.begin().operator->()), end_(other.end().operator->()) {
 
     } 

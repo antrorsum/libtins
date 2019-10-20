@@ -109,7 +109,7 @@ public:
      * \param intial_ack The initial ACK number to use
      * \param use_sack Indicate whether to use Selective ACKs to track ACK numbers
      */
-    AckTracker(uint32_t initial_ack, bool use_sack = true);
+    explicit AckTracker(uint32_t initial_ack, bool use_sack = true);
 
     /**
      * \brief Process a packet

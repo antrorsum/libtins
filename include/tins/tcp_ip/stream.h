@@ -109,7 +109,7 @@ public:
      * \param initial_packet The first packet of the stream
      * \param ts The first packet's timestamp
      */
-    Stream(PDU& initial_packet, const timestamp_type& ts = timestamp_type());
+    explicit Stream(PDU& initial_packet, const timestamp_type& ts = timestamp_type());
 
     /**
      * \brief Processes this packet.

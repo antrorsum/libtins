@@ -89,7 +89,7 @@ public:
      *
      * \param buffer The buffer to be parsed
      */
-    RadioTapParser(const std::vector<uint8_t>& buffer);
+    explicit RadioTapParser(const std::vector<uint8_t>& buffer);
 
     /**
      * Gets the current namespace being parsed

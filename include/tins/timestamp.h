@@ -61,7 +61,7 @@ public:
      * Constructs a Timestamp from a std::chrono::duration.
      */
     template<typename Rep, typename Period>
-    Timestamp(const std::chrono::duration<Rep, Period>& ts) {
+    explicit Timestamp(const std::chrono::duration<Rep, Period>& ts) {
         timestamp_ = std::chrono::duration_cast<std::chrono::microseconds>(ts).count();
     }
     
@@ -70,7 +70,7 @@ public:
      *
      * \param time_val The timeval struct
      */
-    Timestamp(const timeval& time_val);
+    explicit Timestamp(const timeval& time_val);
     
     /**
      * Returns the amount of seconds in this timestamp.
