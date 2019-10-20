@@ -268,7 +268,7 @@ public:
     template<size_t n>
     void chaddr(const HWAddress<n>& new_chaddr) {
         size_t copy_threshold = std::min(n, sizeof(bootp_.chaddr));
-        for (size_t i = 0; i < copy_threshold; ++i) {
+        for (size_t i = 0; i < sizeof(bootp_.chaddr); ++i) {
             if (i < copy_threshold) {
                 bootp_.chaddr[i] = new_chaddr[i];
             }
