@@ -30,6 +30,8 @@
 #ifndef TINS_ICMPV6_H
 #define TINS_ICMPV6_H
 
+#include <cstdint>
+#include <string>
 #include <utility>
 
 #include <vector>
@@ -1495,7 +1497,7 @@ public:
      */
     dns_search_list_type dns_search_list() const;
 private:
-    TINS_BEGIN_PACK
+    
     struct icmp6_header {
         uint8_t	type;
         uint8_t code;
@@ -1547,15 +1549,15 @@ private:
                 uint16_t record_count;
             } mlrm2;
         };
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
-    TINS_BEGIN_PACK
+    
     struct multicast_listener_query_message_fields {
         uint8_t reserved:4,
                 supress:1,
                 qrv:3;
         uint8_t qqic;
-    } TINS_END_PACK;
+    } __attribute__((packed));
     
     void internal_add_option(const option& option);
     void write_serialization(uint8_t* buffer, uint32_t total_sz) override;

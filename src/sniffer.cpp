@@ -118,7 +118,7 @@ void sniff_loop_eth_handler(u_char* user, const struct pcap_pkthdr* h, const u_c
 }
 
 void sniff_loop_raw_handler(u_char* user, const struct pcap_pkthdr* h, const u_char* bytes) {
-    TINS_BEGIN_PACK
+    
     struct base_ip_header {
     #if TINS_IS_LITTLE_ENDIAN
         uint8_t ihl:4,
@@ -127,7 +127,7 @@ void sniff_loop_raw_handler(u_char* user, const struct pcap_pkthdr* h, const u_c
         uint8_t version:4,
                 ihl:4;
     #endif
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
     auto* data = (sniff_data*)user;
     const auto* header = (const base_ip_header*)bytes;

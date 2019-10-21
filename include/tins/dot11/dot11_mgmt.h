@@ -130,7 +130,7 @@ public:
     /**
      * Represents the IEEE 802.11 frames' capability information.
      */
-    TINS_BEGIN_PACK
+    
     class capability_information {
     private:
         #if TINS_IS_LITTLE_ENDIAN
@@ -456,7 +456,7 @@ public:
         void immediate_block_ack(bool new_value) {
             immediate_block_ack_ = new_value;
         }
-    } TINS_END_PACK;
+    } __attribute__((packed));
     
     /**
      * The type used to store the FS parameters set option data.
@@ -1228,12 +1228,12 @@ public:
        return flag == pdu_flag || Dot11::matches_flag(flag);
     }
 protected:
-    TINS_BEGIN_PACK
+    
     struct dot11_extended_header {
         uint8_t addr2[address_type::address_size];
         uint8_t addr3[address_type::address_size];
         uint16_t frag_seq;
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
     
     Dot11ManagementFrame(const address_type& dst_hw_addr = address_type(), 

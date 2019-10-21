@@ -470,7 +470,7 @@ public:
         return new ICMP(*this);
     }
 private:
-    TINS_BEGIN_PACK
+    
     struct icmp_header {
         uint8_t	type;
         uint8_t	code;
@@ -491,7 +491,7 @@ private:
                 uint16_t unused;
             } rfc4884;
         } un;
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
     void checksum(uint16_t new_check);    
     void write_serialization(uint8_t* buffer, uint32_t total_sz) override;

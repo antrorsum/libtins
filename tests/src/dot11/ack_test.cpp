@@ -2,7 +2,6 @@
 #ifdef TINS_HAVE_DOT11
 
 #include <gtest/gtest.h>
-#include <tins/detail/smart_ptr.h>
 #include "tests/dot11.h"
 
 using namespace std;
@@ -84,12 +83,12 @@ TEST_F(Dot11AckTest, CopyAssignmentOperator) {
 
 TEST_F(Dot11AckTest, ClonePDU) {
     Dot11Ack dot1(expected_packet, sizeof(expected_packet));
-    Internals::smart_ptr<Dot11Ack>::type dot2(dot1.clone());
+    std::unique_ptr<Dot11Ack> dot2(dot1.clone());
     test_equals(dot1, *dot2);
 }
 
 TEST_F(Dot11AckTest, FromBytes) {
-    Internals::smart_ptr<PDU>::type dot11(Dot11::from_bytes(expected_packet, sizeof(expected_packet)));
+    std::unique_ptr<PDU> dot11(Dot11::from_bytes(expected_packet, sizeof(expected_packet)));
     ASSERT_TRUE(dot11.get() != NULL);
     const Dot11Ack* inner = dot11->find_pdu<Dot11Ack>();
     ASSERT_TRUE(inner != NULL);

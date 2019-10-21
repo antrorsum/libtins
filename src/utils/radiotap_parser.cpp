@@ -68,7 +68,7 @@ const uint32_t RadioTapParser::MAX_RADIOTAP_FIELD = sizeof(RADIOTAP_METADATA) /
                                                     sizeof(FieldMetadata);
 
 #if TINS_IS_LITTLE_ENDIAN
-TINS_BEGIN_PACK
+
 struct RadioTapFlags {
     uint32_t
         tsft:1,
@@ -97,9 +97,9 @@ struct RadioTapFlags {
 
         reserved3:7,
         ext:1;
-} TINS_END_PACK;
+} __attribute__((packed));
 #else
-TINS_BEGIN_PACK
+
 struct RadioTapFlags {
     uint32_t
         lock_quality:1,
@@ -128,7 +128,7 @@ struct RadioTapFlags {
 
         ext:1,
         reserved3:7;
-} TINS_END_PACK;
+} __attribute__((packed));
 #endif
 
 void align_buffer(const uint8_t* buffer_start, const uint8_t*& buffer, size_t n) {
@@ -314,11 +314,11 @@ bool RadioTapParser::advance_to_next_namespace() {
 }
 
 bool RadioTapParser::is_field_set(uint32_t bit, const RadioTapFlags* flags) const {
-    TINS_BEGIN_PACK
+    
     union FlagsUnion {
         RadioTapFlags* flags;
         uint32_t flags_32;
-    } TINS_END_PACK;
+    } __attribute__((packed));
     const auto* flags_union = reinterpret_cast<const FlagsUnion*>(flags); 
     return (Endian::le_to_host(flags_union->flags_32) & bit) != 0;
 }

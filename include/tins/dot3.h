@@ -188,12 +188,12 @@ private:
     /**
      * Struct that represents the Ethernet II header
      */
-    TINS_BEGIN_PACK
+    
     struct dot3_header {
         uint8_t dst_mac[address_type::address_size];
         uint8_t src_mac[address_type::address_size];
         uint16_t length;
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
     void write_serialization(uint8_t* buffer, uint32_t total_sz) override;
 

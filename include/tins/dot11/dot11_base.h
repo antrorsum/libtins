@@ -666,9 +666,9 @@ protected:
     /**
      * Struct that represents the 802.11 header
      */
-    TINS_BEGIN_PACK
+    
     struct dot11_header {
-        TINS_BEGIN_PACK
+        
         struct {
         #if TINS_IS_LITTLE_ENDIAN
             uint16_t protocol:2,
@@ -695,11 +695,11 @@ protected:
                     from_ds:1,
                     to_ds:1;
         #endif
-        } TINS_END_PACK control;
+        } __attribute__((packed)) control;
         uint16_t duration_id;
         uint8_t addr1[address_type::address_size];
 
-    } TINS_END_PACK;
+    } __attribute__((packed));
 private:
     Dot11(const dot11_header* header_ptr);
     

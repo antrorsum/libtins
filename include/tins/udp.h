@@ -183,13 +183,13 @@ public:
         return new UDP(*this);
     }
 private:
-    TINS_BEGIN_PACK
+    
     struct udp_header {
         uint16_t sport;
         uint16_t dport;
         uint16_t len;
         uint16_t check;
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
     void write_serialization(uint8_t* buffer, uint32_t total_sz) override;
 

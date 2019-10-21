@@ -408,7 +408,7 @@ private:
     static uint32_t get_padding_size(const ext_header& header);
     static std::vector<header_option_type> parse_header_options(const uint8_t* data, size_t size);
 
-    TINS_BEGIN_PACK
+    
     struct ipv6_header {
         #if TINS_IS_BIG_ENDIAN
         uint32_t version:4,
@@ -426,7 +426,7 @@ private:
         uint8_t hop_limit;
         #endif
         uint8_t src_addr[16], dst_addr[16];
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
     ipv6_header header_;
     headers_type ext_headers_;

@@ -331,32 +331,19 @@ PDU* PacketSender::recv_match_loop(const vector<int>& sockets,
                                    struct sockaddr* link_addr,
                                    uint32_t addrlen,
                                    bool is_layer_3) {
-    #ifdef _WIN32
-        typedef int socket_len_type;
-        typedef int recvfrom_ret_type;
-    #else
-        using socket_len_type = socklen_t;
-        using recvfrom_ret_type = ssize_t;
-    #endif
+
+    using socket_len_type = socklen_t;
+    using recvfrom_ret_type = ssize_t;
     fd_set readfds;
     struct timeval timeout,  end_time;
-    int read;
-    #if defined(BSD) || defined(__FreeBSD_kernel__)
-        bool is_bsd = true;
-        // On* BSD, we need to allocate a buffer using the given size.
-        const int buffer_size = is_layer_3 ? 2048 : buffer_size_;
-        vector<uint8_t> actual_buffer(buffer_size);
-        uint8_t* buffer = &actual_buffer[0];
-    #else
-        bool is_bsd = false;
-        uint8_t buffer[2048];
-        const int buffer_size = 2048;
-    #endif
+    uint8_t buffer[2048];
+    const int buffer_size = 2048;
     
     timeout.tv_sec  = _timeout;
     end_time.tv_sec = static_cast<long>(time(nullptr) + _timeout);
     end_time.tv_usec = timeout.tv_usec = timeout_usec_;
     while (true) {
+        int read;
         FD_ZERO(&readfds);
         int max_fd = 0;
         for (auto it = sockets.begin(); it != sockets.end(); ++it) {
@@ -369,29 +356,10 @@ PDU* PacketSender::recv_match_loop(const vector<int>& sockets,
         if (read > 0) {
             for (auto it = sockets.begin(); it != sockets.end(); ++it) {
                 if (FD_ISSET(*it, &readfds)) {
-                    recvfrom_ret_type size;
-                    // Crappy way of only conditionally running this on BSD + layer2
-                    if (is_bsd && !is_layer_3) {
-                        #if defined(BSD) || defined(__FreeBSD_kernel__)
-                        size = ::read(*it, buffer, buffer_size_);
-                        const uint8_t* ptr = buffer;
-                        // We might see more than one packet
-                        while (ptr < (buffer + size)) {
-                            const bpf_hdr* bpf_header = reinterpret_cast<const bpf_hdr*>(ptr);
-                            const uint8_t* pkt_start = ptr + bpf_header->bh_hdrlen;
-                            if (pdu.matches_response(pkt_start, bpf_header->bh_caplen)) {
-                                return Internals::pdu_from_flag(pdu.pdu_type(), pkt_start, bpf_header->bh_caplen);
-                            }
-                            ptr += BPF_WORDALIGN(bpf_header->bh_hdrlen + bpf_header->bh_caplen);
-                        }
-                        #endif // BSD
-                    }
-                    else {
-                        socket_len_type length = addrlen;
-                        size = ::recvfrom(*it, (char*)buffer, buffer_size, 0, link_addr, &length);
-                        if (pdu.matches_response(buffer, size)) {
-                            return Internals::pdu_from_flag(pdu.pdu_type(), buffer, size);
-                        }
+                    socket_len_type length = addrlen;
+                    recvfrom_ret_type size = ::recvfrom(*it, (char*)buffer, buffer_size, 0, link_addr, &length);
+                    if (pdu.matches_response(buffer, size)) {
+                        return Internals::pdu_from_flag(pdu.pdu_type(), buffer, size);
                     }
                 }
             }
@@ -402,14 +370,8 @@ PDU* PacketSender::recv_match_loop(const vector<int>& sockets,
         if (now > end) {
             return nullptr;
         }
-        // VC complains if we don't statically cast here
-        #ifdef _WIN32
-            typedef long tv_sec_type;
-            typedef long tv_usec_type;
-        #else
-            using tv_sec_type = time_t;
-            using tv_usec_type = long;
-        #endif
+        using tv_sec_type = time_t;
+        using tv_usec_type = long;
         microseconds diff = end - now;
         timeout.tv_sec = static_cast<tv_sec_type>(duration_cast<seconds>(diff).count());
         timeout.tv_usec = static_cast<tv_usec_type>((diff - seconds(timeout.tv_sec)).count());

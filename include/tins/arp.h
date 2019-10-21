@@ -321,7 +321,7 @@ public:
         return new ARP(*this);
     }
 private:
-    TINS_BEGIN_PACK
+    
     struct arp_header {
         uint16_t hw_address_format;
         uint16_t proto_address_format;
@@ -332,7 +332,7 @@ private:
         uint32_t sender_ip_address;	
         uint8_t target_hw_address[hwaddress_type::address_size];	
         uint32_t target_ip_address;
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
     void write_serialization(uint8_t* buffer, uint32_t total_sz) override;
 

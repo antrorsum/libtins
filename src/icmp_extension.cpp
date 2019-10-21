@@ -28,6 +28,7 @@
  */
 
 #include <cstring>
+#include <numeric>
 #include <tins/icmp_extension.h>
 #include <tins/exceptions.h>
 #include <tins/memory_helpers.h>
@@ -147,12 +148,8 @@ bool ICMPExtensionsStructure::validate_extensions(const uint8_t* buffer, uint32_
 }
 
 uint32_t ICMPExtensionsStructure::size() const {
-    using iterator = extensions_type::const_iterator;
-    uint32_t output = BASE_HEADER_SIZE;
-    for (const auto & extension : extensions_) {
-        output += extension.size();
-    }
-    return output;
+    return std::accumulate(extensions_.begin(), extensions_.end(), BASE_HEADER_SIZE,
+                           [](uint32_t a, auto b) { return a + b.size(); });
 }
 
 void ICMPExtensionsStructure::add_extension(const ICMPExtension& extension) {

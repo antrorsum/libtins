@@ -335,7 +335,7 @@ protected:
     /**
      * Struct that represents the Bootp datagram.
      */
-    TINS_BEGIN_PACK
+    
     struct bootp_header {
         uint8_t opcode;
         uint8_t htype;
@@ -351,7 +351,7 @@ protected:
         uint8_t chaddr[16];
         uint8_t sname[64];
         uint8_t file[128];
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
 private:
     bootp_header bootp_;

@@ -56,7 +56,6 @@
 #include <tins/arp.h>
 #include <tins/packet_sender.h>
 #include <tins/network_interface.h>
-#include <tins/detail/smart_ptr.h>
 
 using std::string;
 
@@ -112,7 +111,7 @@ HWAddress<6> resolve_hwaddr(const NetworkInterface& iface,
     #else
         // On other platforms, just do the ARP resolution ourselves
         EthernetII packet = ARP::make_arp_request(ip, info.ip_addr, info.hw_addr);
-        Internals::smart_ptr<PDU>::type response(sender.send_recv(packet, iface));
+        std::unique_ptr<PDU> response(sender.send_recv(packet, iface));
         if (response.get()) {
             const ARP* arp_resp = response->find_pdu<ARP>();
             if (arp_resp) {

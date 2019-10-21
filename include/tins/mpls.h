@@ -154,12 +154,12 @@ public:
         return new MPLS(*this);
     }
 private:
-    TINS_BEGIN_PACK
+    
     struct mpls_header {
         uint16_t label_high;
         uint8_t label_low_exp_and_bottom;
         uint8_t ttl;
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
     void write_serialization(uint8_t* buffer, uint32_t total_sz) override;
 

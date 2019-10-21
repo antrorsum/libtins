@@ -229,12 +229,12 @@ public:
 private:
     void write_fixed_parameters(Memory::OutputMemoryStream& stream) override;
 
-    TINS_BEGIN_PACK
+    
     struct dot11_probe_response_header {
         uint64_t timestamp;
         uint16_t interval;
         capability_information capability;
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
     dot11_probe_response_header body_;
 };

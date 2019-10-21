@@ -52,8 +52,6 @@ using std::vector;
 using std::make_pair;
 using std::equal;
 using std::copy;
-using std::min;
-using std::max;
 using std::lexicographical_compare;
 using std::fill;
 using std::runtime_error;
@@ -315,7 +313,7 @@ WEPDecrypter::WEPDecrypter()
 
 void WEPDecrypter::add_password(const address_type& addr, const string& password) {
     passwords_[addr] = password;
-    key_buffer_.resize(max(3 + password.size(), key_buffer_.size()));
+    key_buffer_.resize(std::max(3 + password.size(), key_buffer_.size()));
 }
 
 void WEPDecrypter::remove_password(const address_type& addr) {
@@ -511,9 +509,9 @@ SNAP* SessionKeys::ccmp_decrypt_unicast(const Dot11Data& dot11, RawPDU& raw) con
     counter[15] = total_sz & 0xff;
     
     if (dot11.subtype() == Dot11::QOS_DATA_DATA) {
-        const uint32_t offset = (dot11.from_ds() && dot11.to_ds()) ? 30 : 24;
-        AAD[offset] = static_cast<const Dot11QoSData&>(dot11).qos_control() & 0x0f;
-        counter[1] = AAD[offset];
+        const uint32_t offset_to_qos_data = (dot11.from_ds() && dot11.to_ds()) ? 30 : 24;
+        AAD[offset_to_qos_data] = static_cast<const Dot11QoSData&>(dot11).qos_control() & 0x0f;
+        counter[1] = AAD[offset_to_qos_data];
     }
 
     AES_encrypt(counter, MIC, &ctx);

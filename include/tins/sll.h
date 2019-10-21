@@ -167,12 +167,12 @@ public:
         return new SLL(*this);
     }
 private:
-    TINS_BEGIN_PACK
+    
     struct sll_header {
         uint16_t packet_type, lladdr_type, lladdr_len;
         uint8_t address[8];
         uint16_t protocol;
-    } TINS_END_PACK;
+    } __attribute__((packed));
     
     void write_serialization(uint8_t* buffer, uint32_t total_sz) override;
     

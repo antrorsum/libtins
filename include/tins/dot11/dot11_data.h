@@ -251,12 +251,12 @@ public:
         return new Dot11Data(*this);
     }
 protected:
-    TINS_BEGIN_PACK
+    
     struct dot11_extended_header {
         uint8_t addr2[address_type::address_size];
         uint8_t addr3[address_type::address_size];
         uint16_t frag_seq;
-    } TINS_END_PACK;
+    } __attribute__((packed));
     
     struct no_inner_pdu { };
     Dot11Data(const uint8_t* buffer, uint32_t total_sz, no_inner_pdu);

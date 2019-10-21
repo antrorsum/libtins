@@ -124,7 +124,7 @@ public:
     /**
      * \brief The type used to represent an option's type.
      */
-    TINS_BEGIN_PACK
+    
     struct option_identifier {
     #if TINS_IS_LITTLE_ENDIAN
         uint8_t number:5,
@@ -187,7 +187,7 @@ public:
         bool operator==(const option_identifier& rhs) const {
             return number == rhs.number && op_class == rhs.op_class && copied == rhs.copied;
         }
-    } TINS_END_PACK;
+    } __attribute__((packed));
     
     /**
      * The IP options type.
@@ -734,7 +734,7 @@ public:
 private:
     static const uint8_t DEFAULT_TTL;
 
-    TINS_BEGIN_PACK
+    
     struct ip_header {
     #if TINS_IS_LITTLE_ENDIAN
         uint8_t ihl:4,
@@ -752,7 +752,7 @@ private:
         uint16_t check;
         uint32_t saddr;
         uint32_t daddr;
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
     void head_len(small_uint<4> new_head_len);
     void tot_len(uint16_t new_tot_len);

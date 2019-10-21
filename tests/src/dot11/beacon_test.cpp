@@ -4,7 +4,6 @@
 
 #include <gtest/gtest.h>
 #include <tins/rsn_information.h>
-#include <tins/detail/smart_ptr.h>
 #include "tests/dot11_mgmt.h"
 
 using namespace std;
@@ -109,7 +108,7 @@ TEST_F(Dot11BeaconTest, SeqNum) {
 }
 
 TEST_F(Dot11BeaconTest, FromBytes) {
-    Internals::smart_ptr<PDU>::type dot11(Dot11::from_bytes(expected_packet, sizeof(expected_packet)));
+    std::unique_ptr<PDU> dot11(Dot11::from_bytes(expected_packet, sizeof(expected_packet)));
     ASSERT_TRUE(dot11.get() != NULL);
     const Dot11Beacon* beacon = dot11->find_pdu<Dot11Beacon>();
     ASSERT_TRUE(beacon != NULL);

@@ -78,46 +78,16 @@ IPv6Address::IPv6Address(const std::string& addr) {
 }
 
 void IPv6Address::init(const char* addr) {
-    #ifdef _WIN32
-        // mingw on linux somehow doesn't have InetPton
-        #ifdef _MSC_VER
-            if (InetPtonA(AF_INET6, addr, address_) != 1) {
-                throw invalid_address();
-            }
-        #else
-            ULONG dummy1;
-            USHORT dummy2;
-            // Maybe change this, mingw doesn't have any other conversion function
-            if (RtlIpv6StringToAddressExA(addr, (IN6_ADDR*)address_, &dummy1, &dummy2) != NO_ERROR) {
-                throw invalid_address();
-            }
-        #endif
-    #else
-        if (inet_pton(AF_INET6, addr, address_) == 0) {
-            throw invalid_address();
-        }
-    #endif            
+    if (inet_pton(AF_INET6, addr, address_) == 0) {
+        throw invalid_address();
+    }          
 }
 
 string IPv6Address::to_string() const {
     char buffer[INET6_ADDRSTRLEN];
-    #ifdef _WIN32
-        // mingw on linux somehow doesn't have InetNtop
-        #ifdef _MSC_VER
-            if (InetNtopA(AF_INET6, (PVOID)address_, buffer, sizeof(buffer)) == 0) {
-                throw invalid_address();
-            }
-        #else
-            ULONG sz = sizeof(buffer);
-            if (RtlIpv6AddressToStringExA((const IN6_ADDR*)address_, 0, 0, buffer, &sz) != NO_ERROR) {
-                throw invalid_address();
-            }
-        #endif
-    #else
-        if (inet_ntop(AF_INET6, address_, buffer, sizeof(buffer)) == nullptr) {
-            throw invalid_address();
-        }
-    #endif
+    if (inet_ntop(AF_INET6, address_, buffer, sizeof(buffer)) == nullptr) {
+        throw invalid_address();
+    }
     return buffer;
 }
 

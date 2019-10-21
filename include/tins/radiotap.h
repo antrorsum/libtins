@@ -123,23 +123,23 @@ public:
     /**
      * \brief The type used to represent the MCS flags field
      */
-    TINS_BEGIN_PACK
+    
     struct mcs_type {
         uint8_t known;
         uint8_t flags;
         uint8_t mcs;
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
     /**
      * \brief The type used to represent the XChannel field
      */
-    TINS_BEGIN_PACK
+    
     struct xchannel_type {
         uint32_t flags;
         uint16_t frequency;
         uint8_t channel;
         uint8_t max_power;
-    } TINS_END_PACK;
+    } __attribute__((packed));
     
     /**
      * The type used to store RadioTap options
@@ -454,7 +454,7 @@ public:
         return pdu_flag;
     }
 private:
-    TINS_BEGIN_PACK
+    
     struct radiotap_header {
     #if TINS_IS_LITTLE_ENDIAN
         uint8_t it_version;	
@@ -464,7 +464,7 @@ private:
         uint8_t it_version;
     #endif // TINS_IS_LITTLE_ENDIAN 
         uint16_t it_len;
-    } TINS_END_PACK;
+    } __attribute__((packed));
     
     void write_serialization(uint8_t* buffer, uint32_t total_sz) override;
     option do_find_option(PresentFlags type) const;

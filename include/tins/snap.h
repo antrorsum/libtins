@@ -168,13 +168,13 @@ public:
         return new SNAP(*this);
     }    
 private:
-    TINS_BEGIN_PACK
+    
     struct snap_header {
         uint8_t dsap;
         uint8_t ssap;
         uint32_t control_org;
         uint16_t eth_type;
-    } TINS_END_PACK;
+    } __attribute__((packed));
     
     void write_serialization(uint8_t* buffer, uint32_t total_sz) override;
     

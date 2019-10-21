@@ -68,10 +68,9 @@ string hw_address_to_string(const uint8_t* ptr, size_t count) {
 void string_to_hw_address(const string& hw_addr, uint8_t* output, size_t output_size)  {
     unsigned i = 0;
     size_t count = 0;
-    uint8_t tmp;
     while (i < hw_addr.size() && count < output_size) {
         const unsigned end = i+2;
-        tmp = 0;
+        uint8_t tmp = 0;
         while (i < end) {
             if (hw_addr[i] >= 'a' && hw_addr[i] <= 'f') {
                 tmp = (tmp << 4) | (hw_addr[i] - 'a' + 10);

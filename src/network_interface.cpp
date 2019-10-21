@@ -27,28 +27,17 @@
  *
  */
 
-#include <stdexcept>
-#include <vector>
+#include <algorithm>
 #include <cstring>
+#include <ifaddrs.h>
 #include <iterator>
+#include <linux/if_packet.h>
+#include <net/if.h>
+#include <netinet/in.h>
+#include <stdexcept>
 #include <tins/macros.h>
-#ifndef _WIN32
-    #include <netinet/in.h>
-    #if defined(BSD) || defined(__FreeBSD_kernel__)
-        #include <ifaddrs.h>
-        #include <net/if_dl.h>
-        #include <sys/socket.h>
-    #else
-        #include <linux/if_packet.h>
-    #endif
-    #include <ifaddrs.h>
-    #include <net/if.h>
-#else
-    #include <winsock2.h>
-    #include <ws2tcpip.h>
-    #include <iphlpapi.h>
-    #undef interface
-#endif
+#include <vector>
+
 #include <tins/network_interface.h>
 #include <tins/endianness.h>
 #include <tins/exceptions.h>
@@ -202,9 +191,9 @@ NetworkInterface NetworkInterface::default_interface() {
 vector<NetworkInterface> NetworkInterface::all() {
     const set<string> interfaces = Utils::network_interfaces();
     vector<NetworkInterface> output;
-    for (const auto & interface : interfaces) {
-        output.emplace_back(interface);
-    }
+    std::copy(interfaces.begin(), interfaces.end(),
+              std::back_inserter(output));
+
     return output;
 }
     

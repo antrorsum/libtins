@@ -33,7 +33,6 @@
 #include <tins/detail/type_traits.h>
 #include <tins/detail/address_helpers.h>
 #include <tins/detail/icmp_extension_helpers.h>
-#include <tins/detail/smart_ptr.h>
 #include <tins/detail/pdu_helpers.h>
 #include <tins/detail/sequence_number_helpers.h>
 

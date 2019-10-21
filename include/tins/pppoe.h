@@ -411,7 +411,7 @@ private:
         return t->to<T>();
     }
 
-    TINS_BEGIN_PACK
+    
     struct pppoe_header {
         #if TINS_IS_LITTLE_ENDIAN
             uint8_t version:4,  
@@ -424,7 +424,7 @@ private:
         #endif
         uint16_t session_id;
         uint16_t payload_length;
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
     pppoe_header header_;
     tags_type tags_;

@@ -1,10 +1,10 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
 PROJECT(libtins)
 
-OPTION(LIBTINS_BUILD_EXAMPLES "Build examples" OFF)
-OPTION(LIBTINS_BUILD_TESTS "Build tests" OFF)
+OPTION(LIBTINS_BUILD_EXAMPLES "Build examples" ON)
+OPTION(LIBTINS_BUILD_TESTS "Build tests" ON)
 OPTION(LIBTINS_ENABLE_BENCH "Build benchmark" OFF)
-OPTION(LIBTINS_ENABLE_STATIC "Enable static analysis" OFF)
+OPTION(LIBTINS_ENABLE_STATIC "Enable static analysis" ON)
 
 # Compile in release mode by default
 IF(NOT CMAKE_BUILD_TYPE)
@@ -197,12 +197,18 @@ IF(LIBTINS_ENABLE_STATIC)
         message(STATUS "Enable Cppcheck " ${CMAKE_CXX_CPPCHECK})
         list(
             APPEND CMAKE_CXX_CPPCHECK 
-                "--enable=warning"
+                "--quiet"
+                "--template={file}:{line}:{column}: warning: {message} {id}"
+                "--enable=all"
                 "--inline-suppr"
                 "--std=c++17"
-                "--suppress=*:${PROJECT_SOURCE_DIR}/googlebenchmark*"
-                "--suppress=*:${PROJECT_SOURCE_DIR}/googletest*"
-                "--suppress=*:${PROJECT_SOURCE_DIR}/tests*"
+                "--suppress=duplInheritedMember:*"
+                "--suppress=noExplicitConstructor:*"
+                "--suppress=unusedFunction:*"
+                "--suppress=missingIncludeSystem:*"
+                "--suppress=*:googlebenchmark/*"
+                "--suppress=*:googletest/*"
+                "--suppress=*:tests/*"
         )
     else()
         message(WARNING "Cppcheck not found")

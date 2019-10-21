@@ -981,7 +981,7 @@ public:
 private:
     friend class soa_record;
 
-    TINS_BEGIN_PACK
+    
     struct dns_header {
         uint16_t id;
         #if TINS_IS_LITTLE_ENDIAN
@@ -1011,7 +1011,7 @@ private:
         #endif
         uint16_t questions, answers,
                  authority, additional;
-    } TINS_END_PACK;
+    } __attribute__((packed));
     
     typedef std::vector<std::pair<uint32_t*, uint32_t> > sections_type;
     

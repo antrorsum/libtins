@@ -162,12 +162,12 @@ public:
         return pdu_flag;
     }
 private:
-    TINS_BEGIN_PACK
+    
     struct dot11_beacon_body {
         uint64_t timestamp;
         uint16_t interval;
         capability_information capability;
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
     void write_fixed_parameters(Memory::OutputMemoryStream& stream) override;
 

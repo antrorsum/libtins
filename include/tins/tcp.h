@@ -562,7 +562,7 @@ public:
     }
 private:
     #if TINS_IS_LITTLE_ENDIAN
-        TINS_BEGIN_PACK
+        
         struct flags_type {
             uint8_t fin:1,
                 syn:1,
@@ -572,9 +572,9 @@ private:
                 urg:1,
                 ece:1,
                 cwr:1;
-        } TINS_END_PACK;
+        } __attribute__((packed));
     #else
-        TINS_BEGIN_PACK
+        
         struct flags_type {
             uint8_t cwr:1,
                 ece:1,
@@ -584,10 +584,10 @@ private:
                 rst:1,
                 syn:1,
                 fin:1;
-        } TINS_END_PACK;
+        } __attribute__((packed));
     #endif
 
-    TINS_BEGIN_PACK
+    
     struct tcp_header {
         uint16_t sport;
         uint16_t dport;
@@ -607,7 +607,7 @@ private:
         uint16_t	window;
         uint16_t	check;
         uint16_t	urg_ptr;
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
     static const uint16_t DEFAULT_WINDOW;
     

@@ -3,7 +3,6 @@
 #ifdef TINS_HAVE_DOT11
 
 #include <gtest/gtest.h>
-#include <tins/detail/smart_ptr.h>
 #include "tests/dot11_data.h"
 
 using namespace std;
@@ -97,12 +96,12 @@ TEST_F(Dot11DataTest, SeqNum) {
 
 TEST_F(Dot11DataTest, ClonePDU) {
     Dot11Data dot1(expected_packet, sizeof(expected_packet));
-    Internals::smart_ptr<Dot11Data>::type dot2(dot1.clone());
+    std::unique_ptr<Dot11Data> dot2(dot1.clone());
     test_equals(dot1, *dot2);
 }
 
 TEST_F(Dot11DataTest, FromBytes) {
-    Internals::smart_ptr<PDU>::type dot11(Dot11::from_bytes(expected_packet, sizeof(expected_packet)));
+    std::unique_ptr<PDU> dot11(Dot11::from_bytes(expected_packet, sizeof(expected_packet)));
     ASSERT_TRUE(dot11.get() != NULL);
     const Dot11Data* inner = dot11->find_pdu<Dot11Data>();
     ASSERT_TRUE(inner != NULL);
@@ -130,7 +129,7 @@ TEST_F(Dot11DataTest, PCAPLoad1) {
     EXPECT_EQ(dot1.from_ds(), 1);
     EXPECT_EQ(dot1.frag_num(), 0);
     EXPECT_EQ(dot1.seq_num(), 1945);
-    Internals::smart_ptr<Dot11Data>::type dot2(dot1.clone());
+    std::unique_ptr<Dot11Data> dot2(dot1.clone());
     test_equals(dot1, *dot2);
 }
 

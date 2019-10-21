@@ -63,18 +63,18 @@ DNS::DNS(const uint8_t* buffer, uint32_t total_sz)
     stream.read(records_data_, stream.size());
     // Avoid doing this if there's no data. Otherwise VS's asserts fail.
     if (!records_data_.empty()) {
-        InputMemoryStream stream(records_data_);
+        InputMemoryStream stream_record(records_data_);
         uint16_t nquestions = questions_count();
         for (uint16_t i(0); i < nquestions; ++i) {
-            skip_to_dname_end(stream);
-            stream.skip(sizeof(uint16_t) * 2);
+            skip_to_dname_end(stream_record);
+            stream_record.skip(sizeof(uint16_t) * 2);
         }
         const uint8_t* base_offset = &records_data_[0];
-        answers_idx_ = static_cast<uint32_t>(stream.pointer() - base_offset);
-        skip_to_section_end(stream, answers_count());
-        authority_idx_ = static_cast<uint32_t>(stream.pointer() - base_offset);
-        skip_to_section_end(stream, authority_count());
-        additional_idx_ = static_cast<uint32_t>(stream.pointer() - base_offset);
+        answers_idx_ = static_cast<uint32_t>(stream_record.pointer() - base_offset);
+        skip_to_section_end(stream_record, answers_count());
+        authority_idx_ = static_cast<uint32_t>(stream_record.pointer() - base_offset);
+        skip_to_section_end(stream_record, authority_count());
+        additional_idx_ = static_cast<uint32_t>(stream_record.pointer() - base_offset);
     }
 }
 

@@ -28,6 +28,7 @@
  */
  
 #include <cstring>
+#include <numeric>
 #include <tins/icmpv6.h>
 #include <tins/ipv6.h>
 #include <tins/rawpdu.h>
@@ -229,10 +230,8 @@ uint32_t ICMPv6::header_size() const {
         extra = sizeof(uint32_t) * 2;
     }
     else if (type() == MLD2_REPORT) {
-        using iterator = multicast_address_records_list::const_iterator;
-        for (const auto & multicast_record : multicast_records_) {
-            extra += multicast_record.size();
-        }
+        extra = std::accumulate(multicast_records_.begin(), multicast_records_.end(), extra,
+                                [](uint32_t a, auto b) { return a + b.size(); });
     }
     else if (type() == MGM_QUERY) {
         extra += ipaddress_type::address_size;

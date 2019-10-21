@@ -272,7 +272,7 @@ public:
      */
     void bridge_id(const bpdu_id_type& id);
 private:
-    TINS_BEGIN_PACK
+    
     struct pvt_bpdu_id {
         #if TINS_IS_LITTLE_ENDIAN 
             // fixme
@@ -284,9 +284,9 @@ private:
                     ext_id:12;
         #endif
         uint8_t id[6];
-    } TINS_END_PACK;
+    } __attribute__((packed));
 
-    TINS_BEGIN_PACK
+    
     struct stp_header {
         uint16_t proto_id;
         uint8_t proto_version;
@@ -300,7 +300,7 @@ private:
         uint16_t max_age;
         uint16_t hello_time;
         uint16_t fwd_delay;
-    } TINS_END_PACK;
+    } __attribute__((packed));
     
     static bpdu_id_type convert(const pvt_bpdu_id& id);
     static pvt_bpdu_id convert(const bpdu_id_type& id);

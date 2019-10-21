@@ -169,12 +169,12 @@ protected:
      */
     EAPOL(const uint8_t* buffer, uint32_t total_sz);
     
-    TINS_BEGIN_PACK
+    
     struct eapol_header {
         uint8_t version, packet_type;
         uint16_t length;
         uint8_t type;
-    } TINS_END_PACK;
+    } __attribute__((packed));
     
     /**
      * \brief Virtual method which should serialize the subclass specific
@@ -373,7 +373,7 @@ public:
         return new RC4EAPOL(*this);
     }
 private:
-    TINS_BEGIN_PACK
+    
     struct rc4_eapol_header {
         uint16_t key_length;
         uint64_t replay_counter;
@@ -381,7 +381,7 @@ private:
         uint8_t key_index:7,
                 key_flag:1;
         uint8_t key_sign[16];
-    } TINS_END_PACK;
+    } __attribute__((packed));
     
     void write_body(Memory::OutputMemoryStream& stream) override;
     
@@ -774,7 +774,7 @@ public:
         return new RSNEAPOL(*this);
     }
 private:
-    TINS_BEGIN_PACK
+    
     struct rsn_eapol_header {
     #if TINS_IS_LITTLE_ENDIAN
         uint16_t key_mic:1,
@@ -813,7 +813,7 @@ private:
         uint8_t mic[mic_size];
         uint16_t wpa_length;
     #endif
-    } TINS_END_PACK;
+    } __attribute__((packed));
     
     void write_body(Memory::OutputMemoryStream& stream) override;
     

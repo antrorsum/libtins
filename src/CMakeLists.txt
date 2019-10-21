@@ -91,7 +91,6 @@ set(HEADERS
     ${LIBTINS_INCLUDE_DIR}/tins/detail/icmp_extension_helpers.h
     ${LIBTINS_INCLUDE_DIR}/tins/detail/pdu_helpers.h
     ${LIBTINS_INCLUDE_DIR}/tins/detail/sequence_number_helpers.h
-    ${LIBTINS_INCLUDE_DIR}/tins/detail/smart_ptr.h
     ${LIBTINS_INCLUDE_DIR}/tins/detail/type_traits.h
     ${LIBTINS_INCLUDE_DIR}/tins/dhcp.h
     ${LIBTINS_INCLUDE_DIR}/tins/dhcpv6.h

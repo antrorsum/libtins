@@ -138,7 +138,7 @@ bool EthernetII::matches_response(const uint8_t* ptr, uint32_t total_sz) const {
 void EthernetII::write_serialization(uint8_t* buffer, uint32_t total_sz) {
     OutputMemoryStream stream(buffer, total_sz);
     if (inner_pdu()) {
-        Constants::Ethernet::e flag = Constants::Ethernet::UNKNOWN;
+        Constants::Ethernet::e flag;
         const PDUType type = inner_pdu()->pdu_type();
         // Dirty trick to successfully tag PPPoE session/discovery packets
         if (type == PDU::PPPOE) {
